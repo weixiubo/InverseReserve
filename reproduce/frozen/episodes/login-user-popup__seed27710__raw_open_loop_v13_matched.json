@@ -1,0 +1,209 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter the username \"lyda\" and the password \"wD\" into the text fields and press login.",
+    "goal_sha256": "5ea62a44cd074c3cf65ba706ebd27197657d546f951ab958b30c6a89038bf849",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter the username \"lyda\" and the password \"wD\" into the text fields and press login.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "16",
+        "label": "Username",
+        "value": "lyda",
+        "label_span": {
+          "text": "username",
+          "start": 10,
+          "end": 18
+        },
+        "value_span": {
+          "text": "lyda",
+          "start": 20,
+          "end": 24
+        }
+      },
+      {
+        "bid": "19",
+        "label": "Password",
+        "value": "wD",
+        "label_span": {
+          "text": "password",
+          "start": 34,
+          "end": 42
+        },
+        "value_span": {
+          "text": "wD",
+          "start": 44,
+          "end": 46
+        }
+      }
+    ],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "login",
+      "span": {
+        "text": "login",
+        "start": 79,
+        "end": 84
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "e6105c3ecdf6382fbac260de3a31976bff5e3d5f314dd3fede72c9fdf7df725c",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "fdeb7dd9468d719165c1de59c0a44f5c25a3f2f202290f3834730ac26ecd8ba8",
+        "input_tokens": 778,
+        "generated_tokens": 14,
+        "cache_key": "fdeb7dd9468d719165c1de59c0a44f5c25a3f2f202290f3834730ac26ecd8ba8",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "03c41ebe1e65314fc0363e6c3ecf833f6fe8e94ff659825966de147502031928",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "b1bd5f1c0f06c065441bf17103dac1e95097af1440255f45f4dd22d793e7605b",
+        "input_tokens": 831,
+        "generated_tokens": 14,
+        "cache_key": "b1bd5f1c0f06c065441bf17103dac1e95097af1440255f45f4dd22d793e7605b",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "df05a867d009d0c8793bf36dde178513c85f748db6c175089a894c5ea21e2815",
+      "inventory_count": 3,
+      "decision": "commit",
+      "bid": "20",
+      "model": {
+        "messages_sha256": "41532de7eb8a0abf9c480aa25f9076bba0718ab43346f18143773f9e448e930d",
+        "input_tokens": 883,
+        "generated_tokens": 13,
+        "cache_key": "41532de7eb8a0abf9c480aa25f9076bba0718ab43346f18143773f9e448e930d",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'lyda', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "fill('19', 'wD', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "raw_open_loop",
+      "code": "click('20')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 3,
+    "planner_calls": 3,
+    "planner_actual_calls": 3,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.930357528850436
+  },
+  "episode": {
+    "episode_index": 171,
+    "task_index": 3,
+    "seed_index": 9,
+    "arm_position": 0,
+    "task": "login-user-popup",
+    "family_group": "login_interrupt",
+    "seed": 27710,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "login-user-popup__seed27710__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

@@ -1,0 +1,94 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "planner parse failed: ValueError: commit requires a non-transaction row",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter an item that starts with \"Mal\".",
+    "goal_sha256": "888e0c97a0e2e2c108603f59c04717fea732ac3617c18e7d6a3f9cb0c16f43d4",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": false,
+    "evaluator_info_observed_by_harness": false,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter an item that starts with \"Mal\".",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "prefix",
+      "prefix": "Mal",
+      "suffix": null,
+      "exact": null
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "planner_failure",
+      "model": {
+        "messages_sha256": "22d3562dc9058be893ff93fcdc6eed5e9eb89103073f0fc9049b2aae76da23c3",
+        "input_tokens": 709,
+        "generated_tokens": 13,
+        "cache_key": "22d3562dc9058be893ff93fcdc6eed5e9eb89103073f0fc9049b2aae76da23c3",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 0,
+    "planner_calls": 1,
+    "planner_actual_calls": 1,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 1,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 0.4851776869036257
+  },
+  "episode": {
+    "episode_index": 93,
+    "task_index": 1,
+    "seed_index": 5,
+    "arm_position": 0,
+    "task": "use-autocomplete-nodelay",
+    "family_group": "autocomplete",
+    "seed": 27706,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "use-autocomplete-nodelay__seed27706__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

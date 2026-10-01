@@ -1,0 +1,171 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "planner parse failed: ValueError: transact requires a typed transaction row",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Book the shortest one-way flight from: BMI to: GRB on 11/08/2016.",
+    "goal_sha256": "9bd7d2cf7374d5836f7e03f2f2027d34bf34efef1ba41f9706feb061433b58a2",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Book the shortest one-way flight from: BMI to: GRB on 11/08/2016.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "19",
+        "label": "From",
+        "value": "BMI",
+        "label_span": {
+          "text": "from",
+          "start": 33,
+          "end": 37
+        },
+        "value_span": {
+          "text": "BMI",
+          "start": 39,
+          "end": 42
+        }
+      },
+      {
+        "bid": "21",
+        "label": "To",
+        "value": "GRB",
+        "label_span": {
+          "text": "to",
+          "start": 43,
+          "end": 45
+        },
+        "value_span": {
+          "text": "GRB",
+          "start": 47,
+          "end": 50
+        }
+      }
+    ],
+    "date_anchor": {
+      "text": "11/08/2016",
+      "canonical": "11/08/2016",
+      "month": 11,
+      "day": 8,
+      "year": 2016,
+      "span": {
+        "text": "11/08/2016",
+        "start": 54,
+        "end": 64
+      }
+    },
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": {
+      "kind": "min_duration",
+      "span": {
+        "text": "shortest",
+        "start": 9,
+        "end": 17
+      }
+    },
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "6be524b373aa83ee9797bd71ab51ab8df1f01912a2cf4ae11792be7341c78615",
+      "inventory_count": 4,
+      "decision": "transact",
+      "bid": "25",
+      "model": {
+        "messages_sha256": "66cbaa7cfaf9da01f545f100dceafd05b080a96b4ca23505ac2d7f4e94dbdbf5",
+        "input_tokens": 939,
+        "generated_tokens": 14,
+        "cache_key": "66cbaa7cfaf9da01f545f100dceafd05b080a96b4ca23505ac2d7f4e94dbdbf5",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "planner_failure",
+      "model": {
+        "messages_sha256": "5bf67c268b48f738a17be59f0d2974cc212655d60028fea7b1c4f4a3e80bee5f",
+        "input_tokens": 5878,
+        "generated_tokens": 14,
+        "cache_key": "5bf67c268b48f738a17be59f0d2974cc212655d60028fea7b1c4f4a3e80bee5f",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "click('25')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 1,
+    "planner_calls": 2,
+    "planner_actual_calls": 2,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 1,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.5828781886957586
+  },
+  "episode": {
+    "episode_index": 331,
+    "task_index": 2,
+    "seed_index": 18,
+    "arm_position": 1,
+    "task": "book-flight-nodelay",
+    "family_group": "flight_composite",
+    "seed": 27719,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "book-flight-nodelay__seed27719__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

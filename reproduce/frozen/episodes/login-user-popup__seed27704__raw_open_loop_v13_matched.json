@@ -1,0 +1,288 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "planner parse failed: ValueError: transact requires a typed transaction row",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter the username \"chas\" and the password \"WO\" into the text fields and press login.",
+    "goal_sha256": "1cc6603727dcf0431b01ffa41ad6a3fcbb25465369dcc8057bc2b6d0e1f66f87",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter the username \"chas\" and the password \"WO\" into the text fields and press login.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "16",
+        "label": "Username",
+        "value": "chas",
+        "label_span": {
+          "text": "username",
+          "start": 10,
+          "end": 18
+        },
+        "value_span": {
+          "text": "chas",
+          "start": 20,
+          "end": 24
+        }
+      },
+      {
+        "bid": "19",
+        "label": "Password",
+        "value": "WO",
+        "label_span": {
+          "text": "password",
+          "start": 34,
+          "end": 42
+        },
+        "value_span": {
+          "text": "WO",
+          "start": 44,
+          "end": 46
+        }
+      }
+    ],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "login",
+      "span": {
+        "text": "login",
+        "start": 79,
+        "end": 84
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "46b4206004d47076e5ab9e8bdf988492d3287fa93f6259a2da5e211c31e3154a",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "968ab9d85598a031b4732f51bc5a93bcb010883003524063164d7c45e17d8664",
+        "input_tokens": 772,
+        "generated_tokens": 14,
+        "cache_key": "968ab9d85598a031b4732f51bc5a93bcb010883003524063164d7c45e17d8664",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "4f2fb038476202bf42b1097da2808a1d848fb772269772a7dfeaa4fa6320de1e",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "a0a8b04d772be498d914cf45d8b7f7a1624ba98ad4e24bea87a227c6e194aed2",
+        "input_tokens": 823,
+        "generated_tokens": 14,
+        "cache_key": "a0a8b04d772be498d914cf45d8b7f7a1624ba98ad4e24bea87a227c6e194aed2",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "4f2fb038476202bf42b1097da2808a1d848fb772269772a7dfeaa4fa6320de1e",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "6d68281fa835a9d8be4430800f36a00a64bcc07033fb94e4cb575dc968eeb355",
+        "input_tokens": 873,
+        "generated_tokens": 14,
+        "cache_key": "6d68281fa835a9d8be4430800f36a00a64bcc07033fb94e4cb575dc968eeb355",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 3,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "3c52d9aa72e757e1d614229ec2e74dd496dbbab06b3eec19c737dfa35d9f39c3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "a5c9c70c5653f3540402f797195f914f4e6c880759fa37b4dce17b4de2314917",
+        "input_tokens": 924,
+        "generated_tokens": 14,
+        "cache_key": "a5c9c70c5653f3540402f797195f914f4e6c880759fa37b4dce17b4de2314917",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 4,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "3c52d9aa72e757e1d614229ec2e74dd496dbbab06b3eec19c737dfa35d9f39c3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "42e9829e1a8555be72ab461e1ab86ebf8da703817c4d066fb10576ee64404076",
+        "input_tokens": 974,
+        "generated_tokens": 14,
+        "cache_key": "42e9829e1a8555be72ab461e1ab86ebf8da703817c4d066fb10576ee64404076",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 5,
+      "type": "planner_failure",
+      "model": {
+        "messages_sha256": "85dbbe39e95d4c1890fee2a7e87c8355288553dc23651c25f45ad73de6af0892",
+        "input_tokens": 1024,
+        "generated_tokens": 14,
+        "cache_key": "85dbbe39e95d4c1890fee2a7e87c8355288553dc23651c25f45ad73de6af0892",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "raw_open_loop",
+      "code": "fill('19', 'WO', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 3,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 4,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 5,
+    "planner_calls": 6,
+    "planner_actual_calls": 6,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 1,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 5.521546138916165
+  },
+  "episode": {
+    "episode_index": 63,
+    "task_index": 3,
+    "seed_index": 3,
+    "arm_position": 0,
+    "task": "login-user-popup",
+    "family_group": "login_interrupt",
+    "seed": 27704,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "login-user-popup__seed27704__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

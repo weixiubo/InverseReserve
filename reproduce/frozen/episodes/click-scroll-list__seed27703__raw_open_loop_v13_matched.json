@@ -1,0 +1,164 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Select India, Belize from the scroll list and click Submit.",
+    "goal_sha256": "6065437ba0aade1375b58d5b3bb0619d1bcbefd79212f92fb28682296983688a",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Select India, Belize from the scroll list and click Submit.",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "exact",
+      "prefix": null,
+      "suffix": null,
+      "exact": "Submit"
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [
+      {
+        "bid": "13",
+        "values": [
+          "India",
+          "Belize"
+        ],
+        "phrase_span": {
+          "text": "India, Belize",
+          "start": 7,
+          "end": 20
+        }
+      }
+    ],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "submit",
+      "span": {
+        "text": "Submit",
+        "start": 52,
+        "end": 58
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "304c6fbfe9f66daad54d1d11b1723e6cc0ee4d2e1a9fe7a4502c7dfac0652f45",
+      "inventory_count": 7,
+      "decision": "transact",
+      "bid": "13",
+      "model": {
+        "messages_sha256": "830c07b0addd0767846ae6807210bea3517443ab1e3cd63dc8867d23daa913a8",
+        "input_tokens": 1096,
+        "generated_tokens": 14,
+        "cache_key": "830c07b0addd0767846ae6807210bea3517443ab1e3cd63dc8867d23daa913a8",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "f9ffb27799534b65f66c10a7942bf9f09a3d32ad685afae6a76af96a8469a755",
+      "inventory_count": 7,
+      "decision": "commit",
+      "bid": "22",
+      "model": {
+        "messages_sha256": "96a8a0e52020598017ecdd47124af7765051113bff5b34b4afde95f6ddf93d71",
+        "input_tokens": 1154,
+        "generated_tokens": 13,
+        "cache_key": "96a8a0e52020598017ecdd47124af7765051113bff5b34b4afde95f6ddf93d71",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "select_option('13', ['India', 'Belize'])",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('22')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 2,
+    "planner_actual_calls": 2,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.057605714071542
+  },
+  "episode": {
+    "episode_index": 48,
+    "task_index": 4,
+    "seed_index": 2,
+    "arm_position": 0,
+    "task": "click-scroll-list",
+    "family_group": "scroll_list",
+    "seed": 27703,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "click-scroll-list__seed27703__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

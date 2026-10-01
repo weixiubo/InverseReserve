@@ -1,0 +1,817 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter the username \"chas\" and the password \"RMn5\" into the text fields and press login.",
+    "goal_sha256": "56599956372a06fbb042cf897c50ba45578a1914f35e10e1f97ac69b2d45d559",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter the username \"chas\" and the password \"RMn5\" into the text fields and press login.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "16",
+        "label": "Username",
+        "value": "chas",
+        "label_span": {
+          "text": "username",
+          "start": 10,
+          "end": 18
+        },
+        "value_span": {
+          "text": "chas",
+          "start": 20,
+          "end": 24
+        }
+      },
+      {
+        "bid": "19",
+        "label": "Password",
+        "value": "RMn5",
+        "label_span": {
+          "text": "password",
+          "start": 34,
+          "end": 42
+        },
+        "value_span": {
+          "text": "RMn5",
+          "start": 44,
+          "end": 48
+        }
+      }
+    ],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "login",
+      "span": {
+        "text": "login",
+        "start": 81,
+        "end": 86
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "2038bf5a07b33d5d4e9e8e33d30a581bc3210e8eb005579750bf8fb1e73815c2",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "09de39c21cb37a1899062f90c243ac73e4f699cd3e8b7d248a23ff14f136ffe0",
+        "input_tokens": 778,
+        "generated_tokens": 14,
+        "cache_key": "09de39c21cb37a1899062f90c243ac73e4f699cd3e8b7d248a23ff14f136ffe0",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "d2c7e398a4cbabb52f1592322753dae9694c66cf8cc296eb1a0af3078b8b250f",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "52a955a28800eb9a3c4341eb63cd940521d907d6b3e1c749af2d39ee8b5b547c",
+        "input_tokens": 829,
+        "generated_tokens": 14,
+        "cache_key": "52a955a28800eb9a3c4341eb63cd940521d907d6b3e1c749af2d39ee8b5b547c",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "d2c7e398a4cbabb52f1592322753dae9694c66cf8cc296eb1a0af3078b8b250f",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "fdc9cb3a7cd15d3e58fe187c70c95d7ab6d36bc020401c7c9a94f1ae3941acc9",
+        "input_tokens": 879,
+        "generated_tokens": 14,
+        "cache_key": "fdc9cb3a7cd15d3e58fe187c70c95d7ab6d36bc020401c7c9a94f1ae3941acc9",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 3,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "81289815eea4b965c03ea7a82d55b01f16d637271a067358fa741c090bac9bfd",
+        "input_tokens": 934,
+        "generated_tokens": 14,
+        "cache_key": "81289815eea4b965c03ea7a82d55b01f16d637271a067358fa741c090bac9bfd",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 4,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "54eaa6e59a1fab1e37a5b1edf506b69c8d7eadab17fd443401e8036236dcbeb7",
+        "input_tokens": 984,
+        "generated_tokens": 14,
+        "cache_key": "54eaa6e59a1fab1e37a5b1edf506b69c8d7eadab17fd443401e8036236dcbeb7",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 5,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "df8b85f6463a9714dc1a976804d204b5c159811a54caf3e16757467b7ce209f0",
+        "input_tokens": 1034,
+        "generated_tokens": 14,
+        "cache_key": "df8b85f6463a9714dc1a976804d204b5c159811a54caf3e16757467b7ce209f0",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 6,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "889ad4481dde0eee64979081aed3a103bdc432109c04ff3a13900d15b44bef8e",
+        "input_tokens": 1084,
+        "generated_tokens": 14,
+        "cache_key": "889ad4481dde0eee64979081aed3a103bdc432109c04ff3a13900d15b44bef8e",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 7,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "c11effaec4c3f0e0c6fcf03561e70adcb232bbb936ab0aa409a775e1fcbebbce",
+        "input_tokens": 1134,
+        "generated_tokens": 14,
+        "cache_key": "c11effaec4c3f0e0c6fcf03561e70adcb232bbb936ab0aa409a775e1fcbebbce",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 8,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "352b25496caafad78afae0ebd01f2cba82b25f0b4e7ec2d4f68f87786cba5cfe",
+        "input_tokens": 1184,
+        "generated_tokens": 14,
+        "cache_key": "352b25496caafad78afae0ebd01f2cba82b25f0b4e7ec2d4f68f87786cba5cfe",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 9,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "0d2be32d6671717b350cbc6b18889a0638020c562475ef34e77c9fc8ccaac47f",
+        "input_tokens": 1234,
+        "generated_tokens": 14,
+        "cache_key": "0d2be32d6671717b350cbc6b18889a0638020c562475ef34e77c9fc8ccaac47f",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 10,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "9d34962d257758e9617aa2bbf0f8141f14f3136cc8ff1768c3d9a9dfc2ef01f5",
+        "input_tokens": 1284,
+        "generated_tokens": 14,
+        "cache_key": "9d34962d257758e9617aa2bbf0f8141f14f3136cc8ff1768c3d9a9dfc2ef01f5",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 11,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "09d520476ee2381e0602d8441d15d72fd7fd97ff3fba63095e0c1928632ba118",
+        "input_tokens": 1334,
+        "generated_tokens": 14,
+        "cache_key": "09d520476ee2381e0602d8441d15d72fd7fd97ff3fba63095e0c1928632ba118",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 12,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "ffe4f88322669cac1be605a2c17ab5e0818af56cfc45a403308bdbce0acd433e",
+        "input_tokens": 1384,
+        "generated_tokens": 14,
+        "cache_key": "ffe4f88322669cac1be605a2c17ab5e0818af56cfc45a403308bdbce0acd433e",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 13,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "48eb4375c42cb428ba73a737533fb464c82c90b42bd507678ccd3e457569895a",
+        "input_tokens": 1434,
+        "generated_tokens": 14,
+        "cache_key": "48eb4375c42cb428ba73a737533fb464c82c90b42bd507678ccd3e457569895a",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 14,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "aecba558c92f51c73d54e687a778cc5b87ee6e61e02d5ac0a0c6f3ba7894f564",
+        "input_tokens": 1484,
+        "generated_tokens": 14,
+        "cache_key": "aecba558c92f51c73d54e687a778cc5b87ee6e61e02d5ac0a0c6f3ba7894f564",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 15,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "f57a1b39953f384525070495afbf8be4bad251d3e2fda9feeb2e58c1076ed623",
+        "input_tokens": 1534,
+        "generated_tokens": 14,
+        "cache_key": "f57a1b39953f384525070495afbf8be4bad251d3e2fda9feeb2e58c1076ed623",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 16,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "cf73c44d433148f95a236efcf0750d0cc3e103f1a2911fcb5c48f1d8f95c2ddc",
+        "input_tokens": 1584,
+        "generated_tokens": 14,
+        "cache_key": "cf73c44d433148f95a236efcf0750d0cc3e103f1a2911fcb5c48f1d8f95c2ddc",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 17,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "b8756b8b23fe3171435aee1dd5defef8f1529682144f43ac10759d904228d987",
+        "input_tokens": 1634,
+        "generated_tokens": 14,
+        "cache_key": "b8756b8b23fe3171435aee1dd5defef8f1529682144f43ac10759d904228d987",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 18,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "9ef8b13d14eedb5df3860290c9a0036f032b25d0a6a577b2a7b12aaf6de7bfdc",
+        "input_tokens": 1684,
+        "generated_tokens": 14,
+        "cache_key": "9ef8b13d14eedb5df3860290c9a0036f032b25d0a6a577b2a7b12aaf6de7bfdc",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 19,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "116099546735b0bb9b12fddd0ebbcf23803e7db3203b7e4cbf01f941e3cebd15",
+        "input_tokens": 1734,
+        "generated_tokens": 14,
+        "cache_key": "116099546735b0bb9b12fddd0ebbcf23803e7db3203b7e4cbf01f941e3cebd15",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 20,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "abe547012a723c01ec2e32a5fdfa92fc3ba7d58d98e222735d8a2972c87c2f0e",
+        "input_tokens": 1784,
+        "generated_tokens": 14,
+        "cache_key": "abe547012a723c01ec2e32a5fdfa92fc3ba7d58d98e222735d8a2972c87c2f0e",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 21,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1b89861103f62499b42c96e3ee5c60b1a37c42decde55239a490a31e068ad4d3",
+      "inventory_count": 3,
+      "decision": "commit",
+      "bid": "20",
+      "model": {
+        "messages_sha256": "1b0085083ec0e8784dff0b98ee523e5272ca857690ec524e593970643c8ef822",
+        "input_tokens": 1839,
+        "generated_tokens": 13,
+        "cache_key": "1b0085083ec0e8784dff0b98ee523e5272ca857690ec524e593970643c8ef822",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "raw_open_loop",
+      "code": "fill('19', 'RMn5', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 3,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 4,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 5,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 6,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 7,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 8,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 9,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 10,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 11,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 12,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 13,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 14,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 15,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 16,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 17,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 18,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 19,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'chas', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 20,
+      "role": "raw_open_loop",
+      "code": "fill('19', 'RMn5', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 21,
+      "role": "raw_open_loop",
+      "code": "click('20')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 22,
+    "planner_calls": 22,
+    "planner_actual_calls": 22,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 23.32952776690945
+  },
+  "episode": {
+    "episode_index": 29,
+    "task_index": 3,
+    "seed_index": 1,
+    "arm_position": 2,
+    "task": "login-user-popup",
+    "family_group": "login_interrupt",
+    "seed": 27702,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "login-user-popup__seed27702__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

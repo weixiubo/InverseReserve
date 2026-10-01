@@ -1,0 +1,235 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "planner parse failed: ValueError: transact requires a typed transaction row",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Book the cheapest one-way flight from: Kotzebue, AK to: Fayetteville, AR - Municipal/Drake on 12/04/2016.",
+    "goal_sha256": "de10ee9c200af0d8de9cc684e525cfee61ae77a63082f48cf95ea209a082918d",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Book the cheapest one-way flight from: Kotzebue, AK to: Fayetteville, AR - Municipal/Drake on 12/04/2016.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "19",
+        "label": "From",
+        "value": "Kotzebue, AK",
+        "label_span": {
+          "text": "from",
+          "start": 33,
+          "end": 37
+        },
+        "value_span": {
+          "text": "Kotzebue, AK",
+          "start": 39,
+          "end": 51
+        }
+      },
+      {
+        "bid": "21",
+        "label": "To",
+        "value": "Fayetteville, AR - Municipal/Drake",
+        "label_span": {
+          "text": "to",
+          "start": 52,
+          "end": 54
+        },
+        "value_span": {
+          "text": "Fayetteville, AR - Municipal/Drake",
+          "start": 56,
+          "end": 90
+        }
+      }
+    ],
+    "date_anchor": {
+      "text": "12/04/2016",
+      "canonical": "12/04/2016",
+      "month": 12,
+      "day": 4,
+      "year": 2016,
+      "span": {
+        "text": "12/04/2016",
+        "start": 94,
+        "end": 104
+      }
+    },
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": {
+      "kind": "min_cost",
+      "span": {
+        "text": "cheapest",
+        "start": 9,
+        "end": 17
+      }
+    },
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "f978f4924bab40ec9c67f9e4d9b2bc70c204818023fa045004e929f603245498",
+      "inventory_count": 4,
+      "decision": "transact",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "16655270cb52a36ffcb6bc8ca4c55d850e37b06bce43f969bc7193068ec84012",
+        "input_tokens": 977,
+        "generated_tokens": 14,
+        "cache_key": "16655270cb52a36ffcb6bc8ca4c55d850e37b06bce43f969bc7193068ec84012",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "f40609b12a2144aa460986ffc1f894216720083471f23f724cf127c8507b348f",
+      "inventory_count": 5,
+      "decision": "commit",
+      "bid": "35",
+      "model": {
+        "messages_sha256": "ef3310ca825044e7a2b3342150124a5f26a93d6a4ea1be49a42d0442bd82f60c",
+        "input_tokens": 1115,
+        "generated_tokens": 13,
+        "cache_key": "ef3310ca825044e7a2b3342150124a5f26a93d6a4ea1be49a42d0442bd82f60c",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "f978f4924bab40ec9c67f9e4d9b2bc70c204818023fa045004e929f603245498",
+      "inventory_count": 4,
+      "decision": "transact",
+      "bid": "25",
+      "model": {
+        "messages_sha256": "975ff6a1170dd4b42a2f50153ee151f511cc8afb437ab1836c6ae53793c8b05b",
+        "input_tokens": 1032,
+        "generated_tokens": 14,
+        "cache_key": "975ff6a1170dd4b42a2f50153ee151f511cc8afb437ab1836c6ae53793c8b05b",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 3,
+      "type": "planner_failure",
+      "model": {
+        "messages_sha256": "0917df4ae1e727c87b6b88bdc640bf735cd9d1d7d1d066de47fb28771d87fd33",
+        "input_tokens": 5980,
+        "generated_tokens": 14,
+        "cache_key": "0917df4ae1e727c87b6b88bdc640bf735cd9d1d7d1d066de47fb28771d87fd33",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('19', 'Kotzebue, AK', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('35')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "raw_open_loop",
+      "code": "click('25')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 3,
+    "planner_calls": 4,
+    "planner_actual_calls": 4,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 1,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 5.011366847902536
+  },
+  "episode": {
+    "episode_index": 223,
+    "task_index": 2,
+    "seed_index": 12,
+    "arm_position": 1,
+    "task": "book-flight-nodelay",
+    "family_group": "flight_composite",
+    "seed": 27713,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "book-flight-nodelay__seed27713__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

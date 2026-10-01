@@ -1,0 +1,163 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Select Tonga from the scroll list and click Submit.",
+    "goal_sha256": "13d488349fab6e711256d8e3cd642c2576f245dc5190eaa18d2ce7b5fca511df",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Select Tonga from the scroll list and click Submit.",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "exact",
+      "prefix": null,
+      "suffix": null,
+      "exact": "Submit"
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [
+      {
+        "bid": "13",
+        "values": [
+          "Tonga"
+        ],
+        "phrase_span": {
+          "text": "Tonga",
+          "start": 7,
+          "end": 12
+        }
+      }
+    ],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "submit",
+      "span": {
+        "text": "Submit",
+        "start": 44,
+        "end": 50
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b6400b4ec356230e826a96d89c0447e4c407afec87bd117b663b024aec5d2a26",
+      "inventory_count": 7,
+      "decision": "transact",
+      "bid": "13",
+      "model": {
+        "messages_sha256": "a67cbde094415ae96d921fad03227ba5447de55fb10ae497326894a37e6d8315",
+        "input_tokens": 1086,
+        "generated_tokens": 14,
+        "cache_key": "a67cbde094415ae96d921fad03227ba5447de55fb10ae497326894a37e6d8315",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "dbdb20815060ea88eba835ee3e9bc89f121e0fa29fccc0266044427ae6a3ce7f",
+      "inventory_count": 7,
+      "decision": "commit",
+      "bid": "24",
+      "model": {
+        "messages_sha256": "af3dba720335df66e87cac1a0f765dff6e852fb3d5375f8b753501f675d25bc6",
+        "input_tokens": 1140,
+        "generated_tokens": 13,
+        "cache_key": "af3dba720335df66e87cac1a0f765dff6e852fb3d5375f8b753501f675d25bc6",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "select_option('13', ['Tonga'])",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('24')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 2,
+    "planner_actual_calls": 2,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.014565457124263
+  },
+  "episode": {
+    "episode_index": 247,
+    "task_index": 4,
+    "seed_index": 13,
+    "arm_position": 1,
+    "task": "click-scroll-list",
+    "family_group": "scroll_list",
+    "seed": 27714,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "click-scroll-list__seed27714__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

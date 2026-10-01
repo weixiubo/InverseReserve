@@ -1,0 +1,116 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Click on a \"textarea\" widget.",
+    "goal_sha256": "1d1bc34263c29dfac1be0a7568a872a8b174383a92c354d9de0cb8709e1a61a1",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Click on a \"textarea\" widget.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": null,
+    "rejected_reasons": [],
+    "widget_kind_anchor": {
+      "kind": "textarea",
+      "span": {
+        "text": "textarea",
+        "start": 12,
+        "end": 20
+      },
+      "existential": true
+    }
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "f84f1bc58295bdb5426b2ee57b88515673e793a45a098091523a939c8afaf9b3",
+      "inventory_count": 3,
+      "decision": "commit",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "101e0de3c1865324f1ac1efb35595f0c10ae54fe12cecc06734df90bd8c04a92",
+        "input_tokens": 746,
+        "generated_tokens": 13,
+        "cache_key": "101e0de3c1865324f1ac1efb35595f0c10ae54fe12cecc06734df90bd8c04a92",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "click('16')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 1,
+    "planner_calls": 1,
+    "planner_actual_calls": 1,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 0.964758281596005
+  },
+  "episode": {
+    "episode_index": 178,
+    "task_index": 5,
+    "seed_index": 9,
+    "arm_position": 1,
+    "task": "click-widget",
+    "family_group": "direct_widget_control",
+    "seed": 27710,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "click-widget__seed27710__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Public reply contract fixture</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 24px;
+        max-width: 640px;
+      }
+      form {
+        display: grid;
+        gap: 8px;
+      }
+      textarea {
+        min-height: 100px;
+      }
+      button {
+        width: 120px;
+      }
+      [hidden] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article aria-label="Forum post">
+        <h1>Friendly reminder</h1>
+        <p>This fixture contains public HTML semantics only.</p>
+      </article>
+
+      <form id="reply-form">
+        <label for="comment">Comment</label>
+        <textarea id="comment" name="comment" aria-label="Comment"></textarea>
+        <button type="submit">Comment</button>
+      </form>
+
+      <p id="posted" role="status" hidden></p>
+    </main>
+
+    <script>
+      const form = document.getElementById("reply-form");
+      const comment = document.getElementById("comment");
+      const posted = document.getElementById("posted");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        posted.textContent = `Posted comment: ${comment.value}`;
+        posted.hidden = false;
+        comment.value = "";
+      });
+    </script>
+  </body>
+</html>

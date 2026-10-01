@@ -1,0 +1,406 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "driver failed: ValueError: multiple fresh commit certificates violate fail-closed v7",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Book the cheapest one-way flight from: Port Protection, AK to: TBN on 10/19/2016.",
+    "goal_sha256": "85ccf7510d4ab17e99c13389261e7e039ccce8a936b2f74d29d927c03b31551a",
+    "controller_arm": "typed_no_certificate_v13",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Book the cheapest one-way flight from: Port Protection, AK to: TBN on 10/19/2016.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "19",
+        "label": "From",
+        "value": "Port Protection, AK",
+        "label_span": {
+          "text": "from",
+          "start": 33,
+          "end": 37
+        },
+        "value_span": {
+          "text": "Port Protection, AK",
+          "start": 39,
+          "end": 58
+        }
+      },
+      {
+        "bid": "21",
+        "label": "To",
+        "value": "TBN",
+        "label_span": {
+          "text": "to",
+          "start": 59,
+          "end": 61
+        },
+        "value_span": {
+          "text": "TBN",
+          "start": 63,
+          "end": 66
+        }
+      }
+    ],
+    "date_anchor": {
+      "text": "10/19/2016",
+      "canonical": "10/19/2016",
+      "month": 10,
+      "day": 19,
+      "year": 2016,
+      "span": {
+        "text": "10/19/2016",
+        "start": 70,
+        "end": 80
+      }
+    },
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": {
+      "kind": "min_cost",
+      "span": {
+        "text": "cheapest",
+        "start": 9,
+        "end": 17
+      }
+    },
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "envelope_decision_v9_no_certificate",
+      "inventory_count": 4,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "27",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "button",
+            "label": "Search",
+            "state": {},
+            "transaction_kind": null,
+            "semantic_bid": "27",
+            "parent_bid": "26",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "27"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "27",
+          "allowed": true,
+          "anchor_kind": "certificate_ablation",
+          "reason": "grounding and scope certificate removed",
+          "effect_key_sha256": "18ae0024a5c223a1b06425600690fcce5773175d22b486273b218f93b651c03d"
+        }
+      ],
+      "active_transactions": [],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "27",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 1,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "27",
+      "active_inverse_cost": 0,
+      "remaining_after_action": 39,
+      "allowed": true
+    },
+    {
+      "event_index": 2,
+      "type": "uncertified_commit_result_v9",
+      "bid": "27",
+      "operation": "click",
+      "action_error": "",
+      "terminal": false,
+      "success": false
+    },
+    {
+      "event_index": 3,
+      "type": "uncertified_commit_effect_result_v9",
+      "bid": "27",
+      "effective": false,
+      "reason": "nonterminal commit produced zero public semantic effect",
+      "quarantined": true,
+      "key_sha256": "b773e26667ef1c873475865af6e88176d68c5a2f97ef0a81dab92a34c11b9ae5",
+      "resolved_semantic_bids": []
+    },
+    {
+      "event_index": 4,
+      "type": "envelope_decision_v9_no_certificate",
+      "inventory_count": 4,
+      "envelope": {
+        "decision": "transact",
+        "candidates": [
+          {
+            "bid": "19",
+            "op": "fill",
+            "arg": "Port Protection, AK",
+            "enable_autocomplete_menu": true,
+            "role": "textbox",
+            "label": "From:",
+            "state": {},
+            "transaction_kind": "autocomplete_query",
+            "semantic_bid": "19",
+            "parent_bid": "18",
+            "publicly_actionable_offscreen": false
+          },
+          {
+            "bid": "21",
+            "op": "fill",
+            "arg": "TBN",
+            "enable_autocomplete_menu": true,
+            "role": "textbox",
+            "label": "To:",
+            "state": {},
+            "transaction_kind": "autocomplete_query",
+            "semantic_bid": "21",
+            "parent_bid": "20",
+            "publicly_actionable_offscreen": false
+          },
+          {
+            "bid": "25",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "textbox",
+            "label": "Departure Date",
+            "state": {},
+            "transaction_kind": "datepicker_open",
+            "semantic_bid": "25",
+            "parent_bid": "24",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [],
+        "reason": "no commit is certified; unfinished goal-bound typed rows remain",
+        "model_call_required": true
+      },
+      "certificate_audit": [
+        {
+          "bid": "27",
+          "allowed": false,
+          "anchor_kind": "certificate_ablation",
+          "reason": "same observation/stack/action effect key is quarantined",
+          "effect_key_sha256": "18ae0024a5c223a1b06425600690fcce5773175d22b486273b218f93b651c03d"
+        }
+      ],
+      "active_transactions": [],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 1,
+      "resolution": {
+        "decision": "transact",
+        "bid": "19",
+        "source": "shared_model"
+      },
+      "model": {
+        "messages_sha256": "19c338f694e720df047a749fc8049a14f6f7b1a20616cf348e1e4e189347ccb1",
+        "input_tokens": 664,
+        "generated_tokens": 14,
+        "cache_key": "19c338f694e720df047a749fc8049a14f6f7b1a20616cf348e1e4e189347ccb1",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 5,
+      "type": "inverse_budget_reservation",
+      "decision": "transact",
+      "bid": "19",
+      "active_inverse_cost": 2,
+      "remaining_after_action": 38,
+      "allowed": true
+    },
+    {
+      "event_index": 6,
+      "type": "typed_transaction_result_v9_no_certificate",
+      "bid": "19",
+      "admitted": true,
+      "reason": "typed postcondition admitted the transaction",
+      "interrupt_repairs": 0,
+      "halted": false
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "uncertified_commit",
+      "code": "click('27')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "typed_forward",
+      "code": "fill('19', 'Port Protection, AK', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [
+    {
+      "event_index": 0,
+      "type": "action",
+      "role": "typed_forward",
+      "action": {
+        "operation": "fill",
+        "bid": "19",
+        "argument": "Port Protection, AK",
+        "enable_autocomplete_menu": true
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 1,
+      "type": "postcondition",
+      "context": "typed forward",
+      "contract_kind": "autocomplete_query",
+      "passed": true,
+      "reason": "query value and public suggestion surface appeared",
+      "delta": {
+        "added_visible_bids": [
+          "29",
+          "34",
+          "35"
+        ],
+        "removed_visible_bids": [],
+        "changed_visible_bids": [
+          "12",
+          "13",
+          "15",
+          "16",
+          "18",
+          "19"
+        ],
+        "newly_visible_text": [
+          "Port Protection, AK (PPV)"
+        ]
+      },
+      "checker_version": "PACT-v9-suggestion-population"
+    }
+  ],
+  "active_transactions_at_stop": [
+    {
+      "bid": "19",
+      "label": "From:",
+      "transaction_kind": "autocomplete_query",
+      "semantic_bid": "19",
+      "operation": "fill",
+      "argument": "Port Protection, AK",
+      "interrupt_repairs": 0
+    }
+  ],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 1,
+    "planner_actual_calls": 1,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 1,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 1.7885303827933967,
+    "commit_effect_passes": 0,
+    "commit_effect_failures": 1,
+    "quarantined_commit_keys": 1,
+    "resolved_transaction_bids": 0,
+    "inverse_reservation_audits": 2,
+    "inverse_reservation_stops": 0,
+    "interrupt_repair_reservation_audits": 0,
+    "interrupt_repair_reservation_fallbacks": 0,
+    "interrupt_repair_inverse_fallbacks": 0,
+    "complete_public_observation_checks_v12": 0,
+    "complete_public_inverse_skips_v12": 0,
+    "complete_public_commit_checks_v13": 0,
+    "complete_public_commit_passes_v13": 0,
+    "complete_public_commit_rejections_v13": 0
+  },
+  "effect_ledger_v8": [
+    {
+      "effective": false,
+      "reason": "nonterminal commit produced zero public semantic effect",
+      "before_sha256": "6f1e7f39bb96faf5c05fa9458411a1d743454d437e3849632123f295cce3154b",
+      "after_sha256": "6f1e7f39bb96faf5c05fa9458411a1d743454d437e3849632123f295cce3154b",
+      "key_sha256": "b773e26667ef1c873475865af6e88176d68c5a2f97ef0a81dab92a34c11b9ae5",
+      "quarantined": true,
+      "action": {
+        "operation": "click",
+        "bid": "27",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    }
+  ],
+  "resolved_semantic_bids_v8": [],
+  "episode": {
+    "episode_index": 42,
+    "task_index": 2,
+    "seed_index": 2,
+    "arm_position": 0,
+    "task": "book-flight-nodelay",
+    "family_group": "flight_composite",
+    "seed": 27703,
+    "method": "typed_no_certificate_v13",
+    "episode_id": "book-flight-nodelay__seed27703__typed_no_certificate_v13"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

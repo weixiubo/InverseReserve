@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PACT v3 integrated public ARIA fixture</title>
+  <style>
+    body { font: 14px sans-serif; margin: 4px; }
+    label, input, button { display: block; margin: 2px 0; }
+    [hidden] { display: none !important; }
+    #suggestions, #help-dialog {
+      border: 1px solid #555;
+      padding: 6px;
+      width: 180px;
+    }
+    [role="option"] { cursor: pointer; padding: 3px; }
+    #help-dialog p { margin: 2px 0; }
+  </style>
+</head>
+<body>
+  <label for="country">Country</label>
+  <input
+    id="country"
+    role="combobox"
+    aria-autocomplete="list"
+    aria-haspopup="listbox"
+    aria-controls="suggestions"
+    aria-expanded="false"
+    value=""
+  >
+  <ul id="suggestions" role="listbox" aria-label="Country suggestions" hidden>
+    <li role="option">Monaco</li>
+    <li role="option">Mongolia</li>
+    <li role="option">Canada</li>
+    <li role="option">Japan</li>
+  </ul>
+
+  <button
+    id="help"
+    type="button"
+    aria-haspopup="dialog"
+    aria-controls="help-dialog"
+  >Open help</button>
+  <section id="help-dialog" role="dialog" aria-label="Help" hidden>
+    <p>Public dialog evidence</p>
+    <button id="close-help" type="button">Close</button>
+  </section>
+
+  <script>
+    const country = document.getElementById('country');
+    const suggestions = document.getElementById('suggestions');
+    const help = document.getElementById('help');
+    const dialog = document.getElementById('help-dialog');
+    const closeHelp = document.getElementById('close-help');
+
+    function setSuggestions(open) {
+      country.setAttribute('aria-expanded', open ? 'true' : 'false');
+      suggestions.hidden = !open;
+    }
+
+    country.addEventListener('input', () => {
+      setSuggestions(country.value.length > 0);
+    });
+    country.addEventListener('keydown', event => {
+      if (event.key === 'Escape') setSuggestions(false);
+    });
+    suggestions.addEventListener('click', event => {
+      const option = event.target.closest('[role="option"]');
+      if (!option) return;
+      country.value = option.textContent.trim();
+      setSuggestions(false);
+    });
+
+    function setDialog(open) {
+      if (open) help.setAttribute('aria-expanded', 'true');
+      else help.removeAttribute('aria-expanded');
+      dialog.hidden = !open;
+    }
+
+    help.addEventListener('click', () => setDialog(true));
+    help.addEventListener('keydown', event => {
+      if (event.key === 'Escape') setDialog(false);
+    });
+    closeHelp.addEventListener('click', () => setDialog(false));
+  </script>
+</body>
+</html>

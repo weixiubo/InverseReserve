@@ -1,0 +1,163 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Select Flo from the scroll list and click Submit.",
+    "goal_sha256": "1e331e656e68bbfc37c00a578a50ec4bbe71c5d2c804ea8f13024c07715e73d0",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Select Flo from the scroll list and click Submit.",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "exact",
+      "prefix": null,
+      "suffix": null,
+      "exact": "Submit"
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [
+      {
+        "bid": "13",
+        "values": [
+          "Flo"
+        ],
+        "phrase_span": {
+          "text": "Flo",
+          "start": 7,
+          "end": 10
+        }
+      }
+    ],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "submit",
+      "span": {
+        "text": "Submit",
+        "start": 42,
+        "end": 48
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "4beb7c37834d95a23d9588783a2d8388b7438a690c243f70922b2349a914360b",
+      "inventory_count": 7,
+      "decision": "transact",
+      "bid": "13",
+      "model": {
+        "messages_sha256": "c45c6b0faf42ee016756031853224bb9e5fa1193daed2ac53759308cf00300d2",
+        "input_tokens": 1082,
+        "generated_tokens": 14,
+        "cache_key": "c45c6b0faf42ee016756031853224bb9e5fa1193daed2ac53759308cf00300d2",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "39035040dff2b5aaeaec318b8114c2065bcae76d8f1009415f19e230a9fa5842",
+      "inventory_count": 7,
+      "decision": "commit",
+      "bid": "22",
+      "model": {
+        "messages_sha256": "285785a13dcd8d52fd1d0156ed18be910f4c2d20dce468fe8fd6ecc21124b82e",
+        "input_tokens": 1132,
+        "generated_tokens": 13,
+        "cache_key": "285785a13dcd8d52fd1d0156ed18be910f4c2d20dce468fe8fd6ecc21124b82e",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "select_option('13', ['Flo'])",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('22')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 2,
+    "planner_actual_calls": 2,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.064866636879742
+  },
+  "episode": {
+    "episode_index": 355,
+    "task_index": 4,
+    "seed_index": 19,
+    "arm_position": 1,
+    "task": "click-scroll-list",
+    "family_group": "scroll_list",
+    "seed": 27720,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "click-scroll-list__seed27720__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

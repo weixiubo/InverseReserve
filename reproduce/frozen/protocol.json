@@ -1,0 +1,156 @@
+{
+  "candidate": "InverseReserve-final-v1-protocol",
+  "status": "sealed_after_c458_diagnosis_before_any_final_reset",
+  "created_utc": "2026-07-17T14:50:23Z",
+  "scientific_source_commit": "30300a63d3d92d62da0384c214f4896e2116502c",
+  "development_context": {
+    "c458_status": "sealed_failed_development_gate",
+    "c458_result_sha256": "bcb7687a0c236bf58fb9d5e1e449469ae5eabdd0241f13549c7bf571fd9afda7",
+    "c458_successes": 120,
+    "c458_episodes": 120,
+    "selected_final_driver": "full_pact_v13",
+    "v14_population_navigation_in_final_method": false,
+    "c458_used_as_final_evidence": false,
+    "diagnosis": {
+      "path": "reports/2026-07-17_c458_gate_failure_diagnosis.md",
+      "sha256": "9a763dfd68b34a53fba9d9170bee0e1d7a091b2873aeb83d00a200236970de47"
+    }
+  },
+  "arms": [
+    "raw_open_loop_v13_matched",
+    "typed_no_certificate_v13",
+    "full_pact_v13"
+  ],
+  "full_method": "full_pact_v13",
+  "baselines": [
+    "raw_open_loop_v13_matched",
+    "typed_no_certificate_v13"
+  ],
+  "tasks": [
+    {
+      "task_id": "choose-date-nodelay",
+      "family_group": "date_picker"
+    },
+    {
+      "task_id": "use-autocomplete-nodelay",
+      "family_group": "autocomplete"
+    },
+    {
+      "task_id": "book-flight-nodelay",
+      "family_group": "flight_composite"
+    },
+    {
+      "task_id": "login-user-popup",
+      "family_group": "login_interrupt"
+    },
+    {
+      "task_id": "click-scroll-list",
+      "family_group": "scroll_list"
+    },
+    {
+      "task_id": "click-widget",
+      "family_group": "direct_widget_control"
+    }
+  ],
+  "final_seeds": [
+    27701,
+    27702,
+    27703,
+    27704,
+    27705,
+    27706,
+    27707,
+    27708,
+    27709,
+    27710,
+    27711,
+    27712,
+    27713,
+    27714,
+    27715,
+    27716,
+    27717,
+    27718,
+    27719,
+    27720
+  ],
+  "expected_task_seed_cells": 120,
+  "expected_episodes": 360,
+  "budgets": {
+    "maximum_gui_actions": 40,
+    "maximum_planner_calls": 40,
+    "maximum_wall_seconds": 300.0
+  },
+  "generation": {
+    "enable_thinking": false,
+    "do_sample": false,
+    "max_new_tokens": 64
+  },
+  "statistics": {
+    "bootstrap_samples": 50000,
+    "bootstrap_seed": 270727,
+    "familywise_alpha": 0.05,
+    "bootstrap_unit": "seed cluster shared across all task families",
+    "multiplicity": "Holm step-down over both full-method comparisons"
+  },
+  "confirmation_gates": {
+    "full_minimum_successes": 114,
+    "full_minimum_successes_per_family": 18,
+    "minimum_net_paired_wins_per_baseline": 12,
+    "require_positive_cluster_bootstrap_lower_per_baseline": true,
+    "require_holm_rejection_per_baseline": true,
+    "full_zero_parser_failures": true,
+    "full_zero_wrong_terminal_commits": true,
+    "full_zero_terminal_transactions": true,
+    "full_zero_uncertified_commits": true,
+    "full_zero_action_errors": true,
+    "full_zero_runtime_halts": true,
+    "full_zero_unrecovered_postconditions": true,
+    "full_zero_no_effect_commits": true,
+    "full_zero_inverse_reservation_stops": true,
+    "full_zero_interrupt_repair_reservation_fallbacks": true,
+    "full_all_attempted_restorations_pass": true,
+    "full_no_success_with_method_failure": true,
+    "full_terminal_ledger_exact": true,
+    "full_all_reservations_solvent": true,
+    "full_complete_commit_freshness": true,
+    "no_certificate_must_execute_uncertified_commit": true
+  },
+  "information_boundary": {
+    "c458_seed_range_opened_and_sealed": true,
+    "c458_episode_replay_allowed": false,
+    "old_27411_27420_partition_opened": false,
+    "old_27501_27520_partition_opened": false,
+    "final_27701_27720_partition_opened": false,
+    "one_reset_per_task_seed_arm": true,
+    "task_seed_reward_and_evaluator_harness_only": true,
+    "reward_or_evaluator_forwarded_to_method": false,
+    "c458_failure_authorizes_this_grid": false,
+    "independent_post_diagnosis_protocol": true
+  },
+  "decision_rule": {
+    "on_pass": "seal the complete result and use it as the sole primary matched MiniWoB evidence for the InverseReserve paper",
+    "on_failure": "seal every outcome without replay or exclusion and remove any unsupported primary efficacy claim"
+  },
+  "model_checkpoint": "Qwen3.5-9B",
+  "source_sha256": {
+    "scripts/inversereserve_final_v1.py": "9a19f13b7aa4e1501db2897561a838bafaa88d417440c3c1e79b39370762d419",
+    "src/rcrps/inversereserve_final_v1.py": "0dc10d569d0990f8b931353b5bcd995c4a2b11a8e5833486a03cfbec1e63c1da",
+    "scripts/pact_v10_runner_common.py": "9a587d09bb07f12665affbca14cceed8d34567c9f2a363d6fbceb5add83e28f1",
+    "src/rcrps/confirmation_ablation_agents_v13.py": "98aecbec010ab7b4a4655c0a670bda323a1c15d5aaf7ef26bb0aad6b76d658a0",
+    "src/rcrps/confirmation_agents_v13.py": "f8e6f1caf14b078905ad7f38425a1d9753e97b8711815bb84b842b19d76dffa5",
+    "src/rcrps/pact_controller_v13.py": "619ae52d0f63cad2eff6199adf2f15fd5bdce1c76f8242180e04797f07b507cb",
+    "src/rcrps/matched_confirmation_v10.py": "af5d6e6b54c829d9871fa243ecf0d4410fbfb88165c2a5597b92f313068202de",
+    "src/rcrps/matched_confirmation_v9.py": "b642a821157c2382963166e022279a5fdae5f05279376536174c62edefee257f",
+    "src/rcrps/confirmation_statistics_v7.py": "2ac5b0f0c5f46ab0fdc00f482b1a17d63eadaec94dc868aed0f2b8e4c8f00689",
+    "src/rcrps/pact_statistics.py": "d57f7ecf4e22417b9697884713da4071ecef75f75908e6fa379270662d38ac75"
+  },
+  "preregistration": {
+    "path": "paper/aaai27/notes/2026-07-17_inversereserve_final_v1_preregistration.md",
+    "sha256": "71526fb798d9279663de60bfc48a4a84ae0a27d9fbd35336e05b449fb7512490"
+  },
+  "outputs": {
+    "run_directory": "runs/inversereserve_final_v1",
+    "result": "validation/inversereserve_final_result_v1.json"
+  }
+}

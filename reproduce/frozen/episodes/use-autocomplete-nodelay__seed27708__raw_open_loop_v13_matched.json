@@ -1,0 +1,159 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "planner parse failed: ValueError: commit requires a non-transaction row",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter an item that starts with \"Ven\" and ends with \"la\".",
+    "goal_sha256": "3ace40d89498947ee96707e704222f3f39d7fd06f879244981f5b6e34a563446",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter an item that starts with \"Ven\" and ends with \"la\".",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "prefix_suffix",
+      "prefix": "Ven",
+      "suffix": "la",
+      "exact": null
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "9a39297174d19726d471bb585d3727c22122d3751c252a28ccaeb5810169efbe",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "17",
+      "model": {
+        "messages_sha256": "9479c2499704dc29fca51489737f2fa772937c24ee1b12e2989bc16ef1840141",
+        "input_tokens": 717,
+        "generated_tokens": 14,
+        "cache_key": "9479c2499704dc29fca51489737f2fa772937c24ee1b12e2989bc16ef1840141",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "ed44e31c8ca3b815dff08853d4a522e5361607a295c48d8183fa09463dd4d472",
+      "inventory_count": 4,
+      "decision": "commit",
+      "bid": "22",
+      "model": {
+        "messages_sha256": "0eb2cf13c50cf2fa6203d7a1013637e5038913ef3928f4a6c1d9338bb2ac124a",
+        "input_tokens": 844,
+        "generated_tokens": 13,
+        "cache_key": "0eb2cf13c50cf2fa6203d7a1013637e5038913ef3928f4a6c1d9338bb2ac124a",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "planner_failure",
+      "model": {
+        "messages_sha256": "9471af4f2f5f3a9d3ef65d2f6474f0162a3ab4dd535ed2aa0691097ecad5f6f0",
+        "input_tokens": 767,
+        "generated_tokens": 13,
+        "cache_key": "9471af4f2f5f3a9d3ef65d2f6474f0162a3ab4dd535ed2aa0691097ecad5f6f0",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('17', 'Ven', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('22')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 3,
+    "planner_actual_calls": 3,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 1,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.740632035769522
+  },
+  "episode": {
+    "episode_index": 130,
+    "task_index": 1,
+    "seed_index": 7,
+    "arm_position": 1,
+    "task": "use-autocomplete-nodelay",
+    "family_group": "autocomplete",
+    "seed": 27708,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "use-autocomplete-nodelay__seed27708__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

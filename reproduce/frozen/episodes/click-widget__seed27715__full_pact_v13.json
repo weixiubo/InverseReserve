@@ -1,0 +1,300 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Click on a \"radio\" widget.",
+    "goal_sha256": "d158b5c151de3f78e4717894ac962156b55818b6ba507113764f26d24220999e",
+    "controller_arm": "full_pact_v13",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Click on a \"radio\" widget.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": {
+      "role": "radio",
+      "span": {
+        "text": "radio",
+        "start": 12,
+        "end": 17
+      }
+    },
+    "terminal_intent": null,
+    "objective_anchor": null,
+    "rejected_reasons": [],
+    "widget_kind_anchor": {
+      "kind": "radio",
+      "span": {
+        "text": "radio",
+        "start": 12,
+        "end": 17
+      },
+      "existential": true
+    }
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "envelope_decision_v8",
+      "inventory_count": 7,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "19",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "radio",
+            "label": "x",
+            "state": {
+              "checked": "false",
+              "standard_widget_kind": "radio"
+            },
+            "transaction_kind": null,
+            "semantic_bid": "19",
+            "parent_bid": "18",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "19"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "13",
+          "allowed": false,
+          "anchor_kind": "explicit_widget_kind",
+          "reason": "candidate is not the canonical standard widget-kind representative",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "15",
+          "allowed": false,
+          "anchor_kind": "explicit_widget_kind",
+          "reason": "candidate is not the canonical standard widget-kind representative",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "17",
+          "allowed": false,
+          "anchor_kind": "explicit_widget_kind",
+          "reason": "candidate is not the canonical standard widget-kind representative",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "20",
+          "allowed": false,
+          "anchor_kind": "explicit_widget_kind",
+          "reason": "candidate is not the canonical standard widget-kind representative",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "22",
+          "allowed": false,
+          "anchor_kind": "explicit_widget_kind",
+          "reason": "candidate is not the canonical standard widget-kind representative",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "18",
+          "allowed": false,
+          "anchor_kind": "explicit_widget_kind",
+          "reason": "candidate is not the canonical standard widget-kind representative",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "19",
+          "allowed": true,
+          "anchor_kind": "direct_role",
+          "reason": "one visible row matches the explicit public widget role",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "19",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 1,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "19",
+      "active_inverse_cost": 0,
+      "remaining_after_action": 39,
+      "allowed": true
+    },
+    {
+      "event_index": 2,
+      "type": "certified_commit_result_v8",
+      "bid": "19",
+      "anchor_kind": "direct_role",
+      "certificate": {
+        "allowed": true,
+        "reason": "one visible row matches the explicit public widget role",
+        "grounding": {
+          "allowed": true,
+          "reason": "one visible row matches the explicit public widget role",
+          "anchor_kind": "direct_role",
+          "evidence_bids": [],
+          "competing_bids": [
+            "19"
+          ],
+          "certified_bid": "19"
+        },
+        "certified_action": {
+          "operation": "click",
+          "bid": "19",
+          "argument": null,
+          "enable_autocomplete_menu": false
+        },
+        "observation_fingerprint_sha256": "b8826cbe9c67378b9cbcd2386dea7f230e7281328ba23ecca74dd78d80479c79",
+        "active_stack_signature": []
+      },
+      "executed": true,
+      "reason": "fresh complete-public certificate authorized the exact commit action",
+      "halted": false,
+      "terminal": true
+    },
+    {
+      "event_index": 3,
+      "type": "commit_effect_result_v8",
+      "bid": "19",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "71c1dcdcca9d0a0c47bb7e498171b6cb71cbf28950b4a7e74f163be3fdfdce60",
+      "resolved_semantic_bids": []
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "commit",
+      "code": "click('19')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [
+    {
+      "event_index": 0,
+      "type": "complete_public_commit_observation_check_v13",
+      "passed": true,
+      "fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13",
+      "field_scope": "all_retained_semantic_snapshot_fields"
+    },
+    {
+      "event_index": 1,
+      "type": "action",
+      "role": "commit",
+      "action": {
+        "operation": "click",
+        "bid": "19",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": true,
+      "truncated": false,
+      "action_error": ""
+    }
+  ],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 1,
+    "planner_calls": 0,
+    "planner_actual_calls": 0,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 1,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 0.4939638483338058,
+    "commit_effect_passes": 1,
+    "commit_effect_failures": 0,
+    "quarantined_commit_keys": 0,
+    "resolved_transaction_bids": 0,
+    "inverse_reservation_audits": 1,
+    "inverse_reservation_stops": 0,
+    "interrupt_repair_reservation_audits": 0,
+    "interrupt_repair_reservation_fallbacks": 0,
+    "interrupt_repair_inverse_fallbacks": 0,
+    "unchanged_public_inverse_skips": 0,
+    "complete_public_observation_checks_v12": 0,
+    "complete_public_inverse_skips_v12": 0,
+    "complete_public_commit_checks_v13": 1,
+    "complete_public_commit_passes_v13": 1,
+    "complete_public_commit_rejections_v13": 0
+  },
+  "effect_ledger_v8": [
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "2691349ed4cd1da8670e6c5cf7bd73ead105cddd7d5fd55d91d7056b7d1d68c2",
+      "after_sha256": "59aa98c53ec9191af844267fd490c505dd72b8d2115c7788895c9f1530a75b6b",
+      "key_sha256": "71c1dcdcca9d0a0c47bb7e498171b6cb71cbf28950b4a7e74f163be3fdfdce60",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "19",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    }
+  ],
+  "resolved_semantic_bids_v8": [],
+  "episode": {
+    "episode_index": 268,
+    "task_index": 5,
+    "seed_index": 14,
+    "arm_position": 1,
+    "task": "click-widget",
+    "family_group": "direct_widget_control",
+    "seed": 27715,
+    "method": "full_pact_v13",
+    "episode_id": "click-widget__seed27715__full_pact_v13"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}
