@@ -1,34 +1,19 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
+from inversereserve.contracts.goal_contracts_v4 import compile_structured_goal
+from inversereserve.contracts.pact_grounding_v4 import certify_commit_v4
+from inversereserve.contracts.pact_grounding_v5 import certify_commit_v5, compile_existential_policy_v5
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.models.structured_planner_v4 import ActionCandidateV4, compile_v4_inventory
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.goal_contracts_v4 import compile_structured_goal  # noqa: E402
-from rcrps.pact_grounding_v4 import certify_commit_v4  # noqa: E402
-from rcrps.pact_grounding_v5 import (  # noqa: E402
-    certify_commit_v5,
-    compile_existential_policy_v5,
-)
-from rcrps.structured_planner_v4 import (  # noqa: E402
-    ActionCandidateV4,
-    compile_v4_inventory,
-)
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
 
 
 def element(
-    bid: str,
-    *,
-    role: str,
-    name: str,
-    x: float,
-    y: float,
-    parent: str | None = None,
+    bid: str, *, role: str, name: str, x: float, y: float, parent: str | None = None
 ) -> SemanticElement:
     return SemanticElement(
         bid=bid,
@@ -72,7 +57,6 @@ def test_explicit_indefinite_role_selects_top_left_public_representative() -> No
     assert policy.allowed and policy.kind == "explicit_indefinite_role"
     inventory = compile_v4_inventory(current, goal.goal)
     by_bid = {row.bid: row for row in inventory.candidates}
-
     assert not certify_commit_v4(
         current=current,
         goal=goal,
@@ -110,25 +94,14 @@ def test_prefix_predicate_selects_first_public_satisfier() -> None:
     goal = compile_structured_goal('Enter an item that starts with "Ge".', current)
     policy = compile_existential_policy_v5(goal)
     assert policy.allowed and policy.kind == "predicate_satisfaction_set"
-    inventory = (
-        candidate("22", "option", "Georgia", "menu"),
-        candidate("24", "option", "Germany", "menu"),
-    )
+    inventory = (candidate("22", "option", "Georgia", "menu"), candidate("24", "option", "Germany", "menu"))
     first = certify_commit_v5(
-        current=current,
-        goal=goal,
-        candidate=inventory[0],
-        inventory=inventory,
-        active_transactions=(),
+        current=current, goal=goal, candidate=inventory[0], inventory=inventory, active_transactions=()
     )
     assert first.allowed
     assert first.grounding.certified_bid == "22"
     assert not certify_commit_v5(
-        current=current,
-        goal=goal,
-        candidate=inventory[1],
-        inventory=inventory,
-        active_transactions=(),
+        current=current, goal=goal, candidate=inventory[1], inventory=inventory, active_transactions=()
     ).allowed
 
 
@@ -141,17 +114,10 @@ def test_duplicate_exact_referents_remain_rejected() -> None:
     )
     goal = compile_structured_goal('Click the "Delete" button.', current)
     assert not compile_existential_policy_v5(goal).allowed
-    inventory = (
-        candidate("1", "button", "Delete"),
-        candidate("2", "button", "Delete"),
-    )
+    inventory = (candidate("1", "button", "Delete"), candidate("2", "button", "Delete"))
     for row in inventory:
         certificate = certify_commit_v5(
-            current=current,
-            goal=goal,
-            candidate=row,
-            inventory=inventory,
-            active_transactions=(),
+            current=current, goal=goal, candidate=row, inventory=inventory, active_transactions=()
         )
         assert not certificate.allowed
         assert certificate.grounding.competing_bids == ("1", "2")

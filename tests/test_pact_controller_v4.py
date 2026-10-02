@@ -1,22 +1,19 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.goal_contracts_v4 import compile_structured_goal  # noqa: E402
-from rcrps.pact_controller_v4 import (  # noqa: E402
+from inversereserve.contracts.goal_contracts_v4 import compile_structured_goal
+from inversereserve.contracts.typed_contracts_v4 import infer_transaction_contract
+from inversereserve.controllers.pact_controller_v4 import (
     ActionExecutionV4,
     FailClosedTransactionRuntimeV4,
     RuntimeHaltedV4,
 )
-from rcrps.typed_contracts_v4 import infer_transaction_contract  # noqa: E402
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -49,11 +46,7 @@ def element(
 
 
 def login(
-    *,
-    value: str = "",
-    disabled: bool = False,
-    popup: bool = False,
-    cancels: int = 1,
+    *, value: str = "", disabled: bool = False, popup: bool = False, cancels: int = 1
 ) -> SemanticSnapshot:
     rows = [
         element("form", text="Username OK"),
@@ -81,14 +74,7 @@ def login(
         rows.extend(
             (
                 element("popup", text="Exit to home?", dom_parent="form"),
-                element(
-                    "unsafe",
-                    role="button",
-                    name="OK",
-                    tag="button",
-                    dom_parent="popup",
-                    clickable=True,
-                ),
+                element("unsafe", role="button", name="OK", tag="button", dom_parent="popup", clickable=True),
             )
         )
         for index in range(cancels):
@@ -106,9 +92,7 @@ def login(
 
 
 def contract(before: SemanticSnapshot):
-    goal = compile_structured_goal(
-        'Enter the username "michel" and press login.', before
-    )
+    goal = compile_structured_goal('Enter the username "michel" and press login.', before)
     decision = infer_transaction_contract(before, "user", goal)
     assert decision.allowed and decision.contract is not None
     return decision.contract
@@ -138,20 +122,13 @@ def test_v4_runtime_admits_and_restores_a_normal_field_transaction() -> None:
         ]
     )
     runtime = FailClosedTransactionRuntimeV4(executor)
-    outcome = runtime.transact(
-        before=before, contract=contract(before), candidate_label="Username"
-    )
-    assert outcome.admitted and not outcome.halted
+    outcome = runtime.transact(before=before, contract=contract(before), candidate_label="Username")
+    assert outcome.admitted and (not outcome.halted)
     assert len(runtime.active) == 1
     restored = runtime.restore_top("test cleanup")
     assert restored.passed
     assert runtime.active == []
-    assert [event["type"] for event in runtime.events] == [
-        "action",
-        "postcondition",
-        "action",
-        "restoration",
-    ]
+    assert [event["type"] for event in runtime.events] == ["action", "postcondition", "action", "restoration"]
 
 
 def test_v4_runtime_compensates_public_cancel_and_retries_once() -> None:
@@ -160,27 +137,13 @@ def test_v4_runtime_compensates_public_cancel_and_retries_once() -> None:
     filled = login(value="michel")
     executor = ScriptedExecutor(
         [
-            (
-                "typed_forward",
-                "fill('user', 'michel', False)",
-                ActionExecutionV4(interrupted),
-            ),
-            (
-                "typed_compensator",
-                "click('cancel0')",
-                ActionExecutionV4(before),
-            ),
-            (
-                "typed_retry",
-                "fill('user', 'michel', False)",
-                ActionExecutionV4(filled),
-            ),
+            ("typed_forward", "fill('user', 'michel', False)", ActionExecutionV4(interrupted)),
+            ("typed_compensator", "click('cancel0')", ActionExecutionV4(before)),
+            ("typed_retry", "fill('user', 'michel', False)", ActionExecutionV4(filled)),
         ]
     )
     runtime = FailClosedTransactionRuntimeV4(executor)
-    outcome = runtime.transact(
-        before=before, contract=contract(before), candidate_label="Username"
-    )
+    outcome = runtime.transact(before=before, contract=contract(before), candidate_label="Username")
     assert outcome.admitted
     assert outcome.interrupt_repairs == 1
     assert outcome.restoration is not None and outcome.restoration.passed
@@ -200,25 +163,15 @@ def test_v4_runtime_halts_without_clicking_ambiguous_compensators() -> None:
     before = login()
     interrupted = login(disabled=True, popup=True, cancels=2)
     executor = ScriptedExecutor(
-        [
-            (
-                "typed_forward",
-                "fill('user', 'michel', False)",
-                ActionExecutionV4(interrupted),
-            ),
-        ]
+        [("typed_forward", "fill('user', 'michel', False)", ActionExecutionV4(interrupted))]
     )
     runtime = FailClosedTransactionRuntimeV4(executor)
-    outcome = runtime.transact(
-        before=before, contract=contract(before), candidate_label="Username"
-    )
+    outcome = runtime.transact(before=before, contract=contract(before), candidate_label="Username")
     assert not outcome.admitted and outcome.halted
     assert len(executor.calls) == 1
     assert runtime.events[-1]["type"] == "fail_closed"
     with pytest.raises(RuntimeHaltedV4):
-        runtime.transact(
-            before=before, contract=contract(before), candidate_label="Username"
-        )
+        runtime.transact(before=before, contract=contract(before), candidate_label="Username")
 
 
 def test_v4_runtime_treats_terminal_forward_or_compensation_as_fail_closed() -> None:
@@ -233,10 +186,8 @@ def test_v4_runtime_treats_terminal_forward_or_compensation_as_fail_closed() -> 
         ]
     )
     runtime = FailClosedTransactionRuntimeV4(executor)
-    outcome = runtime.transact(
-        before=before, contract=contract(before), candidate_label="Username"
-    )
-    assert outcome.halted and not outcome.admitted
+    outcome = runtime.transact(before=before, contract=contract(before), candidate_label="Username")
+    assert outcome.halted and (not outcome.admitted)
     assert "terminated" in runtime.halt_reason
 
 
@@ -251,9 +202,7 @@ def calendar(month: str, suffix: str) -> SemanticSnapshot:
                 properties={"readonly": True},
                 clickable=True,
             ),
-            element(
-                f"surface{suffix}", tag="div", attributes={"class": "ui-datepicker"}
-            ),
+            element(f"surface{suffix}", tag="div", attributes={"class": "ui-datepicker"}),
             element(
                 f"prev{suffix}",
                 role="link",
@@ -270,18 +219,8 @@ def calendar(month: str, suffix: str) -> SemanticSnapshot:
                 attributes={"class": "ui-datepicker-next"},
                 clickable=True,
             ),
-            element(
-                f"month{suffix}",
-                text=month,
-                tag="span",
-                attributes={"class": "ui-datepicker-month"},
-            ),
-            element(
-                f"year{suffix}",
-                text="2016",
-                tag="span",
-                attributes={"class": "ui-datepicker-year"},
-            ),
+            element(f"month{suffix}", text=month, tag="span", attributes={"class": "ui-datepicker-month"}),
+            element(f"year{suffix}", text="2016", tag="span", attributes={"class": "ui-datepicker-year"}),
         )
     )
 
@@ -290,32 +229,18 @@ def test_v4_runtime_recompiles_calendar_inverse_after_dom_rebuild() -> None:
     december = calendar("December", "0")
     november = calendar("November", "1")
     rebuilt_december = calendar("December", "2")
-    goal = compile_structured_goal(
-        "Select 10/31/2016 as the date and hit submit.", december
-    )
+    goal = compile_structured_goal("Select 10/31/2016 as the date and hit submit.", december)
     decision = infer_transaction_contract(december, "prev0", goal)
     assert decision.allowed and decision.contract is not None
     executor = ScriptedExecutor(
         [
-            (
-                "typed_forward",
-                "click('prev0')",
-                ActionExecutionV4(november),
-            ),
-            (
-                "typed_inverse",
-                "click('next1')",
-                ActionExecutionV4(rebuilt_december),
-            ),
+            ("typed_forward", "click('prev0')", ActionExecutionV4(november)),
+            ("typed_inverse", "click('next1')", ActionExecutionV4(rebuilt_december)),
         ]
     )
     runtime = FailClosedTransactionRuntimeV4(executor)
-    outcome = runtime.transact(
-        before=december,
-        contract=decision.contract,
-        candidate_label="Prev",
-    )
+    outcome = runtime.transact(before=december, contract=decision.contract, candidate_label="Prev")
     assert outcome.admitted
     restored = runtime.restore_top("calendar cleanup")
     assert restored.passed
-    assert any(event["type"] == "dynamic_inverse_grounding" for event in runtime.events)
+    assert any((event["type"] == "dynamic_inverse_grounding" for event in runtime.events))

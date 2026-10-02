@@ -1,22 +1,17 @@
 from __future__ import annotations
 
 import copy
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.matched_confirmation_v9 import (  # noqa: E402
+from inversereserve.studies.matched_confirmation_v9 import (
     EXPECTED_BUDGETS,
     EXPECTED_GENERATION,
     FULL_METHOD,
     TASKS,
 )
-from rcrps.repair_holdout_v9 import (  # noqa: E402
+from inversereserve.studies.repair_holdout_v9 import (
     EXPECTED_DECISION_RULE,
     EXPECTED_GATES,
     EXPECTED_INFORMATION_BOUNDARY,
@@ -26,22 +21,16 @@ from rcrps.repair_holdout_v9 import (  # noqa: E402
     validate_protocol_shape,
 )
 
+ROOT = Path(__file__).resolve().parents[1]
+
 
 def protocol() -> dict:
     return {
         "candidate": "PACT-v9-repair-holdout-protocol",
         "status": "sealed_before_repair_holdout",
-        "activation": {
-            "fresh_visible_development": {
-                "path": "validation/c452.json",
-                "sha256": "1" * 64,
-            }
-        },
+        "activation": {"fresh_visible_development": {"path": "validation/c452.json", "sha256": "1" * 64}},
         "method": FULL_METHOD,
-        "tasks": [
-            {"task_id": task_id, "family_group": family_group}
-            for task_id, family_group in TASKS
-        ],
+        "tasks": [{"task_id": task_id, "family_group": family_group} for task_id, family_group in TASKS],
         "repair_holdout_seeds": list(REPAIR_HOLDOUT_SEEDS),
         "expected_episodes": len(TASKS) * len(REPAIR_HOLDOUT_SEEDS),
         "budgets": copy.deepcopy(EXPECTED_BUDGETS),
@@ -94,9 +83,7 @@ def episode_row(episode: dict) -> dict:
         "actions": [],
         "restorations": [],
         "runtime_events": runtime_events,
-        "effect_ledger_v8": [
-            {"key_sha256": f"effect-{episode['episode_id']}", "effective": True}
-        ],
+        "effect_ledger_v8": [{"key_sha256": f"effect-{episode['episode_id']}", "effective": True}],
         "metrics": {
             "gui_actions": 1,
             "planner_calls": 0,
@@ -132,9 +119,7 @@ def test_repair_holdout_protocol_and_manifest_are_exact() -> None:
     validate_protocol_shape(frozen)
     rows = episode_manifest(frozen)
     assert len(rows) == 60
-    assert [row["seed"] for row in rows[:: len(TASKS)]] == list(
-        REPAIR_HOLDOUT_SEEDS
-    )
+    assert [row["seed"] for row in rows[:: len(TASKS)]] == list(REPAIR_HOLDOUT_SEEDS)
     assert {row["method"] for row in rows} == {FULL_METHOD}
     assert len({row["episode_id"] for row in rows}) == 60
 
@@ -145,10 +130,7 @@ def test_repair_holdout_protocol_and_manifest_are_exact() -> None:
         ("repair_holdout_seeds", list(range(27411, 27420))),
         ("expected_episodes", 59),
         ("budgets", {**EXPECTED_BUDGETS, "maximum_gui_actions": 41}),
-        (
-            "holdout_gates",
-            {**EXPECTED_GATES, "require_all_60_success": False},
-        ),
+        ("holdout_gates", {**EXPECTED_GATES, "require_all_60_success": False}),
     ],
 )
 def test_repair_holdout_protocol_rejects_population_or_gate_weakening(
@@ -161,11 +143,7 @@ def test_repair_holdout_protocol_rejects_population_or_gate_weakening(
 
 
 def test_repair_holdout_analysis_passes_only_complete_perfect_rows() -> None:
-    result = analyze_holdout_rows(
-        passing_rows(),
-        protocol(),
-        all_claims_complete=True,
-    )
+    result = analyze_holdout_rows(passing_rows(), protocol(), all_claims_complete=True)
     assert result["passed"] is True
     assert all(result["checks"].values())
     assert result["metrics"]["success"] == 60
@@ -188,11 +166,7 @@ def test_repair_holdout_retains_failures_and_rejects_repeated_effects() -> None:
         }
     ]
     failed["effect_ledger_v8"] *= 2
-    result = analyze_holdout_rows(
-        rows,
-        protocol(),
-        all_claims_complete=True,
-    )
+    result = analyze_holdout_rows(rows, protocol(), all_claims_complete=True)
     assert result["passed"] is False
     assert result["metrics"]["success"] == 59
     assert result["checks"]["all_60_success"] is False
@@ -205,34 +179,18 @@ def test_repair_holdout_requires_complete_claims_and_v9_autocomplete_checks() ->
     rows = passing_rows()
     for row in rows:
         row["runtime_events"] = []
-    result = analyze_holdout_rows(
-        rows,
-        protocol(),
-        all_claims_complete=False,
-    )
+    result = analyze_holdout_rows(rows, protocol(), all_claims_complete=False)
     assert result["passed"] is False
     assert result["checks"]["all_claims_complete_and_single_open"] is False
     assert result["checks"]["all_observed_autocomplete_checks_are_v9"] is False
-    assert (
-        result["checks"]["every_autocomplete_episode_has_passing_v9_check"]
-        is False
-    )
+    assert result["checks"]["every_autocomplete_episode_has_passing_v9_check"] is False
 
 
 def test_repair_holdout_requires_v9_check_in_every_autocomplete_episode() -> None:
     rows = passing_rows()
-    autocomplete = next(
-        row for row in rows if row["episode"]["task"] == "use-autocomplete-nodelay"
-    )
+    autocomplete = next((row for row in rows if row["episode"]["task"] == "use-autocomplete-nodelay"))
     autocomplete["runtime_events"] = []
-    result = analyze_holdout_rows(
-        rows,
-        protocol(),
-        all_claims_complete=True,
-    )
+    result = analyze_holdout_rows(rows, protocol(), all_claims_complete=True)
     assert result["passed"] is False
     assert result["checks"]["all_observed_autocomplete_checks_are_v9"] is True
-    assert (
-        result["checks"]["every_autocomplete_episode_has_passing_v9_check"]
-        is False
-    )
+    assert result["checks"]["every_autocomplete_episode_has_passing_v9_check"] is False

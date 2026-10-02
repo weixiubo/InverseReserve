@@ -1,18 +1,15 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from types import SimpleNamespace
 
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.contracts.typed_contracts_v4 import TransactionContractV4
+from inversereserve.controllers.confirmation_agents_v15 import FullPactConfirmationDriverV15
+from inversereserve.controllers.pact_controller_v15 import FailClosedTransactionRuntimeV15
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.confirmation_agents_v15 import FullPactConfirmationDriverV15  # noqa: E402
-from rcrps.pact_controller_v15 import FailClosedTransactionRuntimeV15  # noqa: E402
-from rcrps.transaction_actions_v4 import ContractActionV4
-from rcrps.typed_contracts_v4 import TransactionContractV4
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot
 
 
 def _element(
@@ -44,13 +41,7 @@ def _element(
 def _calendar(month: str, *, suffix: str) -> SemanticSnapshot:
     return SemanticSnapshot(
         (
-            _element(
-                "date",
-                tag="input",
-                class_name="hasDatepicker",
-                role="textbox",
-                clickable=True,
-            ),
+            _element("date", tag="input", class_name="hasDatepicker", role="textbox", clickable=True),
             _element(f"surface{suffix}", class_name="ui-datepicker"),
             _element(
                 f"prev{suffix}",
@@ -68,28 +59,13 @@ def _calendar(month: str, *, suffix: str) -> SemanticSnapshot:
                 role="link",
                 clickable=True,
             ),
-            _element(
-                f"month{suffix}",
-                text=month,
-                tag="span",
-                class_name="ui-datepicker-month",
-            ),
-            _element(
-                f"year{suffix}",
-                text="2016",
-                tag="span",
-                class_name="ui-datepicker-year",
-            ),
+            _element(f"month{suffix}", text=month, tag="span", class_name="ui-datepicker-month"),
+            _element(f"year{suffix}", text="2016", tag="span", class_name="ui-datepicker-year"),
         )
     )
 
 
-def _shift(
-    bid: str,
-    *,
-    prior: tuple[int, int],
-    expected: tuple[int, int],
-) -> TransactionContractV4:
+def _shift(bid: str, *, prior: tuple[int, int], expected: tuple[int, int]) -> TransactionContractV4:
     return TransactionContractV4(
         kind="calendar_month_shift",
         semantic_bid="date",
@@ -116,7 +92,7 @@ class _RerenderingCalendarExecutor:
         self.inverse_bids = []
 
     def __call__(self, action, role):
-        from rcrps.pact_controller_v4 import ActionExecutionV4
+        from inversereserve.controllers.pact_controller_v4 import ActionExecutionV4
 
         if role == "typed_forward":
             self.forward += 1
@@ -126,8 +102,7 @@ class _RerenderingCalendarExecutor:
         expected = ("next2", "next10")
         if action.bid != expected[self.inverse]:
             return ActionExecutionV4(
-                self.snapshots[2 + self.inverse],
-                action_error=f"stale inverse bid {action.bid}",
+                self.snapshots[2 + self.inverse], action_error=f"stale inverse bid {action.bid}"
             )
         self.inverse += 1
         return ActionExecutionV4(self.snapshots[2 + self.inverse])
@@ -152,10 +127,7 @@ def test_dynamic_lifo_inverse_is_regrounded_after_each_rerender() -> None:
     assert executor.inverse_bids == ["next2", "next10"]
     assert runtime.active == []
     assert runtime.halted is False
-    assert sum(
-        event["type"] == "live_dynamic_inverse_grounding_v15"
-        for event in runtime.events
-    ) == 2
+    assert sum((event["type"] == "live_dynamic_inverse_grounding_v15" for event in runtime.events)) == 2
 
 
 def test_terminal_commit_cannot_spend_an_active_inverse_reserve() -> None:
@@ -167,11 +139,7 @@ def test_terminal_commit_cannot_spend_an_active_inverse_reserve() -> None:
     driver.inverse_reservation_audits = 0
     events: list[dict[str, object]] = []
     driver.audit = events.append
-
-    allowed, reserve = driver.inverse_reserve(
-        SimpleNamespace(bid="terminal"), "commit"
-    )
-
+    allowed, reserve = driver.inverse_reserve(SimpleNamespace(bid="terminal"), "commit")
     assert reserve == 1
     assert allowed is False
     assert driver.inverse_reservation_audits == 1

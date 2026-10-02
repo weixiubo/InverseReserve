@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from rcrps import inversereserve_capacity_regime_successor_v1 as design
+from inversereserve.studies import inversereserve_capacity_regime_successor_v1 as design
 
 
 def protocol() -> dict[str, Any]:
@@ -38,13 +38,9 @@ def test_manifest_is_exact_unique_and_counterbalanced() -> None:
     assert len(rows) == design.expected_episodes() == 360
     assert len({row["episode_id"] for row in rows}) == 360
     assert {row["regime"] for row in rows} == {"tight", "opportunity"}
-    assert design.arm_order_counts(value) == {
-        arm: {0: 40, 1: 40, 2: 40} for arm in design.ARMS
-    }
+    assert design.arm_order_counts(value) == {arm: {0: 40, 1: 40, 2: 40} for arm in design.ARMS}
     for row in rows:
-        assert row["maximum_gui_actions"] == design.TASK_REGIME_BUDGETS[
-            row["task"]
-        ][row["regime"]]
+        assert row["maximum_gui_actions"] == design.TASK_REGIME_BUDGETS[row["task"]][row["regime"]]
 
 
 def fake_result(
@@ -65,11 +61,7 @@ def fake_result(
         trace.append(
             {
                 "type": "cross_family_reservation_v1",
-                "reservation_rule": (
-                    "proposal_local"
-                    if method == design.LOCAL_ABLATION
-                    else "stack_wide"
-                ),
+                "reservation_rule": ("proposal_local" if method == design.LOCAL_ABLATION else "stack_wide"),
                 "allowed": not reserve_stop,
                 "remaining_after_action": 0 if unsafe else 4,
                 "stack_wide_required_inverse_cost": 2,
@@ -98,14 +90,10 @@ def test_solvent_endpoint_requires_activity_and_no_unsafe_admission() -> None:
     manifest = design.episode_manifest(protocol())
     full = next(row for row in manifest if row["method"] == design.FULL_METHOD)
     local = next(row for row in manifest if row["method"] == design.LOCAL_ABLATION)
-    abstain = next(
-        row for row in manifest if row["method"] == design.ABSTAIN_BASELINE
-    )
+    abstain = next(row for row in manifest if row["method"] == design.ABSTAIN_BASELINE)
     assert design.solvent_activity_endpoint(fake_result(full, success=True))
     assert design.solvent_activity_endpoint(fake_result(full, restored=True))
-    assert not design.solvent_activity_endpoint(
-        fake_result(local, success=True, unsafe=True)
-    )
+    assert not design.solvent_activity_endpoint(fake_result(local, success=True, unsafe=True))
     assert not design.solvent_activity_endpoint(fake_result(abstain))
 
 
@@ -146,10 +134,7 @@ def test_synthetic_complete_population_passes_every_gate() -> None:
 
 def test_incomplete_population_fails_closed() -> None:
     value = protocol()
-    rows = [
-        fake_result(episode)
-        for episode in design.episode_manifest(value)[:-1]
-    ]
+    rows = [fake_result(episode) for episode in design.episode_manifest(value)[:-1]]
     analysis = design.analyze_rows(rows, value, all_claims_complete=False)
     assert analysis["exact_manifest"] is False
     assert analysis["checks"]["complete_exact_grid"] is False

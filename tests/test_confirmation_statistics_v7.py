@@ -1,19 +1,16 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.confirmation_statistics_v7 import (  # noqa: E402
+from inversereserve.studies.confirmation_statistics_v7 import (
     confirmation_comparisons,
     exact_paired_greater,
     holm_rejections,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_exact_paired_greater_matches_small_binomial_tails() -> None:
@@ -48,18 +45,10 @@ def test_confirmation_comparisons_preserve_complete_paired_grid() -> None:
                     }
                 )
     result = confirmation_comparisons(
-        rows,
-        full_method="full",
-        baselines=("raw", "no_cert"),
-        bootstrap_samples=100,
-        bootstrap_seed=7,
+        rows, full_method="full", baselines=("raw", "no_cert"), bootstrap_samples=100, bootstrap_seed=7
     )
     assert result["comparisons"]["raw"]["paired_episodes"] == 12
-    assert result["comparisons"]["raw"][
-        "discordant_full_success_baseline_failure"
-    ] == 12
-    assert result["comparisons"]["no_cert"][
-        "discordant_full_success_baseline_failure"
-    ] == 6
+    assert result["comparisons"]["raw"]["discordant_full_success_baseline_failure"] == 12
+    assert result["comparisons"]["no_cert"]["discordant_full_success_baseline_failure"] == 6
     assert result["comparisons"]["raw"]["holm"]["rejected"] is True
     assert result["comparisons"]["no_cert"]["holm"]["rejected"] is True

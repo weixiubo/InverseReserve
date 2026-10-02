@@ -2,17 +2,13 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from rcrps import single_obligation_capacity_driver_v1 as module
-from rcrps.capacity_reserve_drivers_v18 import StackWideCapacityDriverV18
+from inversereserve.controllers import single_obligation_capacity_driver_v1 as module
+from inversereserve.controllers.capacity_reserve_drivers_v18 import StackWideCapacityDriverV18
 
 
 def driver(active: int) -> tuple[module.SingleActiveObligationDriverV1, list[dict]]:
-    value = module.SingleActiveObligationDriverV1.__new__(
-        module.SingleActiveObligationDriverV1
-    )
-    value.runtime = SimpleNamespace(
-        active=[SimpleNamespace(contract=object()) for _ in range(active)]
-    )
+    value = module.SingleActiveObligationDriverV1.__new__(module.SingleActiveObligationDriverV1)
+    value.runtime = SimpleNamespace(active=[SimpleNamespace(contract=object()) for _ in range(active)])
     value.inverse_reservation_audits = 0
     events: list[dict] = []
     value.audit = events.append
@@ -22,9 +18,7 @@ def driver(active: int) -> tuple[module.SingleActiveObligationDriverV1, list[dic
 def test_second_transaction_is_rejected_and_audited(monkeypatch) -> None:
     value, events = driver(1)
     monkeypatch.setattr(module, "inverse_action_cost_v8", lambda _contract: 3)
-    allowed, reserve = value.inverse_reserve(
-        SimpleNamespace(bid="candidate"), "transact"
-    )
+    allowed, reserve = value.inverse_reserve(SimpleNamespace(bid="candidate"), "transact")
     assert allowed is False
     assert reserve == 3
     assert value.inverse_reservation_audits == 1
@@ -58,9 +52,7 @@ def test_zero_active_or_commit_delegates_to_stack_wide(monkeypatch) -> None:
     )
     for active, decision in ((0, "transact"), (1, "commit")):
         value, events = driver(active)
-        allowed, reserve = value.inverse_reserve(
-            SimpleNamespace(bid="candidate"), decision
-        )
+        allowed, reserve = value.inverse_reserve(SimpleNamespace(bid="candidate"), decision)
         assert (allowed, reserve) == (True, 4)
         assert value.inverse_reservation_audits == 1
         assert events[-1]["delegated_to_stack_wide_reserve"] is True
@@ -73,7 +65,4 @@ def test_driver_is_stack_wide_and_has_distinct_method_id() -> None:
         module.SingleActiveObligationDriverV1,
         StackWideCapacityDriverV18,
     )
-    assert (
-        module.SingleActiveObligationDriverV1.method_id
-        == "single_active_obligation_v1"
-    )
+    assert module.SingleActiveObligationDriverV1.method_id == "single_active_obligation_v1"

@@ -1,26 +1,17 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from types import SimpleNamespace
 
+from inversereserve.adapters.webarena.webarena_exact_mutation_agent_v2 import ExactMutationTransferAgentV2
+from inversereserve.adapters.webarena.webarena_exact_mutation_agent_v11 import ExactMutationTransferAgentV11
+from inversereserve.adapters.webarena.webarena_executor_v2 import WebArenaConfirmationExecutorV2
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.controllers.pact_controller_v10 import FailClosedTransactionRuntimeV10
+from inversereserve.controllers.pact_controller_v11 import FailClosedTransactionRuntimeV11
+from inversereserve.observations.typed_observation import SemanticSnapshot
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
-from rcrps.typed_observation import SemanticSnapshot  # noqa: E402
-from rcrps.webarena_exact_mutation_agent_v2 import (  # noqa: E402
-    ExactMutationTransferAgentV2,
-)
-from rcrps.pact_controller_v10 import FailClosedTransactionRuntimeV10  # noqa: E402
-from rcrps.pact_controller_v11 import FailClosedTransactionRuntimeV11  # noqa: E402
-from rcrps.webarena_exact_mutation_agent_v11 import (  # noqa: E402
-    ExactMutationTransferAgentV11,
-)
-from rcrps.webarena_executor_v2 import (  # noqa: E402
-    WebArenaConfirmationExecutorV2,
-)
 
 
 class _Screen:
@@ -34,28 +25,18 @@ class _RewardingEnvironment:
     def step(self, code: str):
         self.calls.append(code)
         observation = {"screenshot": _Screen(), "last_action_error": ""}
-        return observation, 1.0, False, False, {"message": "hidden evaluator info"}
+        return (observation, 1.0, False, False, {"message": "hidden evaluator info"})
 
 
-def test_reward_and_evaluator_info_cannot_stop_or_enter_method_records(
-    monkeypatch,
-) -> None:
+def test_reward_and_evaluator_info_cannot_stop_or_enter_method_records(monkeypatch) -> None:
     sentinel = SemanticSnapshot(())
-    monkeypatch.setattr(
-        WebArenaConfirmationExecutorV2,
-        "snapshot",
-        property(lambda _self: sentinel),
-    )
+    monkeypatch.setattr(WebArenaConfirmationExecutorV2, "snapshot", property(lambda _self: sentinel))
     environment = _RewardingEnvironment()
     executor = WebArenaConfirmationExecutorV2(
-        environment,
-        {"screenshot": _Screen(), "last_action_error": ""},
-        maximum_gui_actions=2,
+        environment, {"screenshot": _Screen(), "last_action_error": ""}, maximum_gui_actions=2
     )
-
     first = executor(ContractActionV4("click", "313"), "commit")
     second = executor(ContractActionV4("click", "314"), "navigation")
-
     assert first.snapshot is sentinel and second.snapshot is sentinel
     assert environment.calls == ["click_no_wait('313')", "click('314')"]
     assert executor.success is False
@@ -63,11 +44,8 @@ def test_reward_and_evaluator_info_cannot_stop_or_enter_method_records(
     serialized = repr(executor.actions)
     assert "1.0" not in serialized
     assert "hidden evaluator info" not in serialized
-    assert all(row["reward_used_for_control"] is False for row in executor.actions)
-    assert all(
-        row["evaluator_info_used_for_control"] is False
-        for row in executor.actions
-    )
+    assert all((row["reward_used_for_control"] is False for row in executor.actions))
+    assert all((row["evaluator_info_used_for_control"] is False for row in executor.actions))
 
 
 def test_v2_agent_replaces_the_feedback_coupled_executor() -> None:
@@ -88,7 +66,6 @@ def test_v2_agent_replaces_the_feedback_coupled_executor() -> None:
         budgets=budgets,
         planner_generate=lambda _messages: {},
     )
-
     assert isinstance(agent.executor, WebArenaConfirmationExecutorV2)
     assert isinstance(agent.runtime, FailClosedTransactionRuntimeV10)
     assert agent.runtime._executor is agent.executor
@@ -113,7 +90,6 @@ def test_v11_webarena_successor_changes_only_the_transaction_runtime() -> None:
         budgets=budgets,
         planner_generate=lambda _messages: {},
     )
-
     assert isinstance(agent.executor, WebArenaConfirmationExecutorV2)
     assert isinstance(agent.runtime, FailClosedTransactionRuntimeV11)
     assert agent.runtime._executor is agent.executor
@@ -129,13 +105,9 @@ def test_v2_agent_reserves_compensator_retry_separately_from_inverse() -> None:
     agent.interrupt_repair_reservation_audits = 0
     agent.interrupt_repair_reservation_fallbacks = 0
     contract = SimpleNamespace(
-        maximum_interrupt_repairs=1,
-        dynamic_inverse_class_token=None,
-        inverse_actions=(object(),),
+        maximum_interrupt_repairs=1, dynamic_inverse_class_token=None, inverse_actions=(object(),)
     )
-
     reservation = agent.interrupt_repair_reservation(contract)
-
     assert reservation.remaining_gui_actions == 3
     assert reservation.repair_pair_actions == 2
     assert reservation.registered_inverse_reserve == 1
@@ -144,7 +116,7 @@ def test_v2_agent_reserves_compensator_retry_separately_from_inverse() -> None:
 
 
 def test_v2_pre_forward_guard_reserves_repair_inverse_and_commit(monkeypatch) -> None:
-    import rcrps.webarena_exact_mutation_agent_v2 as module
+    import inversereserve.adapters.webarena.webarena_exact_mutation_agent_v2 as module
 
     agent = object.__new__(ExactMutationTransferAgentV2)
     agent.executor = SimpleNamespace(snapshot=object(), actions=[])
@@ -155,23 +127,13 @@ def test_v2_pre_forward_guard_reserves_repair_inverse_and_commit(monkeypatch) ->
     agent.inverse_reservation_stops = 0
     agent.method_failure = None
     contract = SimpleNamespace(
-        maximum_interrupt_repairs=1,
-        dynamic_inverse_class_token=None,
-        inverse_actions=(object(),),
+        maximum_interrupt_repairs=1, dynamic_inverse_class_token=None, inverse_actions=(object(),)
     )
     binding = SimpleNamespace(bid="field", label="Field")
-    compilation = SimpleNamespace(
-        goal_contract=SimpleNamespace(payload_bindings=(binding,))
-    )
+    compilation = SimpleNamespace(goal_contract=SimpleNamespace(payload_bindings=(binding,)))
     inventory = SimpleNamespace(contract_by_bid={"field": contract})
-    monkeypatch.setattr(
-        module,
-        "compile_exact_mutation_inventory_v1",
-        lambda *_args, **_kwargs: inventory,
-    )
-
+    monkeypatch.setattr(module, "compile_exact_mutation_inventory_v1", lambda *_args, **_kwargs: inventory)
     agent.execute_exact_mutation(compilation)
-
     assert agent.inverse_reservation_stops == 1
     assert "repair budget reservation stopped" in agent.method_failure
     event = agent.trace[-1]

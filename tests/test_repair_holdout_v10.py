@@ -1,42 +1,30 @@
 from __future__ import annotations
 
 import copy
-import sys
 from pathlib import Path
 
 import pytest
 
+from inversereserve.studies import repair_holdout_v10 as holdout
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps import repair_holdout_v10 as holdout  # noqa: E402
 
 
 def protocol() -> dict:
     return {
         "candidate": "PACT-v10-repair-holdout-protocol",
         "status": "sealed_before_repair_holdout",
-        "activation": {
-            "v10_trace_equivalence": {
-                "path": "validation/c453.json",
-                "sha256": "1" * 64,
-            }
-        },
+        "activation": {"v10_trace_equivalence": {"path": "validation/c453.json", "sha256": "1" * 64}},
         "method": holdout.FULL_METHOD,
         "tasks": [
-            {"task_id": task_id, "family_group": family_group}
-            for task_id, family_group in holdout.TASKS
+            {"task_id": task_id, "family_group": family_group} for task_id, family_group in holdout.TASKS
         ],
         "repair_holdout_seeds": list(holdout.REPAIR_HOLDOUT_SEEDS),
-        "expected_episodes": len(holdout.TASKS)
-        * len(holdout.REPAIR_HOLDOUT_SEEDS),
+        "expected_episodes": len(holdout.TASKS) * len(holdout.REPAIR_HOLDOUT_SEEDS),
         "budgets": copy.deepcopy(holdout.EXPECTED_BUDGETS),
         "generation": copy.deepcopy(holdout.EXPECTED_GENERATION),
         "holdout_gates": copy.deepcopy(holdout.EXPECTED_GATES),
-        "information_boundary": copy.deepcopy(
-            holdout.EXPECTED_INFORMATION_BOUNDARY
-        ),
+        "information_boundary": copy.deepcopy(holdout.EXPECTED_INFORMATION_BOUNDARY),
         "decision_rule": copy.deepcopy(holdout.EXPECTED_DECISION_RULE),
     }
 
@@ -111,9 +99,7 @@ def episode_row(episode: dict) -> dict:
         "trace": [],
         "actions": [],
         "runtime_events": runtime_events,
-        "effect_ledger_v8": [
-            {"key_sha256": f"effect-{episode['episode_id']}", "effective": True}
-        ],
+        "effect_ledger_v8": [{"key_sha256": f"effect-{episode['episode_id']}", "effective": True}],
         "metrics": metrics,
     }
 
@@ -128,9 +114,7 @@ def test_v10_repair_holdout_is_exact_and_exercises_changed_path() -> None:
     manifest = holdout.episode_manifest(frozen)
     assert len(manifest) == 60
     assert {row["method"] for row in manifest} == {"full_pact_v10"}
-    result = holdout.analyze_holdout_rows(
-        passing_rows(), frozen, all_claims_complete=True
-    )
+    result = holdout.analyze_holdout_rows(passing_rows(), frozen, all_claims_complete=True)
     assert result["passed"] is True
     assert result["metrics"]["interrupt_repair_reservation_audits"] == 10
     assert result["repair_reservation_audit"]["events"] == 10
@@ -143,16 +127,11 @@ def test_v10_repair_holdout_is_exact_and_exercises_changed_path() -> None:
         ("method", "full_pact_v9"),
         (
             "holdout_gates",
-            {
-                **holdout.EXPECTED_GATES,
-                "require_zero_interrupt_repair_reservation_fallbacks": False,
-            },
+            {**holdout.EXPECTED_GATES, "require_zero_interrupt_repair_reservation_fallbacks": False},
         ),
     ],
 )
-def test_v10_repair_holdout_rejects_population_or_gate_weakening(
-    field: str, replacement: object
-) -> None:
+def test_v10_repair_holdout_rejects_population_or_gate_weakening(field: str, replacement: object) -> None:
     mutated = protocol()
     mutated[field] = replacement
     with pytest.raises(ValueError):
@@ -163,42 +142,29 @@ def test_v10_repair_holdout_rejects_unexercised_or_insolvent_repair() -> None:
     unexercised = passing_rows()
     for row in unexercised:
         row["runtime_events"] = [
-            event
-            for event in row["runtime_events"]
-            if event.get("type") == "postcondition"
+            event for event in row["runtime_events"] if event.get("type") == "postcondition"
         ]
         row["metrics"]["interrupt_repair_reservation_audits"] = 0
-    result = holdout.analyze_holdout_rows(
-        unexercised, protocol(), all_claims_complete=True
-    )
+    result = holdout.analyze_holdout_rows(unexercised, protocol(), all_claims_complete=True)
     assert result["passed"] is False
     assert result["checks"]["repair_reservation_path_observed"] is False
-
     insolvent = passing_rows()
-    repair_row = next(
-        row
-        for row in insolvent
-        if row["episode"]["task"] == "login-user-popup"
-    )
+    repair_row = next((row for row in insolvent if row["episode"]["task"] == "login-user-popup"))
     event = next(
-        event
-        for event in repair_row["runtime_events"]
-        if event.get("type") == "interrupt_repair_reservation"
+        (
+            event
+            for event in repair_row["runtime_events"]
+            if event.get("type") == "interrupt_repair_reservation"
+        )
     )
     event["remaining_gui_actions"] = 2
     event["allowed"] = False
     repair_row["metrics"]["interrupt_repair_reservation_fallbacks"] = 1
     repair_row["metrics"]["interrupt_repair_inverse_fallbacks"] = 1
-    next(
-        item
-        for item in repair_row["runtime_events"]
-        if item.get("type") == "compensator_grounding"
-    )["policy"] = "inverse"
-    result = holdout.analyze_holdout_rows(
-        insolvent, protocol(), all_claims_complete=True
-    )
+    next((item for item in repair_row["runtime_events"] if item.get("type") == "compensator_grounding"))[
+        "policy"
+    ] = "inverse"
+    result = holdout.analyze_holdout_rows(insolvent, protocol(), all_claims_complete=True)
     assert result["passed"] is False
-    assert (
-        result["checks"]["zero_interrupt_repair_reservation_fallbacks"] is False
-    )
+    assert result["checks"]["zero_interrupt_repair_reservation_fallbacks"] is False
     assert result["checks"]["repair_reservation_metrics_match_events"] is True

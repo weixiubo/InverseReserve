@@ -1,40 +1,29 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import numpy as np
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.confirmation_ablation_agents_v10 import (  # noqa: E402
+from inversereserve.controllers.confirmation_ablation_agents_v9 import TypedNoCertificateConfirmationDriverV9
+from inversereserve.controllers.confirmation_ablation_agents_v10 import (
     MATCHED_CONFIRMATION_DRIVERS_V10,
     RawOpenLoopConfirmationDriverV10,
     TypedNoCertificateConfirmationDriverV10,
 )
-from rcrps.confirmation_ablation_agents_v9 import (  # noqa: E402
-    TypedNoCertificateConfirmationDriverV9,
-)
-from rcrps.confirmation_agents_v10 import (  # noqa: E402
-    FullPactConfirmationDriverV10,
-    RecoverySolventRepairDriverMixinV10,
-)
-from rcrps.pact_controller_v10 import (  # noqa: E402
-    FailClosedTransactionRuntimeV10,
-)
-from rcrps.confirmation_ablation_agents_v11 import (  # noqa: E402
+from inversereserve.controllers.confirmation_ablation_agents_v11 import (
     MATCHED_CONFIRMATION_DRIVERS_V11,
     RawOpenLoopConfirmationDriverV11,
     TypedNoCertificateConfirmationDriverV11,
 )
-from rcrps.confirmation_agents_v11 import (  # noqa: E402
-    FullPactConfirmationDriverV11,
+from inversereserve.controllers.confirmation_agents_v10 import (
+    FullPactConfirmationDriverV10,
+    RecoverySolventRepairDriverMixinV10,
 )
-from rcrps.pact_controller_v11 import (  # noqa: E402
-    FailClosedTransactionRuntimeV11,
-)
+from inversereserve.controllers.confirmation_agents_v11 import FullPactConfirmationDriverV11
+from inversereserve.controllers.pact_controller_v10 import FailClosedTransactionRuntimeV10
+from inversereserve.controllers.pact_controller_v11 import FailClosedTransactionRuntimeV11
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def observation() -> dict:
@@ -54,22 +43,10 @@ def observation() -> dict:
         },
         "dom_object": {
             "strings": ["button", "bid", "1"],
-            "documents": [
-                {
-                    "nodes": {
-                        "attributes": [[1, 2]],
-                        "parentIndex": [-1],
-                        "nodeName": [0],
-                    }
-                }
-            ],
+            "documents": [{"nodes": {"attributes": [[1, 2]], "parentIndex": [-1], "nodeName": [0]}}],
         },
         "extra_element_properties": {
-            "1": {
-                "visibility": 1.0,
-                "clickable": True,
-                "bbox": [5.0, 5.0, 80.0, 30.0],
-            }
+            "1": {"visibility": 1.0, "clickable": True, "bbox": [5.0, 5.0, 80.0, 30.0]}
         },
         "screenshot": np.zeros((100, 100, 3), dtype=np.uint8),
         "last_action_error": "",
@@ -78,14 +55,10 @@ def observation() -> dict:
 
 class NoEffectEnvironment:
     def step(self, _code: str):
-        return observation(), 0.0, False, False, {}
+        return (observation(), 0.0, False, False, {})
 
 
-BUDGETS = {
-    "maximum_gui_actions": 40,
-    "maximum_planner_calls": 40,
-    "maximum_wall_seconds": 30.0,
-}
+BUDGETS = {"maximum_gui_actions": 40, "maximum_planner_calls": 40, "maximum_wall_seconds": 30.0}
 
 
 def forbidden_model(_messages):
@@ -101,18 +74,12 @@ def test_v10_registry_is_exactly_the_prespecified_three_arm_intervention() -> No
 
 
 def test_v10_no_certificate_arm_retains_recovery_solvent_runtime() -> None:
-    assert issubclass(
-        TypedNoCertificateConfirmationDriverV10,
-        TypedNoCertificateConfirmationDriverV9,
-    )
-    assert RecoverySolventRepairDriverMixinV10 in (
-        TypedNoCertificateConfirmationDriverV10.__mro__
-    )
+    assert issubclass(TypedNoCertificateConfirmationDriverV10, TypedNoCertificateConfirmationDriverV9)
+    assert RecoverySolventRepairDriverMixinV10 in TypedNoCertificateConfirmationDriverV10.__mro__
     assert (
         TypedNoCertificateConfirmationDriverV10.interrupt_repair_reservation
         is FullPactConfirmationDriverV10.interrupt_repair_reservation
     )
-
     driver = TypedNoCertificateConfirmationDriverV10(
         environment=NoEffectEnvironment(),
         observation=observation(),
@@ -134,7 +101,6 @@ def test_v11_rerun_registry_upgrades_every_versioned_matched_arm() -> None:
         "typed_no_certificate_v11": TypedNoCertificateConfirmationDriverV11,
         "full_pact_v11": FullPactConfirmationDriverV11,
     }
-
     driver = TypedNoCertificateConfirmationDriverV11(
         environment=NoEffectEnvironment(),
         observation=observation(),

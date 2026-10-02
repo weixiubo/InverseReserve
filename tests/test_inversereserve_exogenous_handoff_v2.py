@@ -1,16 +1,13 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
 import pytest
 
+from inversereserve.studies import inversereserve_exogenous_handoff_v2 as design
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps import inversereserve_exogenous_handoff_v2 as design
 
 
 def protocol() -> dict[str, Any]:
@@ -42,12 +39,8 @@ def test_successor_manifest_remains_exact_and_counterbalanced() -> None:
     value = protocol()
     rows = design.episode_manifest(value)
     assert len(rows) == len({row["episode_id"] for row in rows}) == 160
-    assert design.arm_order_counts(value) == {
-        arm: {0: 40, 1: 40} for arm in design.ARMS
-    }
-    analysis = design.analyze_rows(
-        [], value, all_claims_complete=False
-    )
+    assert design.arm_order_counts(value) == {arm: {0: 40, 1: 40} for arm in design.ARMS}
+    analysis = design.analyze_rows([], value, all_claims_complete=False)
     assert analysis["checks"]["complete_exact_grid"] is False
     assert analysis["passed"] is False
 
@@ -57,7 +50,6 @@ def test_successor_rejects_template_date_or_prestart_rewrite() -> None:
     changed_date["planner_model"]["chat_template_date"] = "28 July 2026"
     with pytest.raises(ValueError, match="model contract changed"):
         design.validate_protocol(changed_date)
-
     changed_audit = protocol()
     changed_audit["prestart_supersession"]["claims_opened"] = 1
     with pytest.raises(ValueError, match="supersession changed"):

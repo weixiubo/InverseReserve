@@ -1,23 +1,20 @@
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.model_planner_v6 import (  # noqa: E402
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.models.model_planner_v6 import (
     action_candidate_from_prompt_record_v6,
     canonical_planner_output_v6,
     parse_planner_decision_v6,
     planner_messages_v6,
 )
-from rcrps.structured_planner_v4 import ActionCandidateV4  # noqa: E402
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
+from inversereserve.models.structured_planner_v4 import ActionCandidateV4
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def candidate(
@@ -43,11 +40,7 @@ def candidate(
 def rows() -> tuple[ActionCandidateV4, ...]:
     return (
         candidate(
-            "field",
-            label="Tags",
-            transaction_kind="autocomplete_query",
-            operation="fill",
-            argument="Som",
+            "field", label="Tags", transaction_kind="autocomplete_query", operation="fill", argument="Som"
         ),
         candidate("submit", label="Submit", transaction_kind=None),
     )
@@ -55,12 +48,7 @@ def rows() -> tuple[ActionCandidateV4, ...]:
 
 def goal_contract() -> dict:
     return {
-        "exact_constraint": {
-            "kind": "prefix_suffix",
-            "prefix": "Som",
-            "suffix": "alia",
-            "exact": None,
-        },
+        "exact_constraint": {"kind": "prefix_suffix", "prefix": "Som", "suffix": "alia", "exact": None},
         "field_assignments": [],
         "date_anchor": None,
         "option_selections": [],
@@ -89,22 +77,14 @@ def test_v6_planner_messages_expose_bound_arguments_and_transaction_state() -> N
 
 
 def test_v6_parser_accepts_only_role_consistent_strict_json() -> None:
-    transact = parse_planner_decision_v6(
-        '{"decision":"transact","bid":"field"}', rows()
-    )
+    transact = parse_planner_decision_v6('{"decision":"transact","bid":"field"}', rows())
     assert transact.decision == "transact"
     assert transact.candidate is not None
     assert transact.candidate.action.argument == "Som"
-
-    commit = parse_planner_decision_v6(
-        '{"decision":"commit","bid":"submit"}', rows()
-    )
+    commit = parse_planner_decision_v6('{"decision":"commit","bid":"submit"}', rows())
     assert commit.decision == "commit"
     assert commit.bid == "submit"
-
-    abstain = parse_planner_decision_v6(
-        '{"decision":"abstain","bid":null}', rows()
-    )
+    abstain = parse_planner_decision_v6('{"decision":"abstain","bid":null}', rows())
     assert abstain.candidate is None
 
 
@@ -122,10 +102,7 @@ def test_v6_parser_accepts_only_role_consistent_strict_json() -> None:
         ('{"decision":"commit","bid":"submit"} trailing', "text after"),
     ),
 )
-def test_v6_parser_rejects_unsafe_or_semantically_invalid_outputs(
-    raw: str,
-    message: str,
-) -> None:
+def test_v6_parser_rejects_unsafe_or_semantically_invalid_outputs(raw: str, message: str) -> None:
     with pytest.raises(ValueError, match=message):
         parse_planner_decision_v6(raw, rows())
 
@@ -138,16 +115,11 @@ def test_v6_canonical_output_round_trips_without_prose() -> None:
 
 
 def test_v6_parser_handles_generators_and_rejects_duplicate_bids() -> None:
-    decision = parse_planner_decision_v6(
-        '{"decision":"commit","bid":"submit"}', (row for row in rows())
-    )
+    decision = parse_planner_decision_v6('{"decision":"commit","bid":"submit"}', (row for row in rows()))
     assert decision.bid == "submit"
-
     duplicate = (rows()[0], rows()[0])
     with pytest.raises(ValueError, match="duplicate BIDs"):
-        parse_planner_decision_v6(
-            '{"decision":"transact","bid":"field"}', duplicate
-        )
+        parse_planner_decision_v6('{"decision":"transact","bid":"field"}', duplicate)
 
 
 def test_v6_candidate_prompt_record_round_trip_is_exact() -> None:
@@ -155,7 +127,6 @@ def test_v6_candidate_prompt_record_round_trip_is_exact() -> None:
     restored = action_candidate_from_prompt_record_v6(original.prompt_record())
     assert restored == original
     assert restored.prompt_record() == original.prompt_record()
-
     select = original.prompt_record()
     select.update(
         {
@@ -181,9 +152,7 @@ def test_v6_candidate_prompt_record_round_trip_is_exact() -> None:
         ({"state": []}, "state"),
     ),
 )
-def test_v6_candidate_prompt_record_rejects_schema_drift(
-    mutation: dict, message: str
-) -> None:
+def test_v6_candidate_prompt_record_rejects_schema_drift(mutation: dict, message: str) -> None:
     record = rows()[0].prompt_record()
     record.update(mutation)
     with pytest.raises(ValueError, match=message):

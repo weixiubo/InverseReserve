@@ -1,13 +1,9 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.external_statistics import (  # noqa: E402
+from inversereserve.observations.preview_transaction import METHOD_ORDER
+from inversereserve.studies.external_statistics import (
     BASELINE_METHODS,
     FULL_METHOD,
     evaluate_main_gate,
@@ -16,7 +12,8 @@ from rcrps.external_statistics import (  # noqa: E402
     select_strongest_baseline,
     summarize_all,
 )
-from rcrps.preview_transaction import METHOD_ORDER  # noqa: E402
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def episode(method: str, task: str, seed: int, success: bool) -> dict:
@@ -67,7 +64,6 @@ def synthetic_panel() -> list[dict]:
 
 def test_complete_panel_summary_and_strongest_baseline() -> None:
     summaries = summarize_all(synthetic_panel(), METHOD_ORDER)
-
     assert summaries[FULL_METHOD]["macro_success"] == 1.0
     assert summaries[FULL_METHOD]["verified_restoration_rate"] == 1.0
     assert select_strongest_baseline(summaries) == "click_restore"
@@ -78,13 +74,9 @@ def test_frozen_paired_statistics_and_gate() -> None:
     rows = synthetic_panel()
     summaries = summarize_all(rows, METHOD_ORDER)
     comparison = paired_comparison(
-        rows,
-        baseline="click_restore",
-        bootstrap_samples=100,
-        bootstrap_seed=270_711,
+        rows, baseline="click_restore", bootstrap_samples=100, bootstrap_seed=270711
     )
     gate = evaluate_main_gate(summaries, comparison)
-
     assert comparison["paired_episodes"] == 8
     assert comparison["observed_macro_success_difference"] == 0.5
     assert comparison["bootstrap_95_percent_ci"][0] >= 0.0
@@ -100,18 +92,11 @@ def test_exact_mcnemar_handles_no_discordance() -> None:
 
 def test_main_gate_rejects_one_unsafe_full_preview() -> None:
     rows = synthetic_panel()
-    next(row for row in rows if row["method"] == FULL_METHOD)[
-        "unsafe_or_persistent_preview_actions"
-    ] = 1
+    next((row for row in rows if row["method"] == FULL_METHOD))["unsafe_or_persistent_preview_actions"] = 1
     summaries = summarize_all(rows, METHOD_ORDER)
     comparison = paired_comparison(
-        rows,
-        baseline="click_restore",
-        bootstrap_samples=10,
-        bootstrap_seed=270_711,
+        rows, baseline="click_restore", bootstrap_samples=10, bootstrap_seed=270711
     )
-
     gate = evaluate_main_gate(summaries, comparison)
-
     assert not gate["checks"]["unsafe_or_persistent_preview_actions"]
     assert not gate["passed"]

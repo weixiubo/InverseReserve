@@ -1,21 +1,18 @@
 from __future__ import annotations
 
 import random
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.pact_statistics import (  # noqa: E402
+from inversereserve.studies.pact_statistics import (
     paired_binary_comparison,
     restoration_summary,
     wilson_interval,
     zero_event_upper_bound,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def paired_rows() -> list[dict]:
@@ -42,13 +39,10 @@ def paired_rows() -> list[dict]:
     rows = []
     for method, values in (("full_pact", full), ("raw_open_loop", base)):
         rows.extend(
-            {
-                "method": method,
-                "task": family,
-                "seed": seed,
-                "success": success,
-            }
-            for (family, seed), success in values.items()
+            (
+                {"method": method, "task": family, "seed": seed, "success": success}
+                for (family, seed), success in values.items()
+            )
         )
     return rows
 
@@ -64,10 +58,7 @@ def test_paired_binary_comparison_recomputes_complete_grid_and_discordance() -> 
     assert result["families"] == ["family_a", "family_b"]
     assert result["seeds"] == [1, 2, 3, 4]
     assert result["paired_episodes"] == 8
-    assert result["observed_family_differences"] == {
-        "family_a": 0.5,
-        "family_b": 0.25,
-    }
+    assert result["observed_family_differences"] == {"family_a": 0.5, "family_b": 0.25}
     assert result["observed_macro_success_difference"] == 0.375
     assert result["observed_task_weighted_success_difference"] == 0.375
     assert result["discordant_full_success_baseline_failure"] == 4
@@ -83,18 +74,10 @@ def test_seed_cluster_bootstrap_is_deterministic_and_input_order_invariant() -> 
     shuffled = list(rows)
     random.Random(91).shuffle(shuffled)
     left = paired_binary_comparison(
-        rows,
-        full_method="full_pact",
-        baseline="raw_open_loop",
-        bootstrap_samples=100,
-        bootstrap_seed=29,
+        rows, full_method="full_pact", baseline="raw_open_loop", bootstrap_samples=100, bootstrap_seed=29
     )
     right = paired_binary_comparison(
-        shuffled,
-        full_method="full_pact",
-        baseline="raw_open_loop",
-        bootstrap_samples=100,
-        bootstrap_seed=29,
+        shuffled, full_method="full_pact", baseline="raw_open_loop", bootstrap_samples=100, bootstrap_seed=29
     )
     assert left == right
 
@@ -103,29 +86,16 @@ def test_paired_grid_rejects_duplicates_missing_cells_and_unbalanced_seeds() -> 
     rows = paired_rows()
     with pytest.raises(ValueError, match="duplicate paired cell"):
         paired_binary_comparison(
-            [*rows, rows[0]],
-            full_method="full_pact",
-            baseline="raw_open_loop",
-            bootstrap_samples=10,
+            [*rows, rows[0]], full_method="full_pact", baseline="raw_open_loop", bootstrap_samples=10
         )
     with pytest.raises(ValueError, match="episode sets differ"):
         paired_binary_comparison(
-            rows[:-1],
-            full_method="full_pact",
-            baseline="raw_open_loop",
-            bootstrap_samples=10,
+            rows[:-1], full_method="full_pact", baseline="raw_open_loop", bootstrap_samples=10
         )
-    unbalanced = [
-        row
-        for row in rows
-        if not (row["task"] == "family_b" and row["seed"] == 4)
-    ]
+    unbalanced = [row for row in rows if not (row["task"] == "family_b" and row["seed"] == 4)]
     with pytest.raises(ValueError, match="share one complete seed set"):
         paired_binary_comparison(
-            unbalanced,
-            full_method="full_pact",
-            baseline="raw_open_loop",
-            bootstrap_samples=10,
+            unbalanced, full_method="full_pact", baseline="raw_open_loop", bootstrap_samples=10
         )
 
 
@@ -134,19 +104,13 @@ def test_paired_grid_rejects_nonboolean_or_infrastructure_outcomes() -> None:
     nonboolean[0] = {**nonboolean[0], "success": "false"}
     with pytest.raises(ValueError, match="must be Boolean"):
         paired_binary_comparison(
-            nonboolean,
-            full_method="full_pact",
-            baseline="raw_open_loop",
-            bootstrap_samples=10,
+            nonboolean, full_method="full_pact", baseline="raw_open_loop", bootstrap_samples=10
         )
     infrastructure = paired_rows()
     infrastructure[0] = {**infrastructure[0], "infrastructure_failure": True}
     with pytest.raises(ValueError, match="infrastructure failure"):
         paired_binary_comparison(
-            infrastructure,
-            full_method="full_pact",
-            baseline="raw_open_loop",
-            bootstrap_samples=10,
+            infrastructure, full_method="full_pact", baseline="raw_open_loop", bootstrap_samples=10
         )
 
 
@@ -191,17 +155,11 @@ def test_restoration_summary_reports_transaction_and_episode_levels() -> None:
 
 
 def test_restoration_summary_handles_no_attempts_without_fake_uncertainty() -> None:
-    summary = restoration_summary(
-        [{"restoration_attempts": 0, "restoration_passes": 0}]
-    )
+    summary = restoration_summary([{"restoration_attempts": 0, "restoration_passes": 0}])
     assert summary["restoration_rate"] is None
     assert summary["restoration_wilson_interval"] is None
     assert summary["episodes_with_any_restoration_failure"] == 0
     with pytest.raises(ValueError, match="cannot exceed attempts"):
-        restoration_summary(
-            [{"restoration_attempts": 1, "restoration_passes": 2}]
-        )
+        restoration_summary([{"restoration_attempts": 1, "restoration_passes": 2}])
     with pytest.raises(ValueError, match="nonnegative"):
-        restoration_summary(
-            [{"restoration_attempts": -1, "restoration_passes": -1}]
-        )
+        restoration_summary([{"restoration_attempts": -1, "restoration_passes": -1}])

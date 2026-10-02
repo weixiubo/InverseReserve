@@ -2,20 +2,15 @@ from __future__ import annotations
 
 import inspect
 import json
-from urllib.error import HTTPError
-import sys
 from pathlib import Path
+from urllib.error import HTTPError
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-import rcrps.webarena_verified_runtime_v1 as runtime  # noqa: E402
-from rcrps.webarena_verified_runtime_v1 import (  # noqa: E402
-    FreshWebArenaContainerV1,
+import inversereserve.adapters.webarena.webarena_verified_runtime_v1 as runtime
+from inversereserve.adapters.webarena.webarena_verified_runtime_v1 import (
     SITE_RUNTIME_SPECS_V1,
+    FreshWebArenaContainerV1,
     container_run_arguments_v1,
     public_site_base_v1,
     public_site_status_v1,
@@ -26,6 +21,8 @@ from rcrps.webarena_verified_runtime_v1 import (  # noqa: E402
     validate_image_record_v1,
     validate_runtime_credentials_v1,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def image_record() -> dict[str, str]:
@@ -80,23 +77,15 @@ def test_public_site_probe_waits_for_host_mapping_and_accepts_auth_response(
     monkeypatch.setattr(runtime.time, "sleep", lambda _seconds: None)
     assert public_site_status_v1("shopping_admin", 24780, timeout=10) == 200
     assert calls[0][0] == "http://127.0.0.1:24780/admin"
-
     error = HTTPError(calls[0][0], 403, "auth required", {}, None)
     monkeypatch.setattr(runtime, "urlopen", lambda *_args, **_kwargs: (_ for _ in ()).throw(error))
     assert public_site_status_v1("shopping_admin", 24780, timeout=10) == 403
 
 
 def test_four_site_runtime_specs_and_public_bases_are_exact() -> None:
-    assert set(SITE_RUNTIME_SPECS_V1) == {
-        "reddit",
-        "gitlab",
-        "shopping_admin",
-        "shopping",
-    }
+    assert set(SITE_RUNTIME_SPECS_V1) == {"reddit", "gitlab", "shopping_admin", "shopping"}
     assert site_origin_v1("reddit", 20999) == "http://127.0.0.1:20999"
-    assert public_site_base_v1("shopping_admin", 22780) == (
-        "http://127.0.0.1:22780/admin"
-    )
+    assert public_site_base_v1("shopping_admin", 22780) == "http://127.0.0.1:22780/admin"
     assert site_spec_v1("gitlab").internal_site_port == 8023
     assert site_spec_v1("gitlab").form_login is True
     with pytest.raises(ValueError, match="unsupported"):
@@ -107,18 +96,8 @@ def test_four_site_runtime_specs_and_public_bases_are_exact() -> None:
     ("site", "template", "port", "expected"),
     [
         ("reddit", "__REDDIT__", 20999, "http://127.0.0.1:20999"),
-        (
-            "gitlab",
-            "__GITLAB__/profile",
-            22023,
-            "http://127.0.0.1:22023/profile",
-        ),
-        (
-            "shopping_admin",
-            "__SHOPPING_ADMIN__",
-            22780,
-            "http://127.0.0.1:22780/admin",
-        ),
+        ("gitlab", "__GITLAB__/profile", 22023, "http://127.0.0.1:22023/profile"),
+        ("shopping_admin", "__SHOPPING_ADMIN__", 22780, "http://127.0.0.1:22780/admin"),
         (
             "shopping",
             "__SHOPPING__/sales/order/history/",
@@ -137,22 +116,19 @@ def test_start_url_rejects_missing_duplicate_or_cross_site_tokens() -> None:
     with pytest.raises(ValueError, match="exact site token once"):
         render_start_url_v1("https://example.test", site="reddit", host_port=20999)
     with pytest.raises(ValueError, match="exact site token once"):
-        render_start_url_v1(
-            "__REDDIT__/__REDDIT__", site="reddit", host_port=20999
-        )
+        render_start_url_v1("__REDDIT__/__REDDIT__", site="reddit", host_port=20999)
     with pytest.raises(ValueError, match="another site"):
-        render_start_url_v1(
-            "__REDDIT__/__GITLAB__", site="reddit", host_port=20999
-        )
+        render_start_url_v1("__REDDIT__/__GITLAB__", site="reddit", host_port=20999)
 
 
 def test_harness_credentials_are_site_typed_and_never_defaulted() -> None:
-    assert validate_runtime_credentials_v1(
-        "reddit", autologin_value="user:secret"
-    ) == {"autologin_value": "user:secret"}
-    assert validate_runtime_credentials_v1(
-        "gitlab", username="user", password="secret"
-    ) == {"username": "user", "password": "secret"}
+    assert validate_runtime_credentials_v1("reddit", autologin_value="user:secret") == {
+        "autologin_value": "user:secret"
+    }
+    assert validate_runtime_credentials_v1("gitlab", username="user", password="secret") == {
+        "username": "user",
+        "password": "secret",
+    }
     with pytest.raises(ValueError):
         validate_runtime_credentials_v1("reddit", username="user", password="secret")
     with pytest.raises(ValueError):
@@ -179,7 +155,6 @@ def test_container_arguments_pin_image_and_isolate_ports_without_mount_or_gpu() 
     assert "--privileged" not in arguments
     assert "--gpus" not in arguments
     assert "-v" not in arguments
-
     gitlab = container_run_arguments_v1(
         site="gitlab",
         image_record=record,
@@ -215,9 +190,7 @@ def test_image_record_and_container_name_fail_closed() -> None:
         )
 
 
-def test_fresh_container_teardown_removes_only_the_exact_started_name(
-    monkeypatch,
-) -> None:
+def test_fresh_container_teardown_removes_only_the_exact_started_name(monkeypatch) -> None:
     calls = []
 
     def fake_run(arguments, **kwargs):
@@ -235,18 +208,11 @@ def test_fresh_container_teardown_removes_only_the_exact_started_name(
     )
     container.started = True
     container.__exit__()
-    assert calls == [
-        (
-            ["docker", "rm", "-f", "rps-wa-dev-399"],
-            {"timeout": 60, "check": False},
-        )
-    ]
+    assert calls == [(["docker", "rm", "-f", "rps-wa-dev-399"], {"timeout": 60, "check": False})]
     assert container.started is False
 
 
-def test_har_sanitization_removes_auth_and_preserves_task_payload(
-    tmp_path: Path,
-) -> None:
+def test_har_sanitization_removes_auth_and_preserves_task_payload(tmp_path: Path) -> None:
     credential = "user:secret"
     password = "secret"
     target = "This is the exact task value"
@@ -261,10 +227,7 @@ def test_har_sanitization_removes_auth_and_preserves_task_payload(
                             "request": {
                                 "url": "http://127.0.0.1/login",
                                 "headers": [
-                                    {
-                                        "name": "X-Postmill-Auto-Login",
-                                        "value": credential,
-                                    },
+                                    {"name": "X-Postmill-Auto-Login", "value": credential},
                                     {"name": "Content-Type", "value": "text/plain"},
                                 ],
                                 "cookies": [{"name": "session", "value": "abc"}],
@@ -274,9 +237,7 @@ def test_har_sanitization_removes_auth_and_preserves_task_payload(
                                 },
                             },
                             "response": {
-                                "headers": [
-                                    {"name": "Set-Cookie", "value": "session=abc"}
-                                ],
+                                "headers": [{"name": "Set-Cookie", "value": "session=abc"}],
                                 "cookies": [{"name": "session", "value": "abc"}],
                                 "content": {"text": f"logged in with {credential}"},
                             },
@@ -284,9 +245,7 @@ def test_har_sanitization_removes_auth_and_preserves_task_payload(
                         {
                             "request": {
                                 "url": "http://127.0.0.1/save",
-                                "headers": [
-                                    {"name": "Content-Type", "value": "text/plain"}
-                                ],
+                                "headers": [{"name": "Content-Type", "value": "text/plain"}],
                                 "cookies": [],
                                 "postData": {"text": target},
                             },
@@ -298,10 +257,7 @@ def test_har_sanitization_removes_auth_and_preserves_task_payload(
         ),
         encoding="utf-8",
     )
-    audit = sanitize_network_har_v1(
-        path,
-        forbidden_values=(credential, password),
-    )
+    audit = sanitize_network_har_v1(path, forbidden_values=(credential, password))
     serialized = path.read_text(encoding="utf-8")
     result = json.loads(serialized)
     assert credential not in serialized

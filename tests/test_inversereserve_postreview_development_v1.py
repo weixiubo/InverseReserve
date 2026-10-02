@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from rcrps import inversereserve_postreview_development_v1 as design
+from inversereserve.studies import inversereserve_postreview_development_v1 as design
 
 
 def protocol() -> dict[str, Any]:
@@ -48,11 +48,7 @@ def fake_result(
     reserve_stop: bool = False,
     unsafe_local: bool = False,
 ) -> dict[str, Any]:
-    reservation_rule = (
-        "proposal_local"
-        if episode["method"] == design.LOCAL_ABLATION
-        else "stack_wide"
-    )
+    reservation_rule = "proposal_local" if episode["method"] == design.LOCAL_ABLATION else "stack_wide"
     return {
         "episode": episode,
         "success": success,
@@ -104,22 +100,15 @@ def test_analysis_reports_task_utility_and_recovery_separately() -> None:
     analysis = design.analyze_rows(rows, value, all_claims_complete=True)
     assert analysis["complete"] is True
     assert analysis["claim_status"] == "development_only_no_submission_claim"
-    assert analysis["metrics"][design.LOCAL_ABLATION][
-        "unsafe_local_admissions"
-    ] == 45
-    assert analysis["metrics"][design.LOCAL_ABLATION][
-        "successes_with_active_obligations"
-    ] == 45
+    assert analysis["metrics"][design.LOCAL_ABLATION]["unsafe_local_admissions"] == 45
+    assert analysis["metrics"][design.LOCAL_ABLATION]["successes_with_active_obligations"] == 45
     assert analysis["metrics"][design.FULL_METHOD]["reserve_stops"] > 0
     assert len(analysis["by_task_budget"]) == 9
 
 
 def test_analysis_fails_closed_on_incomplete_manifest() -> None:
     value = protocol()
-    rows = [
-        fake_result(episode)
-        for episode in design.episode_manifest(value)[:-1]
-    ]
+    rows = [fake_result(episode) for episode in design.episode_manifest(value)[:-1]]
     analysis = design.analyze_rows(rows, value, all_claims_complete=False)
     assert analysis["exact_manifest"] is False
     assert analysis["all_claims_complete"] is False

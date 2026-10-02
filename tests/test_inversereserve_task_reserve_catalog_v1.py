@@ -1,21 +1,21 @@
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 from typing import Any
 
 import pytest
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
+from inversereserve.studies import inversereserve_task_reserve_catalog_v1 as design
 
-from rcrps import inversereserve_task_reserve_catalog_v1 as design
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def _protocol() -> dict:
     survey = json.loads(
-        (Path(__file__).parent / "fixtures" / "inversereserve_miniwob_public_input_coverage_survey_v1.json").read_text(encoding="utf-8")
+        (
+            Path(__file__).parent / "fixtures" / "inversereserve_miniwob_public_input_coverage_survey_v1.json"
+        ).read_text(encoding="utf-8")
     )
     population = design.derive_population(survey)
     return design.build_protocol(
@@ -41,7 +41,7 @@ def test_protocol_fixes_complete_catalog_binding_budget_and_h1() -> None:
         "shared_by_both_arms": True,
     }
     assert len(protocol["tasks"]) == len(design.CATALOG_TASKS) == 19
-    assert all(row["planner_task_reserve"] == 1 for row in protocol["tasks"])
+    assert all((row["planner_task_reserve"] == 1 for row in protocol["tasks"]))
     assert protocol["outcome_based_exclusion_allowed"] is False
     assert protocol["partial_reexecution_allowed"] is False
     assert protocol["completed_episode_replay_allowed"] is False
@@ -65,24 +65,13 @@ def test_manifest_is_complete_unique_fresh_and_counterbalanced() -> None:
 
 def test_preregistered_gate_inventory_matches_analysis_contract() -> None:
     assert design.VALIDITY_GATES["task_reserve_block_activates"] is True
-    assert design.VALIDITY_GATES[
-        "every_capacity_transaction_applies_h1"
-    ] is True
-    assert design.VALIDITY_GATES[
-        "minimum_net_paired_closed_successes"
-    ] is True
+    assert design.VALIDITY_GATES["every_capacity_transaction_applies_h1"] is True
+    assert design.VALIDITY_GATES["minimum_net_paired_closed_successes"] is True
     assert design.PRIMARY_ANALYSIS["minimum_full_closed_successes"] == 150
-    assert (
-        design.PRIMARY_ANALYSIS["minimum_net_paired_closed_successes"] == 20
-    )
+    assert design.PRIMARY_ANALYSIS["minimum_net_paired_closed_successes"] == 20
 
 
-def _row(
-    episode: dict[str, Any],
-    *,
-    success: bool,
-    activate_interfaces: bool = False,
-) -> dict[str, Any]:
+def _row(episode: dict[str, Any], *, success: bool, activate_interfaces: bool = False) -> dict[str, Any]:
     full = episode["method"] == design.FULL_METHOD
     trace = [
         {
@@ -96,9 +85,7 @@ def _row(
             "applied_inverse_reserve": 1 + int(full),
             "applied_task_reserve": 1,
             "applied_total_reserve": 2 + int(full),
-            "task_reserve_source": (
-                "structured_goal_terminal_intent_one_call"
-            ),
+            "task_reserve_source": "structured_goal_terminal_intent_one_call",
             "remaining_after_action": 4,
             "inverse_only_allowed": True,
             "allowed": True,
@@ -115,9 +102,7 @@ def _row(
             "applied_inverse_reserve": int(full),
             "applied_task_reserve": 0,
             "applied_total_reserve": int(full),
-            "task_reserve_source": (
-                "structured_goal_terminal_intent_one_call"
-            ),
+            "task_reserve_source": "structured_goal_terminal_intent_one_call",
             "remaining_after_action": 3,
             "inverse_only_allowed": True,
             "allowed": True,
@@ -147,9 +132,7 @@ def _row(
                     "applied_inverse_reserve": 1,
                     "applied_task_reserve": 1,
                     "applied_total_reserve": 2,
-                    "task_reserve_source": (
-                        "structured_goal_terminal_intent_one_call"
-                    ),
+                    "task_reserve_source": "structured_goal_terminal_intent_one_call",
                     "remaining_after_action": 1,
                     "inverse_only_allowed": True,
                     "allowed": False,
@@ -166,9 +149,7 @@ def _row(
                     "applied_inverse_reserve": 3,
                     "applied_task_reserve": 1,
                     "applied_total_reserve": 4,
-                    "task_reserve_source": (
-                        "structured_goal_terminal_intent_one_call"
-                    ),
+                    "task_reserve_source": "structured_goal_terminal_intent_one_call",
                     "remaining_after_action": 2,
                     "inverse_only_allowed": False,
                     "allowed": False,
@@ -213,9 +194,7 @@ def _row(
 
 
 def _synthetic_valid_rows(protocol: dict[str, Any]) -> list[dict[str, Any]]:
-    task_index = {
-        task: index for index, task in enumerate(design.CATALOG_TASKS)
-    }
+    task_index = {task: index for index, task in enumerate(design.CATALOG_TASKS)}
     rows = []
     for episode in design.episode_manifest(protocol):
         cutoff = 10 if episode["method"] == design.FULL_METHOD else 8
@@ -229,62 +208,35 @@ def _synthetic_valid_rows(protocol: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
-def test_complete_synthetic_grid_passes_every_frozen_gate(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
+def test_complete_synthetic_grid_passes_every_frozen_gate(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(design, "BOOTSTRAP_SAMPLES", 100)
     protocol = _protocol()
-    analysis = design.analyze_rows(
-        _synthetic_valid_rows(protocol),
-        protocol,
-        all_claims_complete=True,
-    )
+    analysis = design.analyze_rows(_synthetic_valid_rows(protocol), protocol, all_claims_complete=True)
     assert analysis["passed"] is True
     assert all(analysis["checks"].values())
-    assert (
-        analysis["metrics"][design.FULL_METHOD]["closed_successes"] == 200
-    )
-    assert (
-        analysis["metrics"][design.SAFE_BASELINE]["closed_successes"] == 160
-    )
+    assert analysis["metrics"][design.FULL_METHOD]["closed_successes"] == 200
+    assert analysis["metrics"][design.SAFE_BASELINE]["closed_successes"] == 160
     assert analysis["metrics"][design.FULL_METHOD]["nested_admissions"] > 0
-    assert (
-        analysis["metrics"][design.SAFE_BASELINE][
-            "single_active_cap_rejections"
-        ]
-        > 0
-    )
+    assert analysis["metrics"][design.SAFE_BASELINE]["single_active_cap_rejections"] > 0
 
 
-def test_h_tampering_or_incomplete_grid_fails_closed(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
+def test_h_tampering_or_incomplete_grid_fails_closed(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(design, "BOOTSTRAP_SAMPLES", 20)
     protocol = _protocol()
     rows = _synthetic_valid_rows(protocol)
     event = next(
-        event
-        for row in rows
-        for event in row["trace"]
-        if event.get("runtime_version") == "PACT-v21-task-reserve"
-        and event.get("decision") == "transact"
+        (
+            event
+            for row in rows
+            for event in row["trace"]
+            if event.get("runtime_version") == "PACT-v21-task-reserve" and event.get("decision") == "transact"
+        )
     )
     event["applied_task_reserve"] = 0
-    analysis = design.analyze_rows(
-        rows,
-        protocol,
-        all_claims_complete=True,
-    )
-    assert analysis["checks"][
-        "every_capacity_transaction_applies_h1"
-    ] is False
+    analysis = design.analyze_rows(rows, protocol, all_claims_complete=True)
+    assert analysis["checks"]["every_capacity_transaction_applies_h1"] is False
     assert analysis["passed"] is False
-
     rows = _synthetic_valid_rows(protocol)[:-1]
-    analysis = design.analyze_rows(
-        rows,
-        protocol,
-        all_claims_complete=False,
-    )
+    analysis = design.analyze_rows(rows, protocol, all_claims_complete=False)
     assert analysis["checks"]["complete_exact_grid"] is False
     assert analysis["passed"] is False

@@ -1,25 +1,18 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.confirmation_agents_v9 import FullPactConfirmationDriverV9  # noqa: E402
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
-from rcrps.typed_contracts_v4 import TransactionContractV4  # noqa: E402
-from rcrps.typed_contracts_v8 import check_transaction_postcondition_v8  # noqa: E402
-from rcrps.typed_contracts_v9 import (  # noqa: E402
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.contracts.typed_contracts_v4 import TransactionContractV4
+from inversereserve.contracts.typed_contracts_v8 import check_transaction_postcondition_v8
+from inversereserve.contracts.typed_contracts_v9 import (
     check_transaction_postcondition_v9,
     query_aligned_added_suggestion_rows_v9,
 )
-from rcrps.typed_observation import (  # noqa: E402
-    SemanticElement,
-    SemanticSnapshot,
-    semantic_delta,
-)
+from inversereserve.controllers.confirmation_agents_v9 import FullPactConfirmationDriverV9
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot, semantic_delta
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -83,13 +76,7 @@ def before_with_existing_surface() -> SemanticSnapshot:
         (
             element("body"),
             field(""),
-            element(
-                "20",
-                role="list",
-                tag="ul",
-                attributes={"class": "ui-autocomplete"},
-                dom_parent="body",
-            ),
+            element("20", role="list", tag="ul", attributes={"class": "ui-autocomplete"}, dom_parent="body"),
         )
     )
 
@@ -98,27 +85,16 @@ def populated_after(
     *, field_value: str = "Ma", suggestions: tuple[str, ...] = ("Macao", "Maldives")
 ) -> SemanticSnapshot:
     rows = tuple(
-        element(
-            str(21 + index),
-            role="option",
-            name=value,
-            tag="li",
-            dom_parent="20",
-            ax_parent="20",
+        (
+            element(str(21 + index), role="option", name=value, tag="li", dom_parent="20", ax_parent="20")
+            for index, value in enumerate(suggestions)
         )
-        for index, value in enumerate(suggestions)
     )
     return SemanticSnapshot(
         (
             element("body"),
             field(field_value),
-            element(
-                "20",
-                role="list",
-                tag="ul",
-                attributes={"class": "ui-autocomplete"},
-                dom_parent="body",
-            ),
+            element("20", role="list", tag="ul", attributes={"class": "ui-autocomplete"}, dom_parent="body"),
             *rows,
         )
     )
@@ -134,9 +110,10 @@ def test_v9_accepts_query_aligned_population_of_existing_public_surface() -> Non
     assert "newly populated suggestion rows" in repaired.reason
     assert repaired.delta.changed_visible_bids == ("17",)
     assert repaired.delta.added_visible_bids == ("21", "22")
-    assert query_aligned_added_suggestion_rows_v9(
-        after, semantic_delta(before, after), "Ma"
-    ) == ("Macao", "Maldives")
+    assert query_aligned_added_suggestion_rows_v9(after, semantic_delta(before, after), "Ma") == (
+        "Macao",
+        "Maldives",
+    )
 
 
 def test_v9_rejects_population_when_target_field_did_not_change() -> None:
@@ -169,6 +146,4 @@ def test_v9_rejects_query_aligned_text_outside_suggestion_structure() -> None:
 
 def test_v9_driver_replaces_only_the_typed_runtime() -> None:
     assert FullPactConfirmationDriverV9.method_id == "full_pact_v9"
-    assert FullPactConfirmationDriverV9.__mro__[1].__name__ == (
-        "FullPactConfirmationDriverV8"
-    )
+    assert FullPactConfirmationDriverV9.__mro__[1].__name__ == "FullPactConfirmationDriverV8"

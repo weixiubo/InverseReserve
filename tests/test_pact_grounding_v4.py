@@ -1,30 +1,20 @@
 from __future__ import annotations
 
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.goal_contracts_v4 import compile_structured_goal  # noqa: E402
-from rcrps.pact_grounding_v4 import (  # noqa: E402
+from inversereserve.contracts.goal_contracts_v4 import compile_structured_goal
+from inversereserve.contracts.pact_grounding_v4 import (
     certify_commit_v4,
     verify_commit_grounding_v4,
     verify_goal_state,
 )
-from rcrps.structured_planner_v4 import (  # noqa: E402
-    ActionCandidateV4,
-    compile_v4_inventory,
-)
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
-from rcrps.typed_contracts_v4 import infer_transaction_contract  # noqa: E402
-from rcrps.typed_observation import (  # noqa: E402
-    SemanticDelta,
-    SemanticElement,
-    SemanticSnapshot,
-)
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.contracts.typed_contracts_v4 import infer_transaction_contract
+from inversereserve.models.structured_planner_v4 import ActionCandidateV4, compile_v4_inventory
+from inversereserve.observations.typed_observation import SemanticDelta, SemanticElement, SemanticSnapshot
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -56,13 +46,7 @@ def element(
     )
 
 
-def candidate(
-    bid: str,
-    *,
-    role: str,
-    label: str,
-    parent: str | None = None,
-) -> ActionCandidateV4:
+def candidate(bid: str, *, role: str, label: str, parent: str | None = None) -> ActionCandidateV4:
     return ActionCandidateV4(
         bid=bid,
         action=ContractActionV4("click", bid),
@@ -81,9 +65,7 @@ def widget_snapshot(two: bool = False) -> SemanticSnapshot:
         element("radio", role="radio", name="B", tag="input", clickable=True),
     ]
     if two:
-        rows.append(
-            element("check2", role="checkbox", name="C", tag="input", clickable=True)
-        )
+        rows.append(element("check2", role="checkbox", name="C", tag="input", clickable=True))
     return SemanticSnapshot(tuple(rows))
 
 
@@ -91,23 +73,16 @@ def test_direct_role_certificate_requires_one_visible_authoritative_row() -> Non
     current = widget_snapshot()
     goal = compile_structured_goal('Click on a "checkbox" widget.', current)
     inventory = compile_v4_inventory(current, goal.goal)
-    row = next(item for item in inventory.candidates if item.bid == "check")
+    row = next((item for item in inventory.candidates if item.bid == "check"))
     certificate = certify_commit_v4(
-        current=current,
-        goal=goal,
-        candidate=row,
-        inventory=inventory.candidates,
-        active_transactions=(),
+        current=current, goal=goal, candidate=row, inventory=inventory.candidates, active_transactions=()
     )
     assert certificate.allowed
     assert certificate.grounding.anchor_kind == "direct_role"
     assert certificate.certified_action == ContractActionV4("click", "check")
-
     ambiguous_current = widget_snapshot(two=True)
     ambiguous_inventory = compile_v4_inventory(ambiguous_current, goal.goal)
-    ambiguous_row = next(
-        item for item in ambiguous_inventory.candidates if item.bid == "check"
-    )
+    ambiguous_row = next((item for item in ambiguous_inventory.candidates if item.bid == "check"))
     rejected = certify_commit_v4(
         current=ambiguous_current,
         goal=compile_structured_goal(goal.goal, ambiguous_current),
@@ -142,9 +117,7 @@ def autocomplete_states() -> tuple[SemanticSnapshot, SemanticSnapshot, object]:
             element("submit", role="button", name="Submit", tag="button", clickable=True),
         )
     )
-    goal = compile_structured_goal(
-        'Enter an item that starts with "Som" and ends with "alia".', before
-    )
+    goal = compile_structured_goal('Enter an item that starts with "Som" and ends with "alia".', before)
     contract = infer_transaction_contract(before, "field", goal).contract
     assert contract is not None
     after = SemanticSnapshot(
@@ -168,50 +141,27 @@ def autocomplete_states() -> tuple[SemanticSnapshot, SemanticSnapshot, object]:
                 attributes={"class": "ui-autocomplete"},
                 dom_parent="body",
             ),
-            element(
-                "choice",
-                role="listitem",
-                name="Somalia",
-                tag="li",
-                dom_parent="menu",
-                clickable=True,
-            ),
+            element("choice", role="listitem", name="Somalia", tag="li", dom_parent="menu", clickable=True),
             element("submit", role="button", name="Submit", tag="button", clickable=True),
         )
     )
-    return before, after, contract
+    return (before, after, contract)
 
 
 def test_active_autocomplete_scopes_exact_suggestion_and_blocks_early_submit() -> None:
     before, after, contract = autocomplete_states()
-    goal = compile_structured_goal(
-        'Enter an item that starts with "Som" and ends with "alia".', before
-    )
+    goal = compile_structured_goal('Enter an item that starts with "Som" and ends with "alia".', before)
     inventory = (
         candidate("choice", role="listitem", label="Somalia", parent="menu"),
         candidate("submit", role="button", label="Submit"),
     )
-    active = (
-        Active(
-            contract,
-            SemanticDelta(("menu", "choice"), (), ("body", "field"), ("Somalia",)),
-        ),
-    )
+    active = (Active(contract, SemanticDelta(("menu", "choice"), (), ("body", "field"), ("Somalia",))),)
     choice = verify_commit_grounding_v4(
-        current=after,
-        goal=goal,
-        candidate=inventory[0],
-        inventory=inventory,
-        active_transactions=active,
+        current=after, goal=goal, candidate=inventory[0], inventory=inventory, active_transactions=active
     )
     assert choice.allowed and choice.anchor_kind == "exact_target"
-
     early_submit = verify_commit_grounding_v4(
-        current=after,
-        goal=goal,
-        candidate=inventory[1],
-        inventory=inventory,
-        active_transactions=active,
+        current=after, goal=goal, candidate=inventory[1], inventory=inventory, active_transactions=active
     )
     assert not early_submit.allowed
 
@@ -254,35 +204,22 @@ def login_snapshot(*, username: str, password: str, popup: bool = False) -> Sema
 
 def test_form_action_requires_all_structured_values_and_unique_terminal() -> None:
     empty = login_snapshot(username="", password="")
-    goal_text = (
-        'Enter the username "michel" and the password "0Tl" into the text '
-        "fields and press login."
-    )
+    goal_text = 'Enter the username "michel" and the password "0Tl" into the text fields and press login.'
     goal = compile_structured_goal(goal_text, empty)
     complete = login_snapshot(username="michel", password="0Tl")
     evidence = verify_goal_state(complete, goal)
     assert evidence.allowed and evidence.evidence_bids == ("pass", "user")
     inventory = (candidate("submit", role="button", label="OK"),)
     admitted = verify_commit_grounding_v4(
-        current=complete,
-        goal=goal,
-        candidate=inventory[0],
-        inventory=inventory,
-        active_transactions=(),
+        current=complete, goal=goal, candidate=inventory[0], inventory=inventory, active_transactions=()
     )
     assert admitted.allowed
     assert admitted.anchor_kind == "state_supported_form_action"
-
     incomplete = login_snapshot(username="michel", password="")
     rejected = verify_commit_grounding_v4(
-        current=incomplete,
-        goal=goal,
-        candidate=inventory[0],
-        inventory=inventory,
-        active_transactions=(),
+        current=incomplete, goal=goal, candidate=inventory[0], inventory=inventory, active_transactions=()
     )
     assert not rejected.allowed
-
     popup = login_snapshot(username="michel", password="0Tl", popup=True)
     ambiguous_inventory = (
         candidate("submit", role="button", label="OK"),
@@ -309,11 +246,7 @@ def result_snapshot() -> SemanticSnapshot:
         button = f"book{index}"
         rows.extend(
             (
-                element(
-                    card,
-                    text=f"Book flight for ${price} Duration: {duration}",
-                    visible=visible,
-                ),
+                element(card, text=f"Book flight for ${price} Duration: {duration}", visible=visible),
                 element(
                     button,
                     role="button",
@@ -330,17 +263,11 @@ def result_snapshot() -> SemanticSnapshot:
 
 def test_public_comparative_certificate_can_select_unique_offscreen_argmin() -> None:
     current = result_snapshot()
-    shortest_goal = (
-        "Book the shortest one-way flight from: A to: B on 10/27/2016."
-    )
+    shortest_goal = "Book the shortest one-way flight from: A to: B on 10/27/2016."
     shortest = compile_v4_inventory(current, shortest_goal)
-    rows = [
-        row
-        for row in shortest.candidates
-        if dict(row.state).get("objective_kind") == "min_duration"
-    ]
+    rows = [row for row in shortest.candidates if dict(row.state).get("objective_kind") == "min_duration"]
     assert len(rows) == 4
-    target = next(row for row in rows if row.bid == "book3")
+    target = next((row for row in rows if row.bid == "book3"))
     assert target.publicly_actionable_offscreen
     certificate = certify_commit_v4(
         current=current,
@@ -352,12 +279,9 @@ def test_public_comparative_certificate_can_select_unique_offscreen_argmin() -> 
     assert certificate.allowed
     assert certificate.grounding.anchor_kind == "min_duration"
     assert certificate.grounding.competing_bids == ("book3",)
-
-    cheapest_goal = (
-        "Book the cheapest one-way flight from: A to: B on 10/27/2016."
-    )
+    cheapest_goal = "Book the cheapest one-way flight from: A to: B on 10/27/2016."
     cheapest = compile_v4_inventory(current, cheapest_goal)
-    cheap_target = next(row for row in cheapest.candidates if row.bid == "book2")
+    cheap_target = next((row for row in cheapest.candidates if row.bid == "book2"))
     cheap_certificate = certify_commit_v4(
         current=current,
         goal=cheapest.goal_contract,

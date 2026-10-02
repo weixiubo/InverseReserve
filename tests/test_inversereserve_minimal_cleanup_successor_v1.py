@@ -1,17 +1,14 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps import inversereserve_minimal_cleanup_successor_v1 as design
-from rcrps.minimal_cleanup_replan_capacity_driver_v1 import (
+from inversereserve.controllers.minimal_cleanup_replan_capacity_driver_v1 import (
     MINIMAL_CLEANUP_POLICY_EVENT_V1,
 )
+from inversereserve.studies import inversereserve_minimal_cleanup_successor_v1 as design
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def protocol() -> dict[str, Any]:
@@ -27,11 +24,7 @@ def protocol() -> dict[str, Any]:
 
 
 def fake_result(
-    episode: dict[str, Any],
-    *,
-    success: bool = False,
-    restored: bool = False,
-    policy_bind: bool = False,
+    episode: dict[str, Any], *, success: bool = False, restored: bool = False, policy_bind: bool = False
 ) -> dict[str, Any]:
     is_policy = episode["method"] == design.SAFE_BASELINE
     clearance = int(restored)
@@ -115,8 +108,10 @@ def test_protocol_freezes_fresh_grid_and_adaptive_disclosure() -> None:
     assert value["prestart_supersession"] == design.PRESTART_SUPERSESSION
     assert len(value["prestart_supersession"]["protocols"]) == 3
     assert all(
-        row["claims_opened"] == row["episodes_opened"] == 0
-        for row in value["prestart_supersession"]["protocols"]
+        (
+            row["claims_opened"] == row["episodes_opened"] == 0
+            for row in value["prestart_supersession"]["protocols"]
+        )
     )
     assert value["selection_disclosure"] == design.SELECTION_DISCLOSURE
     assert value["selection_disclosure"]["retrospective_proxy_used"] is False
@@ -130,9 +125,7 @@ def test_manifest_is_exact_unique_and_counterbalanced() -> None:
     rows = design.episode_manifest(value)
     assert len(rows) == len({row["episode_id"] for row in rows}) == 480
     assert {row["budget_level"] for row in rows} == set(design.BUDGET_LEVELS)
-    assert design.arm_order_counts(value) == {
-        arm: {0: 120, 1: 120} for arm in design.ARMS
-    }
+    assert design.arm_order_counts(value) == {arm: {0: 120, 1: 120} for arm in design.ARMS}
 
 
 def test_synthetic_complete_population_passes_stronger_policy_gates() -> None:
@@ -145,10 +138,7 @@ def test_synthetic_complete_population_passes_stronger_policy_gates() -> None:
                 episode,
                 success=success,
                 restored=not success,
-                policy_bind=(
-                    episode["method"] == design.SAFE_BASELINE
-                    and episode["budget_level"] == "low"
-                ),
+                policy_bind=episode["method"] == design.SAFE_BASELINE and episode["budget_level"] == "low",
             )
         )
     analysis = design.analyze_rows(rows, value, all_claims_complete=True)
@@ -164,27 +154,18 @@ def test_synthetic_complete_population_passes_stronger_policy_gates() -> None:
 def test_policy_violation_and_missing_row_fail_closed() -> None:
     value = protocol()
     manifest = design.episode_manifest(value)
-    incomplete = [
-        fake_result(episode, restored=True)
-        for episode in manifest[:-1]
-    ]
-    assert design.analyze_rows(
-        incomplete, value, all_claims_complete=False
-    )["passed"] is False
-
+    incomplete = [fake_result(episode, restored=True) for episode in manifest[:-1]]
+    assert design.analyze_rows(incomplete, value, all_claims_complete=False)["passed"] is False
     rows = [
         fake_result(
             episode,
             success=episode["budget_level"] in {"medium", "high"},
             restored=episode["budget_level"] == "low",
-            policy_bind=(
-                episode["method"] == design.SAFE_BASELINE
-                and episode["budget_level"] == "low"
-            ),
+            policy_bind=episode["method"] == design.SAFE_BASELINE and episode["budget_level"] == "low",
         )
         for episode in manifest
     ]
-    safe_row = next(row for row in rows if row["trace"])
+    safe_row = next((row for row in rows if row["trace"]))
     safe_row["trace"][1]["active_obligations_after_cleanup"] = 0
     analysis = design.analyze_rows(rows, value, all_claims_complete=True)
     assert analysis["checks"]["minimal_cleanup_policy_holds"] is False

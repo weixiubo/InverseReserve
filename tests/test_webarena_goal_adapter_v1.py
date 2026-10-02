@@ -1,29 +1,22 @@
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.pact_controller_v4 import ActiveTransactionV4  # noqa: E402
-from rcrps.typed_contracts_v4 import (  # noqa: E402
-    check_transaction_postcondition,
-    check_transaction_restoration,
-)
-from rcrps.typed_observation import (  # noqa: E402
-    SemanticElement,
-    SemanticSnapshot,
-    semantic_delta,
-)
-from rcrps.webarena_goal_adapter_v1 import (  # noqa: E402
+from inversereserve.adapters.webarena.webarena_goal_adapter_v1 import (
     certify_webarena_commit_v1,
     compile_webarena_goal_contract_v1,
     compile_webarena_inventory_v1,
     parse_reply_payload_v1,
 )
+from inversereserve.contracts.typed_contracts_v4 import (
+    check_transaction_postcondition,
+    check_transaction_restoration,
+)
+from inversereserve.controllers.pact_controller_v4 import ActiveTransactionV4
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot, semantic_delta
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -56,10 +49,7 @@ def element(
 
 
 def reply_form(
-    *,
-    value: str = "",
-    second_textarea: bool = False,
-    submit_label: str = "Comment",
+    *, value: str = "", second_textarea: bool = False, submit_label: str = "Comment"
 ) -> SemanticSnapshot:
     rows = [
         element("page", text="Public forum page"),
@@ -75,12 +65,7 @@ def reply_form(
             clickable=False,
         ),
         element(
-            "submit",
-            role="button",
-            name=submit_label,
-            tag="button",
-            dom_parent="reply-form",
-            clickable=True,
+            "submit", role="button", name=submit_label, tag="button", dom_parent="reply-form", clickable=True
         ),
         element(
             "search",
@@ -126,20 +111,13 @@ def test_reply_payload_parser_preserves_exact_instruction_spans() -> None:
     assert direct.value == "thanks! I am a big fan."
     assert direct.action_span.text == "Reply"
     assert GOAL[direct.value_span.start : direct.value_span.end] == direct.value
-
-    possessive = parse_reply_payload_v1(
-        'Reply to the post with my comment “Yeah, traffic, you know...”'
-    )
+    possessive = parse_reply_payload_v1("Reply to the post with my comment “Yeah, traffic, you know...”")
     assert possessive is not None
     assert possessive.value == "Yeah, traffic, you know..."
-
-    nested_reply = parse_reply_payload_v1(
-        'Reply to the first reply in this post with "don\'t panic"'
-    )
+    nested_reply = parse_reply_payload_v1('Reply to the first reply in this post with "don\'t panic"')
     assert nested_reply is not None
     assert nested_reply.action_span.text == "Reply"
     assert nested_reply.value == "don't panic"
-
     selected_wordings = (
         'Reply to the manager of the website in this post with "thanks! I am a big fan of your website."',
         'Reply to the first reply in this post with "don\'t panic"',
@@ -150,13 +128,7 @@ def test_reply_payload_parser_preserves_exact_instruction_spans() -> None:
         "don't panic",
         "Yeah, pittsburgh traffic, you know...",
     ]
-
-    assert (
-        parse_reply_payload_v1(
-            'Re-post the image using the title "from /f/pics"'
-        )
-        is None
-    )
+    assert parse_reply_payload_v1('Re-post the image using the title "from /f/pics"') is None
 
 
 def test_unique_public_reply_form_compiles_fill_and_exact_inverse() -> None:
@@ -168,10 +140,7 @@ def test_unique_public_reply_form_compiles_fill_and_exact_inverse() -> None:
     assert binding.form_bid == "reply-form"
     assert binding.submit_bid == "submit"
     assert binding.value_span.text == "thanks! I am a big fan."
-
-    inventory = compile_webarena_inventory_v1(
-        before, GOAL, goal_contract=contract
-    )
+    inventory = compile_webarena_inventory_v1(before, GOAL, goal_contract=contract)
     typed = inventory.contract_by_bid["comment"]
     assert typed.kind == "editable_field_assignment"
     assert typed.expected_value == "thanks! I am a big fan."
@@ -190,10 +159,7 @@ def test_equivalent_base_and_adapter_bindings_deduplicate_without_value_loss() -
     assert len(goal.payload_bindings) == 1
     assert len(goal.field_assignments) == 1
     assert goal.assignment_for_bid("comment").value == "???"
-
-    inventory = compile_webarena_inventory_v1(
-        before, goal_text, goal_contract=goal
-    )
+    inventory = compile_webarena_inventory_v1(before, goal_text, goal_contract=goal)
     typed = inventory.contract_by_bid["comment"]
     assert typed.expected_value == "???"
     assert typed.prior_value == ""
@@ -205,9 +171,7 @@ def test_ambiguous_reply_forms_fail_closed_without_a_payload_transaction() -> No
     assert contract.reply_payload is not None
     assert contract.payload_bindings == ()
     assert "exactly one" in contract.payload_resolution
-    inventory = compile_webarena_inventory_v1(
-        snapshot, GOAL, goal_contract=contract
-    )
+    inventory = compile_webarena_inventory_v1(snapshot, GOAL, goal_contract=contract)
     assert "comment" not in inventory.contract_by_bid
     assert "other-comment" not in inventory.contract_by_bid
 
@@ -216,10 +180,7 @@ def test_payload_transaction_postcondition_and_restoration_are_scoped() -> None:
     before = reply_form(value="draft")
     filled = reply_form(value="thanks! I am a big fan.")
     goal = compile_webarena_goal_contract_v1(GOAL, before)
-    typed = compile_webarena_inventory_v1(
-        before, GOAL, goal_contract=goal
-    ).contract_by_bid["comment"]
-
+    typed = compile_webarena_inventory_v1(before, GOAL, goal_contract=goal).contract_by_bid["comment"]
     post = check_transaction_postcondition(before, filled, typed)
     restored = check_transaction_restoration(before, before, typed)
     assert post.passed is True
@@ -231,22 +192,11 @@ def test_commit_requires_active_exact_payload_and_unique_same_form_action() -> N
     before = reply_form()
     filled = reply_form(value="thanks! I am a big fan.")
     goal = compile_webarena_goal_contract_v1(GOAL, before)
-    before_inventory = compile_webarena_inventory_v1(
-        before, GOAL, goal_contract=goal
-    )
+    before_inventory = compile_webarena_inventory_v1(before, GOAL, goal_contract=goal)
     typed = before_inventory.contract_by_bid["comment"]
-    active = ActiveTransactionV4(
-        typed,
-        "Comment",
-        before,
-        filled,
-        semantic_delta(before, filled),
-    )
-    current_inventory = compile_webarena_inventory_v1(
-        filled, GOAL, goal_contract=goal
-    )
-    submit = next(row for row in current_inventory.candidates if row.bid == "submit")
-
+    active = ActiveTransactionV4(typed, "Comment", before, filled, semantic_delta(before, filled))
+    current_inventory = compile_webarena_inventory_v1(filled, GOAL, goal_contract=goal)
+    submit = next((row for row in current_inventory.candidates if row.bid == "submit"))
     early = certify_webarena_commit_v1(
         current=filled,
         goal=goal,
@@ -255,7 +205,6 @@ def test_commit_requires_active_exact_payload_and_unique_same_form_action() -> N
         active_transactions=(),
     )
     assert early.allowed is False
-
     admitted = certify_webarena_commit_v1(
         current=filled,
         goal=goal,
@@ -279,4 +228,4 @@ def test_adapter_record_exposes_public_only_information_boundary() -> None:
     assert adapter["uses_reward"] is False
     serialized = json.dumps(record, sort_keys=True).lower()
     assert "expected answer" not in serialized
-    assert "task_id" in serialized and "evaluator" in serialized and "reward" in serialized
+    assert "task_id" in serialized and "evaluator" in serialized and ("reward" in serialized)

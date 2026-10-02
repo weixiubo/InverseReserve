@@ -3,7 +3,9 @@ from __future__ import annotations
 import copy
 from types import SimpleNamespace
 
-from rcrps.inversereserve_live_resource_stress_v1 import (
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.contracts.typed_contracts_v4 import TransactionContractV4
+from inversereserve.studies.inversereserve_live_resource_stress_v1 import (
     ARMS,
     GUI_ACTION_BUDGETS,
     SEEDS,
@@ -12,8 +14,6 @@ from rcrps.inversereserve_live_resource_stress_v1 import (
     analyze_rows,
     episode_manifest,
 )
-from rcrps.transaction_actions_v4 import ContractActionV4
-from rcrps.typed_contracts_v4 import TransactionContractV4
 
 
 def _contract(bid: str) -> TransactionContractV4:
@@ -32,18 +32,13 @@ def _driver(cls, *, active: int, budget: int, executed: int):
     driver = object.__new__(cls)
     contract = _contract("proposal")
     driver.runtime = SimpleNamespace(
-        active=[
-            SimpleNamespace(contract=_contract(f"active{index}"))
-            for index in range(active)
-        ]
+        active=[SimpleNamespace(contract=_contract(f"active{index}")) for index in range(active)]
     )
     driver.executor = SimpleNamespace(actions=[None] * executed)
     driver.budgets = {"maximum_gui_actions": budget}
     driver.inverse_reservation_audits = 0
     driver.trace = []
-    driver.inventory = lambda: SimpleNamespace(
-        contract_by_bid={"proposal": contract}
-    )
+    driver.inventory = lambda: SimpleNamespace(contract_by_bid={"proposal": contract})
     driver.audit = lambda event: driver.trace.append(event)
     return driver
 
@@ -113,10 +108,9 @@ def test_manifest_is_complete_unique_and_counterbalanced() -> None:
     rows = episode_manifest(_protocol())
     assert len(rows) == 160
     assert len({row["episode_id"] for row in rows}) == 160
-    assert {
-        (row["seed"], row["maximum_gui_actions"])
-        for row in rows
-    } == set((seed, budget) for seed in SEEDS for budget in GUI_ACTION_BUDGETS)
+    assert {(row["seed"], row["maximum_gui_actions"]) for row in rows} == set(
+        (seed, budget) for seed in SEEDS for budget in GUI_ACTION_BUDGETS
+    )
     assert sum(row["arm_position"] == 0 for row in rows) == 80
 
 

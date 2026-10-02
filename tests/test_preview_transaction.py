@@ -1,18 +1,13 @@
 from __future__ import annotations
 
-import sys
 import time
 from pathlib import Path
 
 import pytest
 from PIL import Image
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.click_preview import WordBox  # noqa: E402
-from rcrps.preview_transaction import (  # noqa: E402
+from inversereserve.observations.click_preview import WordBox
+from inversereserve.observations.preview_transaction import (
     METHOD_ORDER,
     METHOD_SPECS,
     BudgetExhausted,
@@ -25,6 +20,8 @@ from rcrps.preview_transaction import (  # noqa: E402
     instruction_target_tokens,
     restoration_certificate,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_method_ablation_axes_are_explicit() -> None:
@@ -42,7 +39,6 @@ def test_method_ablation_axes_are_explicit() -> None:
 
 def test_c418_platt_gate_is_monotone_and_conservative() -> None:
     gate = FrozenPlattGate()
-
     assert gate.calibrate(0.1) < gate.calibrate(0.5) < gate.calibrate(0.9)
     assert gate.allows(0.1)
     assert not gate.allows(0.9)
@@ -50,23 +46,14 @@ def test_c418_platt_gate_is_monotone_and_conservative() -> None:
 
 
 def test_instruction_target_uses_final_quoted_phrase_and_css_tokens() -> None:
-    instruction = (
-        'Click the "Menu" button, then find the item with the '
-        '"ui-icon-play" icon.'
-    )
-
+    instruction = 'Click the "Menu" button, then find the item with the "ui-icon-play" icon.'
     assert instruction_target_tokens(instruction) == ("play",)
 
 
 def test_instruction_target_rejects_earlier_disclosure_quote() -> None:
-    instruction = (
-        'Click the "Menu" button, and then find and click on the item with the icon.'
-    )
-
+    instruction = 'Click the "Menu" button, and then find and click on the item with the icon.'
     assert instruction_target_tokens(instruction) == ()
-    assert instruction_target_tokens(
-        "Expand the section below and click submit."
-    ) == ("submit",)
+    assert instruction_target_tokens("Expand the section below and click submit.") == ("submit",)
     assert instruction_target_tokens("Select Parent>Child>Leaf") == ("leaf",)
 
 
@@ -75,24 +62,15 @@ def test_text_binding_requires_unique_exact_target() -> None:
         WordBox("Save", (10, 10, 40, 22), 95.0, 1, 1, 1),
         WordBox("Playback", (10, 30, 70, 42), 90.0, 2, 1, 1),
     )
-
-    binding = bind_unique_visible_text(
-        instruction='Click the item labeled "Save".',
-        word_boxes=boxes,
-    )
+    binding = bind_unique_visible_text(instruction='Click the item labeled "Save".', word_boxes=boxes)
     icon_binding = bind_unique_visible_text(
-        instruction='Click the item with the "ui-icon-play" icon.',
-        word_boxes=boxes,
+        instruction='Click the item with the "ui-icon-play" icon.', word_boxes=boxes
     )
-
     assert binding is not None
     assert binding.text == "Save"
     assert binding.point == (25.0, 16.0)
     assert icon_binding is None
-    assert hover_relevance(
-        'Click the item with the "ui-icon-play" icon.',
-        "Playback",
-    )[0] == 1
+    assert hover_relevance('Click the item with the "ui-icon-play" icon.', "Playback")[0] == 1
 
 
 def test_text_binding_abstains_on_disjoint_tie() -> None:
@@ -100,14 +78,7 @@ def test_text_binding_abstains_on_disjoint_tie() -> None:
         WordBox("Cancel", (10, 10, 50, 22), 95.0, 1, 1, 1),
         WordBox("Cancel", (80, 10, 120, 22), 95.0, 2, 1, 1),
     )
-
-    assert (
-        bind_unique_visible_text(
-            instruction='Click "Cancel".',
-            word_boxes=boxes,
-        )
-        is None
-    )
+    assert bind_unique_visible_text(instruction='Click "Cancel".', word_boxes=boxes) is None
 
 
 def test_restoration_certificate_uses_count_and_fraction() -> None:
@@ -115,10 +86,8 @@ def test_restoration_certificate_uses_count_and_fraction() -> None:
     restored = reference.copy()
     restored.putpixel((0, 0), (0, 0, 0))
     strict = RestorationConfig(maximum_changed_pixels=0, maximum_changed_fraction=0.0)
-
     passing = restoration_certificate(reference, restored)
     failing = restoration_certificate(reference, restored, strict)
-
     assert passing.passed
     assert passing.changed_pixels == 1
     assert passing.changed_fraction == 0.0001
@@ -129,12 +98,10 @@ def test_budget_ledger_refuses_overrun() -> None:
     ledger = BudgetLedger(ExternalBudgetConfig(maximum_gui_actions=2))
     ledger.require_gui_capacity(2)
     ledger.consume_gui_action(2)
-
     with pytest.raises(BudgetExhausted):
         ledger.require_gui_capacity(1)
     with pytest.raises(BudgetExhausted):
         ledger.consume_gui_action()
-
     ledger.consume_scroll(6)
     with pytest.raises(BudgetExhausted):
         ledger.consume_scroll()
@@ -142,14 +109,11 @@ def test_budget_ledger_refuses_overrun() -> None:
 
 def test_mandatory_restoration_can_cross_wall_cap_but_not_gui_cap() -> None:
     ledger = BudgetLedger(
-        ExternalBudgetConfig(maximum_gui_actions=1, maximum_wall_seconds=0.01),
-        started=time.monotonic() - 1.0,
+        ExternalBudgetConfig(maximum_gui_actions=1, maximum_wall_seconds=0.01), started=time.monotonic() - 1.0
     )
-
     with pytest.raises(BudgetExhausted, match="wall_seconds"):
         ledger.consume_gui_action()
     ledger.consume_restoration_gui_action()
-
     assert ledger.gui_actions == 1
     assert ledger.restoration_cleanup_actions == 1
     with pytest.raises(BudgetExhausted, match="gui_actions"):

@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
+from inversereserve.contracts.goal_contracts_v4 import compile_structured_goal
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.goal_contracts_v4 import compile_structured_goal
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot
 
 
 def element(
@@ -80,12 +77,7 @@ def flight_snapshot() -> SemanticSnapshot:
                 clickable=True,
             ),
             element(
-                "to",
-                role="textbox",
-                name="To:",
-                tag="input",
-                properties={"readonly": False},
-                clickable=True,
+                "to", role="textbox", name="To:", tag="input", properties={"readonly": False}, clickable=True
             ),
             element(
                 "date",
@@ -153,10 +145,7 @@ def scroll_snapshot(*, duplicate: bool = False) -> SemanticSnapshot:
 
 
 def test_login_assignments_are_bound_to_public_labels_and_verbatim_spans() -> None:
-    goal = (
-        'Enter the username "cristin" and the password "Kw" into the text '
-        "fields and press login."
-    )
+    goal = 'Enter the username "cristin" and the password "Kw" into the text fields and press login.'
     contract = compile_structured_goal(goal, login_snapshot())
     assert contract.allowed
     assert [(row.bid, row.label, row.value) for row in contract.field_assignments] == [
@@ -172,10 +161,7 @@ def test_login_assignments_are_bound_to_public_labels_and_verbatim_spans() -> No
 
 
 def test_flight_colon_assignments_and_date_are_separate_public_anchors() -> None:
-    goal = (
-        "Book the shortest one-way flight from: Midland/Odessa, TX "
-        "to: Pensacola, FL on 12/05/2016."
-    )
+    goal = "Book the shortest one-way flight from: Midland/Odessa, TX to: Pensacola, FL on 12/05/2016."
     contract = compile_structured_goal(goal, flight_snapshot())
     assert [(row.bid, row.value) for row in contract.field_assignments] == [
         ("from", "Midland/Odessa, TX"),
@@ -191,16 +177,11 @@ def test_flight_colon_assignments_and_date_are_separate_public_anchors() -> None
 
 def test_offscreen_native_options_resolve_one_or_multiple_exact_values() -> None:
     single = compile_structured_goal(
-        "Select Bonaire, Sint Eustatius and Saba from the scroll list and click Submit.",
-        scroll_snapshot(),
+        "Select Bonaire, Sint Eustatius and Saba from the scroll list and click Submit.", scroll_snapshot()
     )
-    assert single.option_selections[0].values == (
-        "Bonaire, Sint Eustatius and Saba",
-    )
-
+    assert single.option_selections[0].values == ("Bonaire, Sint Eustatius and Saba",)
     multiple = compile_structured_goal(
-        "Select Megan, Karleen from the scroll list and click Submit.",
-        scroll_snapshot(),
+        "Select Megan, Karleen from the scroll list and click Submit.", scroll_snapshot()
     )
     assert multiple.option_selections[0].values == ("Megan", "Karleen")
     assert multiple.exact_constraint is not None
@@ -211,8 +192,7 @@ def test_offscreen_native_options_resolve_one_or_multiple_exact_values() -> None
 
 def test_ambiguous_public_listbox_resolution_fails_closed() -> None:
     contract = compile_structured_goal(
-        "Select Megan, Karleen from the scroll list and click Submit.",
-        scroll_snapshot(duplicate=True),
+        "Select Megan, Karleen from the scroll list and click Submit.", scroll_snapshot(duplicate=True)
     )
     assert contract.option_selections == ()
     assert "multiple public listboxes" in contract.rejected_reasons[0]
@@ -228,26 +208,16 @@ def test_explicit_widget_role_is_a_direct_public_role_anchor() -> None:
 
 
 def test_invalid_or_ambiguous_dates_are_rejected_as_date_anchors() -> None:
-    invalid = compile_structured_goal(
-        "Select 02/31/2016 as the date and hit submit.",
-        SemanticSnapshot(()),
-    )
+    invalid = compile_structured_goal("Select 02/31/2016 as the date and hit submit.", SemanticSnapshot(()))
     assert invalid.date_anchor is None
-    assert any("invalid calendar date" in row for row in invalid.rejected_reasons)
-
-    ambiguous = compile_structured_goal(
-        "Move 01/01/2016 to 02/02/2016.",
-        SemanticSnapshot(()),
-    )
+    assert any(("invalid calendar date" in row for row in invalid.rejected_reasons))
+    ambiguous = compile_structured_goal("Move 01/01/2016 to 02/02/2016.", SemanticSnapshot(()))
     assert ambiguous.date_anchor is None
-    assert any("ambiguous dates" in row for row in ambiguous.rejected_reasons)
+    assert any(("ambiguous dates" in row for row in ambiguous.rejected_reasons))
 
 
 def test_unrelated_quoted_values_do_not_become_field_assignments() -> None:
-    contract = compile_structured_goal(
-        'Type "secret" into "Search" and click "Go".',
-        login_snapshot(),
-    )
+    contract = compile_structured_goal('Type "secret" into "Search" and click "Go".', login_snapshot())
     assert contract.field_assignments == ()
     assert contract.role_anchor is None
     assert contract.exact_constraint is not None

@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from rcrps.inversereserve_cost_bound_robustness_v1 import (
-    analyze_cost_bound_robustness_v1,
-)
+from inversereserve.studies.inversereserve_cost_bound_robustness_v1 import analyze_cost_bound_robustness_v1
 
 
 def test_complete_cost_bound_sensitivity_domain_passes() -> None:

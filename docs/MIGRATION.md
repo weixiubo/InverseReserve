@@ -1,16 +1,29 @@
 # Migration
 
-InverseReserve now uses this directory as its repository root. The former `当前/`
-layer has been removed. Run commands from the repository root in its own
-virtual environment. Existing import names and documented research arguments
-remain supported unless a specific migration note below says otherwise.
+| Previous entry | Maintained replacement |
+|---|---|
+| `rcrps.*` | `inversereserve.*`; MODULE_LAYOUT.json gives each owner |
+| `python 运行.py`, installation through requirements-dev.lock | `uv sync --locked`, `inversereserve` |
+| source-bound c*/version-number runner scripts | explicit named method and `run --config`; ENTRY_MIGRATION.json records each original and reason |
+| local relative `runs/`, external sibling assets or old cache paths | configured research resource roots |
+| offline `python reproduce/verify.py` | installed `inversereserve reproduce` (same original bytes/verifier) |
 
-Historical Git repositories, staged/unstaged changes and unique research
-material are stored in the local sibling `_research_archive` area. They are
-not needed to install the public package. The private recovery inventory maps
-old paths to their preserved content. Frozen evidence and source-bound
-manifests retain their original hashes; this refactor has a new source identity.
+Twenty-one source-bound historical scripts and the old wrapper/requirements lock
+were removed after preserving the complete baseline Git source snapshot under
+`reproduce/maintainer-baseline/`. They are not interchangeable with current
+experiments: old pre-registrations bind source digests and prior sealed outcomes.
+To inspect or rerun a historical entry, verify SOURCE.json and extract the snapshot
+into a separate archive work directory; supply its own pinned resources. Never
+rewrite an old source digest to make new code pass a frozen protocol gate.
 
-`SOURCE_PROVENANCE.json` identifies the baseline. Public reproduction material
-is described in `reproduce/README.md`. Missing external data must be provided
-explicitly; an absent asset is not substituted with a synthetic success.
+Current runs write protocol.json (new source identity and resources), result.json,
+and complete.json (result hash). Failed startup retains failure.json. A complete
+verified run can be reused with `--resume`; incomplete GUI runs require a new ID
+and reset environment, preserving the old record for diagnosis.
+
+The intentional duplicate-coordinate search termination fix is documented in
+BEHAVIOR_CHANGES.md. All original test assertions remain, with namespace/owner
+changes mapped in TEST_MIGRATION.json. Old source files and evidence remain byte
+preserved rather than formatted or repaired during this refactor.
+
+The standalone runtime-cost replication module has no maintained callers and loads an unpublished latency script from a source-tree path. Its original bytes remain in the maintainer baseline archive; see ARCHIVED_MODULES.json. New installation does not advertise that private protocol as executable.

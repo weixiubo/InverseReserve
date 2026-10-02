@@ -1,14 +1,11 @@
 from __future__ import annotations
 
 import copy
-import sys
 from pathlib import Path
 
+from inversereserve.studies import inversereserve_final_v1 as final
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps import inversereserve_final_v1 as final  # noqa: E402
 
 
 def protocol() -> dict:
@@ -29,15 +26,10 @@ def protocol() -> dict:
         "arms": list(final.ARMS),
         "full_method": final.FULL_METHOD,
         "baselines": list(final.BASELINES),
-        "tasks": [
-            {"task_id": task_id, "family_group": family}
-            for task_id, family in final.TASKS
-        ],
+        "tasks": [{"task_id": task_id, "family_group": family} for task_id, family in final.TASKS],
         "final_seeds": list(final.FINAL_SEEDS),
         "expected_task_seed_cells": len(final.TASKS) * len(final.FINAL_SEEDS),
-        "expected_episodes": len(final.TASKS)
-        * len(final.FINAL_SEEDS)
-        * len(final.ARMS),
+        "expected_episodes": len(final.TASKS) * len(final.FINAL_SEEDS) * len(final.ARMS),
         "budgets": dict(final.EXPECTED_BUDGETS),
         "generation": dict(final.EXPECTED_GENERATION),
         "statistics": dict(final.EXPECTED_STATISTICS),
@@ -60,9 +52,7 @@ def test_manifest_is_complete_unique_and_counterbalanced() -> None:
     rows = final.episode_manifest(payload)
     assert len(rows) == 360
     assert len({row["episode_id"] for row in rows}) == 360
-    assert final.arm_order_counts(payload) == {
-        arm: {0: 40, 1: 40, 2: 40} for arm in final.ARMS
-    }
+    assert final.arm_order_counts(payload) == {arm: {0: 40, 1: 40, 2: 40} for arm in final.ARMS}
 
 
 def test_protocol_rejects_old_seeds_and_the_v14_arm() -> None:
@@ -74,7 +64,6 @@ def test_protocol_rejects_old_seeds_and_the_v14_arm() -> None:
         assert "seed population" in str(error)
     else:
         raise AssertionError("an already opened seed was accepted")
-
     payload = protocol()
     payload["arms"][2] = "full_pact_v14"
     try:
@@ -89,11 +78,7 @@ def ledger_row() -> dict:
     return {
         "success": True,
         "active_transactions_at_stop": [
-            {
-                "bid": "submit",
-                "transaction_kind": "editable_assignment",
-                "operation": "set value",
-            }
+            {"bid": "submit", "transaction_kind": "editable_assignment", "operation": "set value"}
         ],
         "completed_transactions_at_stop": [],
         "trace": [
@@ -104,10 +89,7 @@ def ledger_row() -> dict:
                 "remaining_after_action": 2,
             }
         ],
-        "metrics": {
-            "typed_transactions": 1,
-            "inverse_reservation_audits": 1,
-        },
+        "metrics": {"typed_transactions": 1, "inverse_reservation_audits": 1},
     }
 
 
@@ -123,13 +105,9 @@ def test_terminal_ledger_rejects_count_mismatch_and_insolvency() -> None:
     mismatch = ledger_row()
     mismatch["metrics"]["typed_transactions"] = 2
     assert final.terminal_ledger_audit([mismatch])["exact_accounting"] is False
-
     insolvent = copy.deepcopy(ledger_row())
     insolvent["trace"][0]["active_inverse_cost"] = 3
-    assert (
-        final.terminal_ledger_audit([insolvent])["all_reservations_solvent"]
-        is False
-    )
+    assert final.terminal_ledger_audit([insolvent])["all_reservations_solvent"] is False
 
 
 def test_terminal_ledger_allows_a_safe_zero_action_failure() -> None:
@@ -138,10 +116,7 @@ def test_terminal_ledger_allows_a_safe_zero_action_failure() -> None:
         "active_transactions_at_stop": [],
         "completed_transactions_at_stop": [],
         "trace": [],
-        "metrics": {
-            "typed_transactions": 0,
-            "inverse_reservation_audits": 0,
-        },
+        "metrics": {"typed_transactions": 0, "inverse_reservation_audits": 0},
     }
     audit = final.terminal_ledger_audit([row])
     assert audit["exact_accounting"] is True
@@ -150,12 +125,7 @@ def test_terminal_ledger_allows_a_safe_zero_action_failure() -> None:
 
 def test_complete_commit_audit_recomputes_metrics() -> None:
     row = {
-        "runtime_events": [
-            {
-                "type": "complete_public_commit_observation_check_v13",
-                "passed": True,
-            }
-        ],
+        "runtime_events": [{"type": "complete_public_commit_observation_check_v13", "passed": True}],
         "metrics": {
             "complete_public_commit_checks_v13": 1,
             "complete_public_commit_passes_v13": 1,

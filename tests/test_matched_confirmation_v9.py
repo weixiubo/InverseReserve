@@ -1,16 +1,11 @@
 from __future__ import annotations
 
 import copy
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.matched_confirmation_v9 import (  # noqa: E402
+from inversereserve.studies.matched_confirmation_v9 import (
     ARMS,
     BASELINES,
     EXPECTED_BUDGETS,
@@ -29,28 +24,21 @@ from rcrps.matched_confirmation_v9 import (  # noqa: E402
     validate_protocol_shape,
 )
 
+ROOT = Path(__file__).resolve().parents[1]
+
 
 def protocol() -> dict:
     return {
         "candidate": "PACT-v9-final-matched-confirmation-protocol",
         "status": "sealed_before_final_confirmation",
         "activation": {
-            "fresh_visible_development": {
-                "path": "validation/fresh.json",
-                "sha256": "1" * 64,
-            },
-            "repair_holdout": {
-                "path": "validation/holdout.json",
-                "sha256": "2" * 64,
-            },
+            "fresh_visible_development": {"path": "validation/fresh.json", "sha256": "1" * 64},
+            "repair_holdout": {"path": "validation/holdout.json", "sha256": "2" * 64},
         },
         "arms": list(ARMS),
         "full_method": FULL_METHOD,
         "baselines": list(BASELINES),
-        "tasks": [
-            {"task_id": task_id, "family_group": family_group}
-            for task_id, family_group in TASKS
-        ],
+        "tasks": [{"task_id": task_id, "family_group": family_group} for task_id, family_group in TASKS],
         "final_confirmation_seeds": list(FINAL_CONFIRMATION_SEEDS),
         "expected_task_seed_cells": len(TASKS) * len(FINAL_CONFIRMATION_SEEDS),
         "expected_episodes": len(TASKS) * len(FINAL_CONFIRMATION_SEEDS) * len(ARMS),
@@ -64,9 +52,7 @@ def protocol() -> dict:
 
 
 def episode_row(episode: dict) -> dict:
-    cell_index = int(episode["seed_index"]) * len(TASKS) + int(
-        episode["task_index"]
-    )
+    cell_index = int(episode["seed_index"]) * len(TASKS) + int(episode["task_index"])
     method = episode["method"]
     success = (
         method == FULL_METHOD
@@ -142,10 +128,8 @@ def test_final_protocol_shape_and_manifest_are_exact_and_counterbalanced() -> No
     for row in rows:
         paired.setdefault((row["task"], row["seed"]), set()).add(row["method"])
     assert len(paired) == 120
-    assert all(methods == set(ARMS) for methods in paired.values())
-    assert arm_order_counts(frozen) == {
-        arm: {0: 40, 1: 40, 2: 40} for arm in ARMS
-    }
+    assert all((methods == set(ARMS) for methods in paired.values()))
+    assert arm_order_counts(frozen) == {arm: {0: 40, 1: 40, 2: 40} for arm in ARMS}
 
 
 @pytest.mark.parametrize(
@@ -155,19 +139,11 @@ def test_final_protocol_shape_and_manifest_are_exact_and_counterbalanced() -> No
         ("arms", list(reversed(ARMS))),
         ("expected_episodes", 359),
         ("budgets", {**EXPECTED_BUDGETS, "maximum_gui_actions": 41}),
-        (
-            "confirmation_gates",
-            {**EXPECTED_GATES, "minimum_net_paired_wins_per_baseline": 11},
-        ),
-        (
-            "decision_rule",
-            {"on_pass": "report successes only", "on_failure": "replace seeds"},
-        ),
+        ("confirmation_gates", {**EXPECTED_GATES, "minimum_net_paired_wins_per_baseline": 11}),
+        ("decision_rule", {"on_pass": "report successes only", "on_failure": "replace seeds"}),
     ],
 )
-def test_final_protocol_rejects_population_or_gate_weakening(
-    field: str, replacement: object
-) -> None:
+def test_final_protocol_rejects_population_or_gate_weakening(field: str, replacement: object) -> None:
     mutated = protocol()
     mutated[field] = replacement
     with pytest.raises(ValueError):
@@ -175,11 +151,7 @@ def test_final_protocol_rejects_population_or_gate_weakening(
 
 
 def test_final_analysis_passes_only_a_complete_strong_three_arm_result() -> None:
-    result = analyze_final_rows(
-        passing_rows(),
-        protocol(),
-        all_claims_complete=True,
-    )
+    result = analyze_final_rows(passing_rows(), protocol(), all_claims_complete=True)
     assert result["passed"] is True
     assert all(result["checks"].values())
     assert result["strongest_other_arm"] == NO_CERTIFICATE_METHOD
@@ -187,14 +159,16 @@ def test_final_analysis_passes_only_a_complete_strong_three_arm_result() -> None
     assert result["metrics"][NO_CERTIFICATE_METHOD]["success"] == 90
     assert result["metrics"]["raw_open_loop_v9_matched"]["success"] == 80
     assert all(
-        comparison["net_paired_successes"] >= 30
-        for comparison in result["statistics"]["comparisons"].values()
+        (
+            comparison["net_paired_successes"] >= 30
+            for comparison in result["statistics"]["comparisons"].values()
+        )
     )
 
 
 def test_verified_postcondition_recovery_is_allowed_but_unrecovered_is_not() -> None:
     rows = passing_rows()
-    full = next(row for row in rows if row["episode"]["method"] == FULL_METHOD)
+    full = next((row for row in rows if row["episode"]["method"] == FULL_METHOD))
     full["runtime_events"] = [
         {
             "event_index": 0,
@@ -203,12 +177,7 @@ def test_verified_postcondition_recovery_is_allowed_but_unrecovered_is_not() -> 
             "contract_kind": "autocomplete_query",
             "reason": "first observation was stale",
         },
-        {
-            "event_index": 1,
-            "type": "restoration",
-            "passed": True,
-            "trigger": "cleanup",
-        },
+        {"event_index": 1, "type": "restoration", "passed": True, "trigger": "cleanup"},
     ]
     full["metrics"]["restoration_attempts"] = 1
     full["metrics"]["restoration_passes"] = 1
@@ -216,7 +185,6 @@ def test_verified_postcondition_recovery_is_allowed_but_unrecovered_is_not() -> 
     assert recovered["passed"] is True
     assert recovered["metrics"][FULL_METHOD]["raw_postcondition_failures"] == 1
     assert recovered["metrics"][FULL_METHOD]["unrecovered_postcondition_failures"] == 0
-
     full["runtime_events"] = full["runtime_events"][:1]
     full["metrics"]["restoration_attempts"] = 0
     full["metrics"]["restoration_passes"] = 0
@@ -229,11 +197,13 @@ def test_final_analysis_rejects_integrity_and_targeted_ablation_failures() -> No
     rows = passing_rows()
     one_cell = rows[0]["episode"]
     peer = next(
-        row
-        for row in rows
-        if row["episode"]["task"] == one_cell["task"]
-        and row["episode"]["seed"] == one_cell["seed"]
-        and row["episode"]["method"] != one_cell["method"]
+        (
+            row
+            for row in rows
+            if row["episode"]["task"] == one_cell["task"]
+            and row["episode"]["seed"] == one_cell["seed"]
+            and (row["episode"]["method"] != one_cell["method"])
+        )
     )
     peer["method_input"]["goal_sha256"] = "different-goal"
     peer["method_input"]["controller_arm"] = FULL_METHOD

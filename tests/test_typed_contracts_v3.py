@@ -1,18 +1,15 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.typed_contracts_v3 import (  # noqa: E402
+from inversereserve.contracts.typed_contracts_v3 import (
     check_sequence_postcondition,
     check_sequence_restoration,
     infer_sequence_contract,
 )
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -60,14 +57,11 @@ def test_standard_combobox_compiles_parameterized_preview_and_exact_inverse() ->
     decision = infer_sequence_contract(before, "combo1", query="Mon")
     assert decision.allowed and decision.contract is not None
     assert decision.contract.kind == "combobox_suggestion"
-    assert decision.contract.action.browsergym_code() == (
-        "fill('combo1', 'Mon', True)"
-    )
-    assert [
-        action.browsergym_code()
-        for action in decision.contract.inverse_actions
-    ] == ["press('combo1', 'Escape')", "fill('combo1', '', False)"]
-
+    assert decision.contract.action.browsergym_code() == "fill('combo1', 'Mon', True)"
+    assert [action.browsergym_code() for action in decision.contract.inverse_actions] == [
+        "press('combo1', 'Escape')",
+        "fill('combo1', '', False)",
+    ]
     after = SemanticSnapshot(
         (
             element(
@@ -93,24 +87,17 @@ def test_combobox_restores_a_nonempty_public_prior_value() -> None:
     before = SemanticSnapshot(
         (
             element(
-                "combo1",
-                role="combobox",
-                properties={"hasPopup": "listbox", "value": "prior"},
-                tag="input",
+                "combo1", role="combobox", properties={"hasPopup": "listbox", "value": "prior"}, tag="input"
             ),
         )
     )
     decision = infer_sequence_contract(before, "combo1", query="new")
     assert decision.contract is not None
-    assert decision.contract.inverse_actions[-1].browsergym_code() == (
-        "fill('combo1', 'prior', False)"
-    )
+    assert decision.contract.inverse_actions[-1].browsergym_code() == "fill('combo1', 'prior', False)"
 
 
 def test_plain_or_readonly_text_inputs_are_not_promoted_to_autocomplete() -> None:
-    plain = SemanticSnapshot(
-        (element("plain", role="textbox", tag="input", clickable=False),)
-    )
+    plain = SemanticSnapshot((element("plain", role="textbox", tag="input", clickable=False),))
     readonly = SemanticSnapshot(
         (
             element(
@@ -129,14 +116,7 @@ def test_plain_or_readonly_text_inputs_are_not_promoted_to_autocomplete() -> Non
 
 def test_autocomplete_requires_bounded_nonempty_query() -> None:
     snapshot = SemanticSnapshot(
-        (
-            element(
-                "combo1",
-                role="combobox",
-                properties={"hasPopup": "listbox"},
-                tag="input",
-            ),
-        )
+        (element("combo1", role="combobox", properties={"hasPopup": "listbox"}, tag="input"),)
     )
     empty = infer_sequence_contract(snapshot, "combo1", query="")
     blank = infer_sequence_contract(snapshot, "combo1", query="   ")
@@ -148,37 +128,20 @@ def test_autocomplete_requires_bounded_nonempty_query() -> None:
 
 def test_autocomplete_postcondition_rejects_value_or_surface_mismatch() -> None:
     before = SemanticSnapshot(
-        (
-            element(
-                "combo1",
-                role="combobox",
-                properties={"hasPopup": "listbox", "value": ""},
-                tag="input",
-            ),
-        )
+        (element("combo1", role="combobox", properties={"hasPopup": "listbox", "value": ""}, tag="input"),)
     )
     contract = infer_sequence_contract(before, "combo1", query="Mon").contract
     assert contract is not None
     wrong_value = SemanticSnapshot(
         (
             element(
-                "combo1",
-                role="combobox",
-                properties={"hasPopup": "listbox", "value": "Other"},
-                tag="input",
+                "combo1", role="combobox", properties={"hasPopup": "listbox", "value": "Other"}, tag="input"
             ),
             element("list1", role="listbox", clickable=False),
         )
     )
     no_surface = SemanticSnapshot(
-        (
-            element(
-                "combo1",
-                role="combobox",
-                properties={"hasPopup": "listbox", "value": "Mon"},
-                tag="input",
-            ),
-        )
+        (element("combo1", role="combobox", properties={"hasPopup": "listbox", "value": "Mon"}, tag="input"),)
     )
     assert not check_sequence_postcondition(before, wrong_value, contract).passed
     assert not check_sequence_postcondition(before, no_surface, contract).passed
@@ -201,10 +164,7 @@ def test_explicit_closed_dialog_popup_compiles_escape_inverse() -> None:
     assert decision.allowed and decision.contract is not None
     assert decision.contract.kind == "popup_dialog_open"
     assert decision.contract.action.browsergym_code() == "click('picker1')"
-    assert decision.contract.inverse_actions[0].browsergym_code() == (
-        "press('picker1', 'Escape')"
-    )
-
+    assert decision.contract.inverse_actions[0].browsergym_code() == "press('picker1', 'Escape')"
     after = SemanticSnapshot(
         before.elements
         + (
@@ -216,43 +176,19 @@ def test_explicit_closed_dialog_popup_compiles_escape_inverse() -> None:
 
 
 def test_popup_postcondition_rejects_an_unrelated_visible_delta() -> None:
-    before = SemanticSnapshot(
-        (
-            element(
-                "picker1",
-                role="button",
-                properties={"hasPopup": "dialog"},
-            ),
-        )
-    )
+    before = SemanticSnapshot((element("picker1", role="button", properties={"hasPopup": "dialog"}),))
     contract = infer_sequence_contract(before, "picker1").contract
     assert contract is not None
-    unrelated = SemanticSnapshot(
-        before.elements + (element("status1", role="status", name="Loading"),)
-    )
+    unrelated = SemanticSnapshot(before.elements + (element("status1", role="status", name="Loading"),))
     assert not check_sequence_postcondition(before, unrelated, contract).passed
 
 
 def test_popup_postcondition_accepts_public_expanded_state() -> None:
-    before = SemanticSnapshot(
-        (
-            element(
-                "menu1",
-                role="button",
-                properties={"hasPopup": "menu"},
-            ),
-        )
-    )
+    before = SemanticSnapshot((element("menu1", role="button", properties={"hasPopup": "menu"}),))
     contract = infer_sequence_contract(before, "menu1").contract
     assert contract is not None
     after = SemanticSnapshot(
-        (
-            element(
-                "menu1",
-                role="button",
-                properties={"hasPopup": "menu", "expanded": True},
-            ),
-        )
+        (element("menu1", role="button", properties={"hasPopup": "menu", "expanded": True}),)
     )
     assert check_sequence_postcondition(before, after, contract).passed
 
@@ -260,35 +196,17 @@ def test_popup_postcondition_accepts_public_expanded_state() -> None:
 def test_unknown_button_and_already_open_popup_are_rejected() -> None:
     unknown = SemanticSnapshot((element("button1", role="button"),))
     opened = SemanticSnapshot(
-        (
-            element(
-                "button2",
-                role="button",
-                properties={"hasPopup": "dialog", "expanded": True},
-            ),
-        )
+        (element("button2", role="button", properties={"hasPopup": "dialog", "expanded": True}),)
     )
     assert not infer_sequence_contract(unknown, "button1").allowed
     assert not infer_sequence_contract(opened, "button2").allowed
 
 
 def test_legacy_disclosure_remains_identical_and_uses_existing_checker() -> None:
-    before = SemanticSnapshot(
-        (
-            element(
-                "toggle1",
-                role="button",
-                properties={"expanded": False},
-            ),
-        )
-    )
+    before = SemanticSnapshot((element("toggle1", role="button", properties={"expanded": False}),))
     after = SemanticSnapshot(
         (
-            element(
-                "toggle1",
-                role="button",
-                properties={"expanded": True},
-            ),
+            element("toggle1", role="button", properties={"expanded": True}),
             element("panel1", role="region", name="Evidence", parent="toggle1"),
         )
     )

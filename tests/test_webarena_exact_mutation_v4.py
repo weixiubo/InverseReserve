@@ -1,21 +1,12 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
+from inversereserve.adapters.webarena.webarena_exact_mutation_v3 import compile_exact_mutation_goal_v3
+from inversereserve.adapters.webarena.webarena_exact_mutation_v4 import compile_exact_mutation_goal_v4
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
-from rcrps.webarena_exact_mutation_v3 import (  # noqa: E402
-    compile_exact_mutation_goal_v3,
-)
-from rcrps.webarena_exact_mutation_v4 import (  # noqa: E402
-    compile_exact_mutation_goal_v4,
-)
-
-
 GOAL = 'Change the homepage on my GitLab profile to "https://example.com".'
 
 
@@ -113,7 +104,6 @@ def broad_accessibility_form() -> SemanticSnapshot:
 def test_scoped_labels_recover_standard_multifield_form() -> None:
     snapshot = broad_accessibility_form()
     assert compile_exact_mutation_goal_v3(GOAL, snapshot).allowed is False
-
     compilation = compile_exact_mutation_goal_v4(GOAL, snapshot)
     assert compilation.allowed is True
     assert compilation.goal_contract.payload_bindings[0].bid == "website"
@@ -126,9 +116,9 @@ def test_scoped_labels_recover_standard_multifield_form() -> None:
 
 
 def test_scoped_binding_record_has_no_forbidden_source() -> None:
-    record = compile_exact_mutation_goal_v4(
-        GOAL, broad_accessibility_form()
-    ).record()["webarena_exact_mutation_v4"]["scoped_binding"]
+    record = compile_exact_mutation_goal_v4(GOAL, broad_accessibility_form()).record()[
+        "webarena_exact_mutation_v4"
+    ]["scoped_binding"]
     assert record["uses_site_identity"] is False
     assert record["uses_site_specific_selector"] is False
     assert record["uses_site_specific_route"] is False

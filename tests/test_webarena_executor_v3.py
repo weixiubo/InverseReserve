@@ -1,17 +1,12 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
+from inversereserve.adapters.webarena.webarena_executor_v3 import WebArenaConfirmationExecutorV3
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
-from rcrps.webarena_executor_v3 import (  # noqa: E402
-    WebArenaConfirmationExecutorV3,
-)
 
 
 class Screenshot:
@@ -58,12 +53,10 @@ class Environment:
 
     def step(self, code: str) -> tuple[dict[str, object], float, bool, bool, dict]:
         self.codes.append(code)
-        return self.next_observation, 1.0, False, False, {"message": "hidden"}
+        return (self.next_observation, 1.0, False, False, {"message": "hidden"})
 
 
-def test_executor_caches_indexed_snapshot_and_uses_no_wait_navigation(
-    monkeypatch,
-) -> None:
+def test_executor_caches_indexed_snapshot_and_uses_no_wait_navigation(monkeypatch) -> None:
     first_observation = observation("http://example.local/")
     second_observation = observation("http://example.local/profile")
     environment = Environment(second_observation)
@@ -73,12 +66,8 @@ def test_executor_caches_indexed_snapshot_and_uses_no_wait_navigation(
         calls.append("build")
         return snapshot("before" if len(calls) == 1 else "after")
 
-    monkeypatch.setattr("rcrps.webarena_executor_v3.semantic_snapshot", build)
-    executor = WebArenaConfirmationExecutorV3(
-        environment,
-        first_observation,
-        maximum_gui_actions=2,
-    )
+    monkeypatch.setattr("inversereserve.adapters.webarena.webarena_executor_v3.semantic_snapshot", build)
+    executor = WebArenaConfirmationExecutorV3(environment, first_observation, maximum_gui_actions=2)
     assert executor.snapshot is executor.snapshot
     assert calls == ["build"]
     outcome = executor(ContractActionV4("click", "button"), "navigation")

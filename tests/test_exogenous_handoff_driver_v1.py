@@ -1,15 +1,11 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.exogenous_handoff_driver_v1 import (
+from inversereserve.controllers.capacity_reserve_drivers_v18 import StackWideCapacityDriverV18
+from inversereserve.controllers.exogenous_handoff_driver_v1 import (
     EXOGENOUS_HANDOFF_EVENT_V1,
     HANDOFF_DEPTH_ONE_V1,
     HANDOFF_DEPTH_TWO_V1,
@@ -17,24 +13,21 @@ from rcrps.exogenous_handoff_driver_v1 import (
     StackWideHandoffDepthTwoV1,
     _ExogenousHandoffMixinV1,
 )
-from rcrps.capacity_reserve_drivers_v18 import StackWideCapacityDriverV18
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def transaction(cost: int = 1) -> Any:
     return SimpleNamespace(
         contract=SimpleNamespace(
-            dynamic_inverse_class_token=None,
-            inverse_actions=tuple(object() for _ in range(cost)),
+            dynamic_inverse_class_token=None, inverse_actions=tuple((object() for _ in range(cost)))
         )
     )
 
 
 class _FakeBase:
     def __init__(self, *, depth: int, restoration_passes: bool = True) -> None:
-        self.runtime = SimpleNamespace(
-            active=[transaction() for _ in range(depth)],
-            halted=False,
-        )
+        self.runtime = SimpleNamespace(active=[transaction() for _ in range(depth)], halted=False)
         self.executor = SimpleNamespace(actions=[object(), object()])
         self.budgets = {"maximum_gui_actions": 8}
         self.restorations: list[dict[str, Any]] = []
@@ -93,14 +86,8 @@ def test_first_eligible_live_prefix_requests_and_verifies_handoff() -> None:
     assert metrics["exogenous_handoff_restoration_passes_v1"] == 2
     assert metrics["exogenous_handoff_active_after_v1"] == 0
     assert metrics["exogenous_handoff_passed_v1"] == 1
-    assert [event["phase"] for event in driver.trace] == [
-        "request",
-        "outcome",
-    ]
-    assert all(
-        event["type"] == EXOGENOUS_HANDOFF_EVENT_V1
-        for event in driver.trace
-    )
+    assert [event["phase"] for event in driver.trace] == ["request", "outcome"]
+    assert all((event["type"] == EXOGENOUS_HANDOFF_EVENT_V1 for event in driver.trace))
 
 
 def test_depth_two_does_not_inject_at_a_depth_one_prefix() -> None:

@@ -1,28 +1,17 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.pact_controller_v4 import ActiveTransactionV4  # noqa: E402
-from rcrps.typed_observation import (  # noqa: E402
-    SemanticElement,
-    SemanticSnapshot,
-    semantic_delta,
-)
-from rcrps.webarena_exact_mutation_v2 import (  # noqa: E402
-    compile_exact_mutation_goal_v2,
-)
-from rcrps.webarena_exact_mutation_v3 import (  # noqa: E402
+from inversereserve.adapters.webarena.webarena_exact_mutation_v2 import compile_exact_mutation_goal_v2
+from inversereserve.adapters.webarena.webarena_exact_mutation_v3 import (
     certify_exact_mutation_commit_v3,
     compile_exact_mutation_goal_v3,
     compile_exact_mutation_inventory_v3,
 )
+from inversereserve.controllers.pact_controller_v4 import ActiveTransactionV4
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot, semantic_delta
 
-
+ROOT = Path(__file__).resolve().parents[1]
 BIO_GOAL = 'Change my bio to "I am a robot" in the discussion forum'
 PAGE_GOAL = 'Change the page title of "Home Page" page on my site to "New".'
 
@@ -62,14 +51,7 @@ def test_non_text_input_does_not_compete_with_public_text_field() -> None:
         (
             element("page", tag="main"),
             element("form", role="form", name="Biography", tag="form", parent="page"),
-            element(
-                "bio",
-                role="textbox",
-                name="Biography",
-                tag="textarea",
-                parent="form",
-                value="old",
-            ),
+            element("bio", role="textbox", name="Biography", tag="textarea", parent="form", value="old"),
             element(
                 "help",
                 role="checkbox",
@@ -79,14 +61,7 @@ def test_non_text_input_does_not_compete_with_public_text_field() -> None:
                 clickable=True,
                 attributes={"type": "checkbox"},
             ),
-            element(
-                "save",
-                role="button",
-                name="Save",
-                tag="button",
-                parent="form",
-                clickable=True,
-            ),
+            element("save", role="button", name="Save", tag="button", parent="form", clickable=True),
         )
     )
     assert compile_exact_mutation_goal_v2(BIO_GOAL, current).allowed is False
@@ -102,30 +77,9 @@ def inline_editor(value: str) -> SemanticSnapshot:
         (
             element("page", tag="main"),
             element("surface", tag="section", parent="page"),
-            element(
-                "title",
-                role="textbox",
-                name="Page Title",
-                tag="input",
-                parent="surface",
-                value=value,
-            ),
-            element(
-                "save",
-                role="button",
-                name="Save",
-                tag="button",
-                parent="surface",
-                clickable=True,
-            ),
-            element(
-                "back",
-                role="button",
-                name="Back",
-                tag="button",
-                parent="surface",
-                clickable=True,
-            ),
+            element("title", role="textbox", name="Page Title", tag="input", parent="surface", value=value),
+            element("save", role="button", name="Save", tag="button", parent="surface", clickable=True),
+            element("back", role="button", name="Back", tag="button", parent="surface", clickable=True),
         )
     )
 
@@ -137,22 +91,12 @@ def test_back_is_a_public_neutralization_witness_with_real_freshness_key() -> No
     initial = compile_exact_mutation_goal_v3(PAGE_GOAL, before)
     assert initial.allowed is True
     assert initial.projection.back_neutralization_bids == ("back",)
-    initial_inventory = compile_exact_mutation_inventory_v3(
-        before, PAGE_GOAL, compilation=initial
-    )
+    initial_inventory = compile_exact_mutation_inventory_v3(before, PAGE_GOAL, compilation=initial)
     contract = initial_inventory.contract_by_bid["title"]
-    active = ActiveTransactionV4(
-        contract,
-        "Page Title",
-        before,
-        filled,
-        semantic_delta(before, filled),
-    )
+    active = ActiveTransactionV4(contract, "Page Title", before, filled, semantic_delta(before, filled))
     fresh = compile_exact_mutation_goal_v3(PAGE_GOAL, filled)
-    inventory = compile_exact_mutation_inventory_v3(
-        filled, PAGE_GOAL, compilation=fresh
-    )
-    submit = next(row for row in inventory.candidates if row.bid == "save")
+    inventory = compile_exact_mutation_inventory_v3(filled, PAGE_GOAL, compilation=fresh)
+    submit = next((row for row in inventory.candidates if row.bid == "save"))
     certificate = certify_exact_mutation_commit_v3(
         current=filled,
         compilation=fresh,
@@ -162,4 +106,3 @@ def test_back_is_a_public_neutralization_witness_with_real_freshness_key() -> No
     )
     assert certificate.allowed is True
     assert certificate.observation_fingerprint == filled.semantic_fingerprint()
-

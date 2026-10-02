@@ -1,0 +1,8 @@
+include LICENSE README.md CONTRIBUTING.md uv.lock .python-version PUBLIC_MANIFEST.json SOURCE_PROVENANCE.json
+recursive-include configs *.json
+recursive-include docs *.md *.json
+recursive-include tests *.py
+recursive-include scripts *.py
+recursive-include examples *.py
+recursive-include reproduce *.md *.json *.py *.tar.gz
+recursive-include src/inversereserve/evidence_data *.json *.tar.gz

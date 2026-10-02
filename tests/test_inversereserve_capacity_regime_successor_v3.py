@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
+from inversereserve.studies import inversereserve_capacity_regime_successor_v3 as design
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps import inversereserve_capacity_regime_successor_v3 as design
 
 
 def protocol() -> dict[str, Any]:
@@ -39,10 +36,7 @@ def test_protocol_freezes_fresh_two_regime_population() -> None:
         "device_map": "auto",
     }
     assert value["method_revision"]["shared_by_both_active_arms"] is True
-    assert (
-        value["method_revision"]["reserve_scope_is_the_only_active_arm_difference"]
-        is True
-    )
+    assert value["method_revision"]["reserve_scope_is_the_only_active_arm_difference"] is True
     assert design.TASK_REGIME_BUDGETS == {
         "use-autocomplete-nodelay": {"tight": 3, "opportunity": 5},
         "login-user-popup": {"tight": 3, "opportunity": 7},
@@ -56,13 +50,9 @@ def test_manifest_is_exact_unique_and_counterbalanced() -> None:
     assert len(rows) == design.expected_episodes() == 720
     assert len({row["episode_id"] for row in rows}) == 720
     assert {row["regime"] for row in rows} == {"tight", "opportunity"}
-    assert design.arm_order_counts(value) == {
-        arm: {0: 80, 1: 80, 2: 80} for arm in design.ARMS
-    }
+    assert design.arm_order_counts(value) == {arm: {0: 80, 1: 80, 2: 80} for arm in design.ARMS}
     for row in rows:
-        assert row["maximum_gui_actions"] == design.TASK_REGIME_BUDGETS[
-            row["task"]
-        ][row["regime"]]
+        assert row["maximum_gui_actions"] == design.TASK_REGIME_BUDGETS[row["task"]][row["regime"]]
 
 
 def fake_result(
@@ -86,11 +76,7 @@ def fake_result(
         trace.append(
             {
                 "type": "cross_family_reservation_v3",
-                "reservation_rule": (
-                    "proposal_local"
-                    if method == design.LOCAL_ABLATION
-                    else "stack_wide"
-                ),
+                "reservation_rule": "proposal_local" if method == design.LOCAL_ABLATION else "stack_wide",
                 "allowed": not reserve_stop,
                 "remaining_after_action": 0 if unsafe else 4,
                 "stack_wide_required_inverse_cost": 2,
@@ -109,18 +95,10 @@ def fake_result(
             "restoration_attempts": int(restored),
             "restoration_passes": int(restored),
             "runtime_halted": False,
-            "interrupt_clearance_restoration_attempts_v16": int(
-                clearance_restored
-            ),
-            "interrupt_clearance_restoration_passes_v16": int(
-                clearance_restored
-            ),
-            "proposal_clearance_restoration_attempts_v16": int(
-                clearance_restored and not active_clearance
-            ),
-            "proposal_clearance_restoration_passes_v16": int(
-                clearance_restored and not active_clearance
-            ),
+            "interrupt_clearance_restoration_attempts_v16": int(clearance_restored),
+            "interrupt_clearance_restoration_passes_v16": int(clearance_restored),
+            "proposal_clearance_restoration_attempts_v16": int(clearance_restored and (not active_clearance)),
+            "proposal_clearance_restoration_passes_v16": int(clearance_restored and (not active_clearance)),
             "active_restore_clearance_restoration_attempts_v16": int(active_clearance),
             "active_restore_clearance_restoration_passes_v16": int(active_clearance),
             "interrupt_clearance_reservation_passes_v16": int(clearance_restored),
@@ -140,27 +118,18 @@ def fake_result(
 
 def test_solvent_endpoint_requires_activity_and_no_unsafe_admission() -> None:
     manifest = design.episode_manifest(protocol())
-    full = next(row for row in manifest if row["method"] == design.FULL_METHOD)
-    local = next(row for row in manifest if row["method"] == design.LOCAL_ABLATION)
-    abstain = next(
-        row for row in manifest if row["method"] == design.ABSTAIN_BASELINE
-    )
+    full = next((row for row in manifest if row["method"] == design.FULL_METHOD))
+    local = next((row for row in manifest if row["method"] == design.LOCAL_ABLATION))
+    abstain = next((row for row in manifest if row["method"] == design.ABSTAIN_BASELINE))
     assert design.solvent_activity_endpoint(fake_result(full, success=True))
     assert design.solvent_activity_endpoint(fake_result(full, restored=True))
-    assert design.solvent_activity_endpoint(
-        fake_result(full, clearance_restored=True)
-    )
+    assert design.solvent_activity_endpoint(fake_result(full, clearance_restored=True))
     discharged = fake_result(full, scope_consumed=True)
     assert design.solvent_activity_endpoint(discharged)
-    assert (
-        design.solvent_activity_endpoint_mode(discharged)
-        == "certified_scope_discharge_v18"
-    )
+    assert design.solvent_activity_endpoint_mode(discharged) == "certified_scope_discharge_v18"
     discharged["active_transactions_at_stop"] = [{}]
     assert not design.solvent_activity_endpoint(discharged)
-    assert not design.solvent_activity_endpoint(
-        fake_result(local, success=True, unsafe=True)
-    )
+    assert not design.solvent_activity_endpoint(fake_result(local, success=True, unsafe=True))
     assert not design.solvent_activity_endpoint(fake_result(abstain))
 
 
@@ -175,19 +144,10 @@ def test_synthetic_complete_population_passes_every_gate() -> None:
                 fake_result(
                     episode,
                     success=regime == "opportunity",
-                    restored=(
-                        regime == "tight"
-                        and episode["task"] != "book-flight-nodelay"
-                    ),
+                    restored=regime == "tight" and episode["task"] != "book-flight-nodelay",
                     reserve_stop=regime == "tight",
-                    clearance_restored=(
-                        regime == "tight"
-                        and episode["task"] != "book-flight-nodelay"
-                    ),
-                    active_clearance=(
-                        regime == "tight"
-                        and episode["task"] == "login-user-popup"
-                    ),
+                    clearance_restored=regime == "tight" and episode["task"] != "book-flight-nodelay",
+                    active_clearance=regime == "tight" and episode["task"] == "login-user-popup",
                     scope_consumed=regime == "tight",
                 )
             )
@@ -223,10 +183,7 @@ def test_v3_active_arms_share_v18_and_differ_only_in_reserve_scope() -> None:
 
 def test_incomplete_population_fails_closed() -> None:
     value = protocol()
-    rows = [
-        fake_result(episode)
-        for episode in design.episode_manifest(value)[:-1]
-    ]
+    rows = [fake_result(episode) for episode in design.episode_manifest(value)[:-1]]
     analysis = design.analyze_rows(rows, value, all_claims_complete=False)
     assert analysis["exact_manifest"] is False
     assert analysis["checks"]["complete_exact_grid"] is False

@@ -1,13 +1,8 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.typed_observation import (  # noqa: E402
+from inversereserve.observations.typed_observation import (
     SemanticElement,
     SemanticSnapshot,
     check_postcondition,
@@ -15,6 +10,8 @@ from rcrps.typed_observation import (  # noqa: E402
     infer_preview_contract,
     semantic_delta,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -74,7 +71,6 @@ def test_disclosure_contract_checks_expansion_and_same_control_inverse() -> None
             element("panel", role="tabpanel", parent="header", text="new evidence"),
         )
     )
-
     decision = infer_preview_contract(before, "header")
     assert decision.allowed
     assert decision.contract is not None
@@ -128,7 +124,6 @@ def test_tab_contract_records_previous_selected_control_as_inverse() -> None:
             element("link2", role="link", parent="tab2"),
         )
     )
-
     decision = infer_preview_contract(before, "link2")
     assert decision.allowed
     assert decision.contract is not None
@@ -143,13 +138,7 @@ def test_popup_menu_uses_hover_and_neutral_pointer_inverse() -> None:
     before = SemanticSnapshot(
         (
             element("menu", role="menu", clickable=False),
-            element(
-                "parent",
-                role="menuitem",
-                name="Parent",
-                parent="menu",
-                properties={"hasPopup": "menu"},
-            ),
+            element("parent", role="menuitem", name="Parent", parent="menu", properties={"hasPopup": "menu"}),
         )
     )
     after = SemanticSnapshot(
@@ -159,7 +148,6 @@ def test_popup_menu_uses_hover_and_neutral_pointer_inverse() -> None:
             element("leaf", role="menuitem", name="Leaf", parent="submenu"),
         )
     )
-
     decision = infer_preview_contract(before, "parent")
     assert decision.allowed
     assert decision.contract is not None
@@ -173,37 +161,13 @@ def test_public_folder_class_admits_toggle_but_file_is_rejected() -> None:
         (
             element("tree", role="list", tag="ul", clickable=False),
             element("folder-li", role="listitem", parent="tree", tag="li"),
-            element(
-                "folder-span",
-                role="",
-                dom_parent="folder-li",
-                tag="span",
-                classes="folder",
-            ),
+            element("folder-span", role="", dom_parent="folder-li", tag="span", classes="folder"),
             element("file-li", role="listitem", parent="tree", tag="li"),
-            element(
-                "file-span",
-                role="",
-                dom_parent="file-li",
-                tag="span",
-                classes="file",
-            ),
-            element(
-                "nested-li",
-                role="listitem",
-                parent="folder-li",
-                dom_parent="folder-li",
-                tag="li",
-            ),
-            element(
-                "nested-folder",
-                dom_parent="nested-li",
-                tag="span",
-                classes="folder",
-            ),
+            element("file-span", role="", dom_parent="file-li", tag="span", classes="file"),
+            element("nested-li", role="listitem", parent="folder-li", dom_parent="folder-li", tag="li"),
+            element("nested-folder", dom_parent="nested-li", tag="span", classes="folder"),
         )
     )
-
     folder = infer_preview_contract(snapshot, "folder-span")
     folder_from_container = infer_preview_contract(snapshot, "folder-li")
     tree_container = infer_preview_contract(snapshot, "tree")
@@ -226,30 +190,13 @@ def test_unknown_clickable_is_not_mislabelled_as_preview() -> None:
 
 
 def test_public_hidden_ancestor_overrides_geometric_visibility() -> None:
-    hidden_panel = element(
-        "panel",
-        role="tabpanel",
-        tag="div",
-        clickable=False,
-    )
+    hidden_panel = element("panel", role="tabpanel", tag="div", clickable=False)
     hidden_panel = SemanticElement(
-        **{
-            **hidden_panel.__dict__,
-            "dom_attributes": (("aria-hidden", "true"), ("style", "display: none")),
-        }
+        **{**hidden_panel.__dict__, "dom_attributes": (("aria-hidden", "true"), ("style", "display: none"))}
     )
-    submit = element(
-        "submit",
-        role="button",
-        name="Submit",
-        dom_parent="panel",
-        visible=True,
-    )
+    submit = element("submit", role="button", name="Submit", dom_parent="panel", visible=True)
     snapshot = SemanticSnapshot((hidden_panel, submit))
-
     assert submit.visible
     assert not snapshot.is_effectively_visible("submit")
-    assert infer_preview_contract(snapshot, "submit").reason == (
-        "action element is absent or invisible"
-    )
+    assert infer_preview_contract(snapshot, "submit").reason == "action element is absent or invisible"
     assert snapshot.semantic_fingerprint() == ()

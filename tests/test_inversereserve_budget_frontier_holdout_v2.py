@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
+from inversereserve.studies import inversereserve_budget_frontier_holdout_v2 as design
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps import inversereserve_budget_frontier_holdout_v2 as design
 
 
 def protocol() -> dict[str, Any]:
@@ -88,28 +85,18 @@ def test_manifest_is_exact_unique_and_counterbalanced() -> None:
     rows = design.episode_manifest(value)
     assert len(rows) == len({row["episode_id"] for row in rows}) == 720
     assert {row["budget_level"] for row in rows} == set(design.BUDGET_LEVELS)
-    assert design.arm_order_counts(value) == {
-        arm: {0: 80, 1: 80, 2: 80} for arm in design.ARMS
+    assert design.arm_order_counts(value) == {arm: {0: 80, 1: 80, 2: 80} for arm in design.ARMS}
+    assert {row["task"] for row in rows if row["family_group"] == "date_picker_holdout"} == {
+        "choose-date-nodelay"
     }
-    assert {
-        row["task"] for row in rows if row["family_group"] == "date_picker_holdout"
-    } == {"choose-date-nodelay"}
 
 
 def test_terminal_modes_are_mutually_exclusive_and_external() -> None:
     episode = design.episode_manifest(protocol())[0]
-    assert design.terminal_outcome_mode(fake_result(episode, success=True)) == (
-        "task_success"
-    )
-    assert design.terminal_outcome_mode(fake_result(episode, active=1)) == (
-        "physical_stranding"
-    )
-    assert design.terminal_outcome_mode(fake_result(episode, halted=True)) == (
-        "runtime_halt_without_stranding"
-    )
-    assert design.terminal_outcome_mode(fake_result(episode, restored=True)) == (
-        "verified_restoration"
-    )
+    assert design.terminal_outcome_mode(fake_result(episode, success=True)) == "task_success"
+    assert design.terminal_outcome_mode(fake_result(episode, active=1)) == "physical_stranding"
+    assert design.terminal_outcome_mode(fake_result(episode, halted=True)) == "runtime_halt_without_stranding"
+    assert design.terminal_outcome_mode(fake_result(episode, restored=True)) == "verified_restoration"
     unsafe_success = fake_result(episode, success=True)
     unsafe_success["trace"] = [
         {
@@ -132,10 +119,7 @@ def test_synthetic_complete_population_passes_all_frozen_gates() -> None:
         if method == design.FULL_METHOD:
             rows.append(
                 fake_result(
-                    episode,
-                    success=level in {"medium", "high"},
-                    restored=level == "low",
-                    forward_actions=2,
+                    episode, success=level in {"medium", "high"}, restored=level == "low", forward_actions=2
                 )
             )
         elif method == design.LOCAL_ABLATION:
@@ -148,20 +132,12 @@ def test_synthetic_complete_population_passes_all_frozen_gates() -> None:
                 )
             )
         else:
-            rows.append(
-                fake_result(
-                    episode,
-                    restored=True,
-                    forward_actions=1,
-                )
-            )
+            rows.append(fake_result(episode, restored=True, forward_actions=1))
     analysis = design.analyze_rows(rows, value, all_claims_complete=True)
     assert analysis["exact_manifest"] is True
     assert analysis["stack_high_budget_task_successes"] == 80
     assert analysis["local_physical_stranding_families"] == 4
-    assert analysis["paired_stack_vs_safe_task_success"][
-        "seed_cluster_wins"
-    ] == 20
+    assert analysis["paired_stack_vs_safe_task_success"]["seed_cluster_wins"] == 20
     assert all(analysis["checks"].values())
     assert analysis["passed"] is True
 
@@ -180,9 +156,7 @@ def test_missing_row_and_forward_cap_violation_fail_closed() -> None:
     value = protocol()
     manifest = design.episode_manifest(value)
     incomplete = [fake_result(episode, restored=True) for episode in manifest[:-1]]
-    assert design.analyze_rows(
-        incomplete, value, all_claims_complete=False
-    )["passed"] is False
+    assert design.analyze_rows(incomplete, value, all_claims_complete=False)["passed"] is False
     rows = []
     for episode in manifest:
         restored = episode["method"] != design.FULL_METHOD
@@ -190,7 +164,7 @@ def test_missing_row_and_forward_cap_violation_fail_closed() -> None:
             episode,
             success=episode["method"] == design.FULL_METHOD,
             restored=restored,
-            forward_actions=(2 if episode["method"] == design.SAFE_BASELINE else 1),
+            forward_actions=2 if episode["method"] == design.SAFE_BASELINE else 1,
         )
         rows.append(result)
     analysis = design.analyze_rows(rows, value, all_claims_complete=True)

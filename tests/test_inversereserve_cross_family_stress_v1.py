@@ -5,7 +5,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from rcrps import inversereserve_cross_family_stress_v1 as design
+from inversereserve.studies import inversereserve_cross_family_stress_v1 as design
 
 
 def _protocol() -> dict:
@@ -69,10 +69,7 @@ def test_manifest_is_fresh_complete_and_counterbalanced() -> None:
     for arm in design.ARMS:
         assert sum(row["method"] == arm for row in rows) == 200
         position_counts = [
-            sum(
-                row["method"] == arm and row["arm_position"] == position
-                for row in rows
-            )
+            sum(row["method"] == arm and row["arm_position"] == position for row in rows)
             for position in range(3)
         ]
         assert max(position_counts) - min(position_counts) <= 1
@@ -81,9 +78,7 @@ def test_manifest_is_fresh_complete_and_counterbalanced() -> None:
 def _analysis_row(episode: dict) -> dict:
     method = episode["method"]
     task = episode["task"]
-    low_budget = episode["maximum_gui_actions"] == min(
-        design.TASK_BUDGETS[task]
-    )
+    low_budget = episode["maximum_gui_actions"] == min(design.TASK_BUDGETS[task])
     row = {
         "episode": copy.deepcopy(episode),
         "success": False,
@@ -91,11 +86,7 @@ def _analysis_row(episode: dict) -> dict:
         "active_transactions_at_stop": [],
         "trace": [],
         "runtime_events": [],
-        "method_input": {
-            "goal_sha256": (
-                f"{task}-{episode['seed']}-{episode['maximum_gui_actions']}"
-            )
-        },
+        "method_input": {"goal_sha256": (f"{task}-{episode['seed']}-{episode['maximum_gui_actions']}")},
         "metrics": {
             "gui_actions": 0,
             "typed_transactions": 0,
@@ -129,9 +120,7 @@ def _analysis_row(episode: dict) -> dict:
         gui_actions=min(2, episode["maximum_gui_actions"]),
         typed_transactions=1,
         planner_calls=int(task != "use-autocomplete-nodelay"),
-        planner_actual_calls=int(
-            method == design.FULL_METHOD and task == "login-user-popup"
-        ),
+        planner_actual_calls=int(method == design.FULL_METHOD and task == "login-user-popup"),
     )
     if not low_budget:
         row["success"] = True
@@ -150,19 +139,13 @@ def _analysis_row(episode: dict) -> dict:
         {
             "event_index": event_index,
             "type": "cross_family_reservation_v1",
-            "reservation_rule": (
-                "stack_wide"
-                if method == design.FULL_METHOD
-                else "proposal_local"
-            ),
+            "reservation_rule": ("stack_wide" if method == design.FULL_METHOD else "proposal_local"),
             "decision": "transact",
             "bid": "candidate",
             "registered_active_inverse_cost": 1,
             "proposal_inverse_cost": 1,
             "stack_wide_required_inverse_cost": 2,
-            "applied_inverse_reserve": (
-                2 if method == design.FULL_METHOD else 1
-            ),
+            "applied_inverse_reserve": (2 if method == design.FULL_METHOD else 1),
             "remaining_after_action": 1,
             "allowed": method == design.LOCAL_ABLATION,
         }
@@ -210,15 +193,10 @@ def test_analysis_fails_if_one_family_lacks_planner_before_divergence() -> None:
         episode = row["episode"]
         if (
             episode["task"] == "login-user-popup"
-            and episode["maximum_gui_actions"]
-            == min(design.TASK_BUDGETS["login-user-popup"])
+            and episode["maximum_gui_actions"] == min(design.TASK_BUDGETS["login-user-popup"])
             and episode["method"] in design.RESERVE_ARMS
         ):
-            row["trace"] = [
-                event
-                for event in row["trace"]
-                if event.get("type") != "envelope_decision_v8"
-            ]
+            row["trace"] = [event for event in row["trace"] if event.get("type") != "envelope_decision_v8"]
     result = design.analyze_rows(rows, protocol, all_claims_complete=True)
     assert result["passed"] is False
     assert result["checks"]["minimum_coactivated_effect_families"] is False
@@ -254,18 +232,16 @@ def test_active_arms_share_one_code_path_except_reserve_accounting(
     assert set(full_class.__dict__) == allowed_class_fields
     assert set(local_class.__dict__) == allowed_class_fields
 
-    monkeypatch.setattr(design, "inverse_action_cost_v8", int)
+    from inversereserve.studies.designs import inversereserve_cross_family_stress_v1 as reserve_design
+
+    monkeypatch.setattr(reserve_design, "inverse_action_cost_v8", int)
 
     def driver(driver_class: type) -> tuple[object, list[dict]]:
         instance = driver_class.__new__(driver_class)
-        instance.runtime = SimpleNamespace(
-            active=[SimpleNamespace(contract=2)]
-        )
+        instance.runtime = SimpleNamespace(active=[SimpleNamespace(contract=2)])
         instance.budgets = {"maximum_gui_actions": 4}
         instance.executor = SimpleNamespace(actions=[{"prior": True}])
-        instance.inventory = lambda: SimpleNamespace(
-            contract_by_bid={"candidate": 1}
-        )
+        instance.inventory = lambda: SimpleNamespace(contract_by_bid={"candidate": 1})
         instance.inverse_reservation_audits = 0
         audit: list[dict] = []
         instance.audit = audit.append
@@ -277,8 +253,6 @@ def test_active_arms_share_one_code_path_except_reserve_accounting(
     assert full.inverse_reserve(candidate, "transact") == (False, 3)
     assert local.inverse_reserve(candidate, "transact") == (True, 1)
     ignored = {"reservation_rule", "applied_inverse_reserve", "allowed"}
-    assert {
-        key: value for key, value in full_audit[0].items() if key not in ignored
-    } == {
+    assert {key: value for key, value in full_audit[0].items() if key not in ignored} == {
         key: value for key, value in local_audit[0].items() if key not in ignored
     }

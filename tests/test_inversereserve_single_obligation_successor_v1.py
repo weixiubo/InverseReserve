@@ -1,17 +1,12 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
+from inversereserve.controllers.single_obligation_capacity_driver_v1 import SINGLE_OBLIGATION_POLICY_EVENT_V1
+from inversereserve.studies import inversereserve_single_obligation_successor_v1 as design
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps import inversereserve_single_obligation_successor_v1 as design
-from rcrps.single_obligation_capacity_driver_v1 import (
-    SINGLE_OBLIGATION_POLICY_EVENT_V1,
-)
 
 
 def protocol() -> dict[str, Any]:
@@ -27,11 +22,7 @@ def protocol() -> dict[str, Any]:
 
 
 def fake_result(
-    episode: dict[str, Any],
-    *,
-    success: bool = False,
-    restored: bool = False,
-    policy_cap: bool = False,
+    episode: dict[str, Any], *, success: bool = False, restored: bool = False, policy_cap: bool = False
 ) -> dict[str, Any]:
     is_safe = episode["method"] == design.SAFE_BASELINE
     clearance = int(restored)
@@ -49,11 +40,7 @@ def fake_result(
                 "active_obligations_before_proposal": active,
                 "allowed": not policy_cap,
                 "delegated_to_stack_wide_reserve": not policy_cap,
-                **(
-                    {"reason": "second active transaction is forbidden"}
-                    if policy_cap
-                    else {}
-                ),
+                **({"reason": "second active transaction is forbidden"} if policy_cap else {}),
             }
         ]
     return {
@@ -94,19 +81,13 @@ def fake_result(
 
 def test_protocol_freezes_post_frontier_grid_and_disclosure() -> None:
     value = protocol()
-    assert value["status"] == (
-        "sealed_before_any_single_obligation_seed_reset"
-    )
+    assert value["status"] == "sealed_before_any_single_obligation_seed_reset"
     assert value["fresh_seeds"] == list(range(31801, 31821))
     assert value["expected_episodes"] == 480
     assert value["sequence_family_size"] == 9
     assert value["selection_disclosure"] == design.SELECTION_DISCLOSURE
-    assert value["selection_disclosure"][
-        "baseline_selected_after_frontier_v2"
-    ] is True
-    assert value["selection_disclosure"][
-        "proxy_is_not_a_fresh_result"
-    ] is True
+    assert value["selection_disclosure"]["baseline_selected_after_frontier_v2"] is True
+    assert value["selection_disclosure"]["proxy_is_not_a_fresh_result"] is True
     assert value["outcome_based_exclusion_allowed"] is False
     assert value["partial_reexecution_allowed"] is False
     assert value["episode_replay_allowed"] is False
@@ -116,17 +97,11 @@ def test_manifest_is_exact_unique_and_counterbalanced() -> None:
     value = protocol()
     rows = design.episode_manifest(value)
     assert len(rows) == len({row["episode_id"] for row in rows}) == 480
-    assert {row["budget_level"] for row in rows} == set(
-        design.BUDGET_LEVELS
-    )
-    assert design.arm_order_counts(value) == {
-        arm: {0: 120, 1: 120} for arm in design.ARMS
+    assert {row["budget_level"] for row in rows} == set(design.BUDGET_LEVELS)
+    assert design.arm_order_counts(value) == {arm: {0: 120, 1: 120} for arm in design.ARMS}
+    assert {row["task"] for row in rows if row["family_group"] == "date_picker_holdout"} == {
+        "choose-date-nodelay"
     }
-    assert {
-        row["task"]
-        for row in rows
-        if row["family_group"] == "date_picker_holdout"
-    } == {"choose-date-nodelay"}
 
 
 def test_synthetic_complete_population_passes_all_frozen_gates() -> None:
@@ -136,36 +111,16 @@ def test_synthetic_complete_population_passes_all_frozen_gates() -> None:
     for episode in design.episode_manifest(value):
         if episode["method"] == design.FULL_METHOD:
             success = episode["budget_level"] in {"medium", "high"}
-            rows.append(
-                fake_result(
-                    episode,
-                    success=success,
-                    restored=not success,
-                )
-            )
+            rows.append(fake_result(episode, success=success, restored=not success))
         else:
-            success = (
-                episode["task"] in first_two_tasks
-                and episode["budget_level"] == "medium"
-            )
-            rows.append(
-                fake_result(
-                    episode,
-                    success=success,
-                    restored=not success,
-                    policy_cap=not success,
-                )
-            )
-    analysis = design.analyze_rows(
-        rows, value, all_claims_complete=True
-    )
+            success = episode["task"] in first_two_tasks and episode["budget_level"] == "medium"
+            rows.append(fake_result(episode, success=success, restored=not success, policy_cap=not success))
+    analysis = design.analyze_rows(rows, value, all_claims_complete=True)
     assert analysis["exact_manifest"] is True
     assert analysis["metrics"][design.FULL_METHOD]["task_successes"] == 160
     assert analysis["metrics"][design.SAFE_BASELINE]["task_successes"] == 40
     assert analysis["single_obligation_success_families"] == 2
-    assert analysis["paired_stack_vs_safe_task_success"][
-        "seed_cluster_wins"
-    ] == 20
+    assert analysis["paired_stack_vs_safe_task_success"]["seed_cluster_wins"] == 20
     assert all(analysis["checks"].values())
     assert analysis["passed"] is True
 
@@ -174,17 +129,10 @@ def test_policy_violation_and_missing_row_fail_closed() -> None:
     value = protocol()
     manifest = design.episode_manifest(value)
     incomplete = [
-        fake_result(
-            episode,
-            restored=True,
-            policy_cap=episode["method"] == design.SAFE_BASELINE,
-        )
+        fake_result(episode, restored=True, policy_cap=episode["method"] == design.SAFE_BASELINE)
         for episode in manifest[:-1]
     ]
-    assert design.analyze_rows(
-        incomplete, value, all_claims_complete=False
-    )["passed"] is False
-
+    assert design.analyze_rows(incomplete, value, all_claims_complete=False)["passed"] is False
     rows = []
     for episode in manifest:
         result = fake_result(
@@ -194,11 +142,7 @@ def test_policy_violation_and_missing_row_fail_closed() -> None:
             policy_cap=episode["method"] == design.SAFE_BASELINE,
         )
         rows.append(result)
-    safe_row = next(
-        row
-        for row in rows
-        if row["episode"]["method"] == design.SAFE_BASELINE
-    )
+    safe_row = next((row for row in rows if row["episode"]["method"] == design.SAFE_BASELINE))
     safe_row["trace"][0]["active_obligations_before_proposal"] = 2
     analysis = design.analyze_rows(rows, value, all_claims_complete=True)
     assert analysis["checks"]["single_obligation_policy_holds"] is False

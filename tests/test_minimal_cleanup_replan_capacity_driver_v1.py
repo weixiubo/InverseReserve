@@ -4,14 +4,12 @@ from types import SimpleNamespace
 
 import pytest
 
-from rcrps import minimal_cleanup_replan_capacity_driver_v1 as module
-from rcrps.capacity_reserve_drivers_v18 import StackWideCapacityDriverV18
+from inversereserve.controllers import minimal_cleanup_replan_capacity_driver_v1 as module
+from inversereserve.controllers.capacity_reserve_drivers_v18 import StackWideCapacityDriverV18
 
 
 def driver(active: int):
-    value = module.MinimalCleanupReplanDriverV1.__new__(
-        module.MinimalCleanupReplanDriverV1
-    )
+    value = module.MinimalCleanupReplanDriverV1.__new__(module.MinimalCleanupReplanDriverV1)
     value.runtime = SimpleNamespace(
         active=[SimpleNamespace(contract=object()) for _ in range(active)],
         halted=False,
@@ -24,9 +22,7 @@ def driver(active: int):
     value.minimal_cleanup_actions = 0
     events: list[dict] = []
     value.audit = events.append
-    value.inventory = lambda: SimpleNamespace(
-        contract_by_bid={"candidate": object()}
-    )
+    value.inventory = lambda: SimpleNamespace(contract_by_bid={"candidate": object()})
     return value, events
 
 
@@ -72,9 +68,7 @@ def test_feasible_transaction_preserves_live_stack(monkeypatch) -> None:
         "inverse_reserve",
         lambda _self, _candidate, _decision: (True, 5),
     )
-    assert value.inverse_reserve(
-        SimpleNamespace(bid="candidate"), "transact"
-    ) == (True, 5)
+    assert value.inverse_reserve(SimpleNamespace(bid="candidate"), "transact") == (True, 5)
     assert len(value.runtime.active) == 2
     assert value.minimal_cleanup_attempts == 0
     assert events == []
@@ -94,9 +88,7 @@ def test_failed_top_restoration_rejects_without_replan(monkeypatch) -> None:
         lambda outcome: {"passed": outcome.passed},
     )
     value.runtime.restore_top = lambda _trigger: SimpleNamespace(passed=False)
-    allowed, reserve = value.inverse_reserve(
-        SimpleNamespace(bid="candidate"), "transact"
-    )
+    allowed, reserve = value.inverse_reserve(SimpleNamespace(bid="candidate"), "transact")
     assert (allowed, reserve) == (False, 2)
     assert value.minimal_cleanup_failures == 1
     assert value.minimal_cleanup_passes == 0
@@ -108,7 +100,4 @@ def test_driver_is_distinct_stack_wide_policy() -> None:
         module.MinimalCleanupReplanDriverV1,
         StackWideCapacityDriverV18,
     )
-    assert (
-        module.MinimalCleanupReplanDriverV1.method_id
-        == "minimal_lifo_cleanup_replan_v1"
-    )
+    assert module.MinimalCleanupReplanDriverV1.method_id == "minimal_lifo_cleanup_replan_v1"

@@ -4,14 +4,12 @@ from types import SimpleNamespace
 
 import pytest
 
-from rcrps import cleanup_replan_capacity_driver_v1 as module
-from rcrps.capacity_reserve_drivers_v18 import StackWideCapacityDriverV18
+from inversereserve.controllers import cleanup_replan_capacity_driver_v1 as module
+from inversereserve.controllers.capacity_reserve_drivers_v18 import StackWideCapacityDriverV18
 
 
 def driver(active: int) -> tuple[module.DemandCleanupReplanDriverV1, list[dict]]:
-    value = module.DemandCleanupReplanDriverV1.__new__(
-        module.DemandCleanupReplanDriverV1
-    )
+    value = module.DemandCleanupReplanDriverV1.__new__(module.DemandCleanupReplanDriverV1)
     value.runtime = SimpleNamespace(
         active=[SimpleNamespace(contract=object()) for _ in range(active)],
         halted=False,
@@ -60,9 +58,7 @@ def test_failed_cleanup_rejects_without_replan(monkeypatch) -> None:
         value.executor.actions.append(object())
 
     value.cleanup_runtime = cleanup
-    allowed, reserve = value.inverse_reserve(
-        SimpleNamespace(bid="candidate"), "transact"
-    )
+    allowed, reserve = value.inverse_reserve(SimpleNamespace(bid="candidate"), "transact")
 
     assert (allowed, reserve) == (False, 3)
     assert value.cleanup_replan_failures == 1
@@ -82,9 +78,7 @@ def test_empty_stack_and_commit_delegate_to_stack_wide(monkeypatch) -> None:
     monkeypatch.setattr(StackWideCapacityDriverV18, "inverse_reserve", parent)
     for active, decision in ((0, "transact"), (1, "commit")):
         value, events = driver(active)
-        assert value.inverse_reserve(
-            SimpleNamespace(bid="candidate"), decision
-        ) == (True, 5)
+        assert value.inverse_reserve(SimpleNamespace(bid="candidate"), decision) == (True, 5)
         assert not events
     assert calls == [("candidate", "transact"), ("candidate", "commit")]
 
@@ -94,7 +88,4 @@ def test_driver_is_stack_wide_and_distinct() -> None:
         module.DemandCleanupReplanDriverV1,
         StackWideCapacityDriverV18,
     )
-    assert (
-        module.DemandCleanupReplanDriverV1.method_id
-        == "demand_cleanup_replan_v1"
-    )
+    assert module.DemandCleanupReplanDriverV1.method_id == "demand_cleanup_replan_v1"

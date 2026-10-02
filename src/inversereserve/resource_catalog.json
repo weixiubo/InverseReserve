@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "resources": [
+    {
+      "id": "miniwob-html",
+      "root": "data",
+      "path": "miniwob/html",
+      "kind": "directory",
+      "purpose": "Explicit MiniWoB browser sessions",
+      "version": "Use the recorded benchmark commit; not inferred from directory presence",
+      "source": "https://github.com/Farama-Foundation/miniwob-plusplus",
+      "license": "MIT",
+      "sha256": null,
+      "how_to_get": "Restore or clone the benchmark revision, set options.html_root, and bind its files in required_files before an experiment."
+    },
+    {
+      "id": "qwen35-9b",
+      "root": "models",
+      "path": "Qwen3.5-9B",
+      "kind": "directory",
+      "purpose": "Local planner inference",
+      "version": "Qwen3.5-9B; exact snapshot must come from the experiment manifest",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-9B",
+      "license": "Apache-2.0",
+      "sha256": null,
+      "how_to_get": "Restore the exact model snapshot and a resource-manifest.json mapping every model file to its original SHA256. New downloads must pin a revision and create a new experiment identity."
+    },
+    {
+      "id": "runtime-audit",
+      "root": "data",
+      "path": "runtime-audit.json",
+      "kind": "file",
+      "purpose": "Original GPU/browser/runtime provenance",
+      "version": "C415/C416 and final protocol source 30300a63",
+      "source": "Author backup PROJECT_ASSETS.json and runtime audit",
+      "license": "Private audit; review before distribution",
+      "sha256": null,
+      "how_to_get": "Recover the original runtime audit from the private research archive; do not restore old virtual environments wholesale."
+    },
+    {
+      "id": "webarena-images",
+      "root": "data",
+      "path": "webarena",
+      "kind": "directory",
+      "purpose": "Optional separately scoped WebArena studies",
+      "version": "Per retained study protocol; not equivalent to MiniWoB final evidence",
+      "source": "https://github.com/ServiceNow/BrowserGym",
+      "license": "BrowserGym Apache-2.0; datasets/images have their own licenses",
+      "sha256": null,
+      "how_to_get": "Use the specific study image digest and credentials from its private runtime audit. No shared container is started or removed by ordinary commands."
+    }
+  ]
+}

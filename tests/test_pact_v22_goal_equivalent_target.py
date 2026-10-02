@@ -1,35 +1,18 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
+from inversereserve.contracts.goal_contracts_v4 import compile_structured_goal
+from inversereserve.contracts.pact_goal_scope_v22 import promote_goal_equivalent_exact_target_v22
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.contracts.typed_contracts_v4 import TransactionContractV4
+from inversereserve.models.structured_planner_v4 import ActionCandidateV4, V4ActionInventory
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.goal_contracts_v4 import compile_structured_goal  # noqa: E402
-from rcrps.pact_goal_scope_v22 import (  # noqa: E402
-    promote_goal_equivalent_exact_target_v22,
-)
-from rcrps.structured_planner_v4 import (  # noqa: E402
-    ActionCandidateV4,
-    V4ActionInventory,
-)
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
-from rcrps.typed_contracts_v4 import TransactionContractV4  # noqa: E402
-from rcrps.typed_observation import (  # noqa: E402
-    SemanticElement,
-    SemanticSnapshot,
-)
 
 
-def element(
-    bid: str,
-    *,
-    role: str,
-    name: str,
-    parent: str | None = None,
-) -> SemanticElement:
+def element(bid: str, *, role: str, name: str, parent: str | None = None) -> SemanticElement:
     return SemanticElement(
         bid=bid,
         role=role,
@@ -67,11 +50,7 @@ def candidate(
     )
 
 
-def contract(
-    kind: str,
-    semantic_bid: str,
-    action_bid: str,
-) -> TransactionContractV4:
+def contract(kind: str, semantic_bid: str, action_bid: str) -> TransactionContractV4:
     return TransactionContractV4(
         kind=kind,
         semantic_bid=semantic_bid,
@@ -87,13 +66,7 @@ def inventory(
     rows: tuple[ActionCandidateV4, ...],
     contracts: tuple[tuple[str, TransactionContractV4], ...],
 ) -> V4ActionInventory:
-    return V4ActionInventory(
-        True,
-        "fixture",
-        compile_structured_goal(goal, current),
-        rows,
-        contracts,
-    )
+    return V4ActionInventory(True, "fixture", compile_structured_goal(goal, current), rows, contracts)
 
 
 def test_v22_promotes_canonical_member_of_declared_folder_file_class() -> None:
@@ -109,57 +82,34 @@ def test_v22_promotes_canonical_member_of_declared_folder_file_class() -> None:
         )
     )
     folder = candidate(
-        "23",
-        role="listitem",
-        label="Myron",
-        semantic_bid="21",
-        parent="16",
-        kind="tree_folder_toggle",
+        "23", role="listitem", label="Myron", semantic_bid="21", parent="16", kind="tree_folder_toggle"
     )
-    file = candidate(
-        "30",
-        role="file",
-        label="Myron",
-        semantic_bid="29",
-        parent="16",
-    )
+    file = candidate("30", role="file", label="Myron", semantic_bid="29", parent="16")
     other = candidate(
-        "33",
-        role="listitem",
-        label="Vanda",
-        semantic_bid="31",
-        parent="16",
-        kind="tree_folder_toggle",
+        "33", role="listitem", label="Vanda", semantic_bid="31", parent="16", kind="tree_folder_toggle"
     )
     value = inventory(
         current,
-        'Navigate through the file tree. Find and click on the folder or file '
-        'named "Myron".',
+        'Navigate through the file tree. Find and click on the folder or file named "Myron".',
         (folder, file, other),
         (
             ("23", contract("tree_folder_toggle", "21", "23")),
             ("33", contract("tree_folder_toggle", "31", "33")),
         ),
     )
-    promoted, record = promote_goal_equivalent_exact_target_v22(
-        current,
-        value,
-    )
+    promoted, record = promote_goal_equivalent_exact_target_v22(current, value)
     assert record is not None
     assert record["promotion_rule"] == "goal_equivalent_terminal_promotion_v22"
     assert record["promoted_bid"] == "30"
     assert record["removed_related_alias_bids"] == ["23"]
-    assert tuple(row.bid for row in promoted.candidates) == ("30", "33")
+    assert tuple((row.bid for row in promoted.candidates)) == ("30", "33")
     assert promoted.candidates[0].transaction_kind is None
-    assert tuple(bid for bid, _contract in promoted.contracts) == ("33",)
+    assert tuple((bid for bid, _contract in promoted.contracts)) == ("33",)
 
 
 def test_v22_retains_unqualified_duplicate_target_ambiguity() -> None:
     current = SemanticSnapshot(
-        (
-            element("a", role="button", name="Target"),
-            element("b", role="button", name="Target"),
-        )
+        (element("a", role="button", name="Target"), element("b", role="button", name="Target"))
     )
     rows = (
         candidate("a", role="button", label="Target", kind="tab_switch"),
@@ -169,33 +119,19 @@ def test_v22_retains_unqualified_duplicate_target_ambiguity() -> None:
         current,
         'Click "Target".',
         rows,
-        (
-            ("a", contract("tab_switch", "a", "a")),
-            ("b", contract("tab_switch", "b", "b")),
-        ),
+        (("a", contract("tab_switch", "a", "a")), ("b", contract("tab_switch", "b", "b"))),
     )
-    unchanged, record = promote_goal_equivalent_exact_target_v22(
-        current,
-        value,
-    )
+    unchanged, record = promote_goal_equivalent_exact_target_v22(current, value)
     assert record is None
     assert unchanged == value
 
 
 def test_v22_retains_form_prerequisite_before_submit() -> None:
     current = SemanticSnapshot(
-        (
-            element("field", role="textbox", name="Title"),
-            element("submit", role="button", name="Submit"),
-        )
+        (element("field", role="textbox", name="Title"), element("submit", role="button", name="Submit"))
     )
     rows = (
-        candidate(
-            "field",
-            role="textbox",
-            label="Title",
-            kind="editable_field_assignment",
-        ),
+        candidate("field", role="textbox", label="Title", kind="editable_field_assignment"),
         candidate("submit", role="button", label="Submit"),
     )
     value = inventory(
@@ -209,9 +145,7 @@ def test_v22_retains_form_prerequisite_before_submit() -> None:
                     kind="editable_field_assignment",
                     semantic_bid="field",
                     action=ContractActionV4("fill", "field", "new"),
-                    inverse_actions=(
-                        ContractActionV4("fill", "field", "old"),
-                    ),
+                    inverse_actions=(ContractActionV4("fill", "field", "old"),),
                     expected_value="new",
                     prior_value="old",
                     projection_kind="editable_field_assignment",
@@ -219,9 +153,6 @@ def test_v22_retains_form_prerequisite_before_submit() -> None:
             ),
         ),
     )
-    unchanged, record = promote_goal_equivalent_exact_target_v22(
-        current,
-        value,
-    )
+    unchanged, record = promote_goal_equivalent_exact_target_v22(current, value)
     assert record is None
     assert unchanged == value

@@ -1,21 +1,18 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.action_envelope_v7 import (  # noqa: E402
+from inversereserve.contracts.action_envelope_v7 import (
     assemble_action_envelope_v7,
     envelope_messages_v7,
     resolve_action_envelope_v7,
 )
-from rcrps.structured_planner_v4 import ActionCandidateV4  # noqa: E402
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.models.structured_planner_v4 import ActionCandidateV4
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def row(bid: str, kind: str | None, *, label: str | None = None) -> ActionCandidateV4:
@@ -46,9 +43,7 @@ def goal_contract() -> dict:
 
 def test_v7_fresh_certificate_dominates_premature_typed_and_form_rows() -> None:
     rows = (row("field", "editable_field_assignment"), row("submit", None))
-    envelope = assemble_action_envelope_v7(
-        candidates=rows, admitted_certificate_bids=("submit",)
-    )
+    envelope = assemble_action_envelope_v7(candidates=rows, admitted_certificate_bids=("submit",))
     assert envelope.decision == "commit"
     assert [candidate.bid for candidate in envelope.candidates] == ["submit"]
     assert envelope.model_call_required is False
@@ -68,12 +63,7 @@ def test_v7_unfinished_typed_rows_exclude_active_control_and_form_distractor() -
     )
     envelope = assemble_action_envelope_v7(
         candidates=rows,
-        active_transactions=(
-            {
-                "transaction_kind": "editable_field_assignment",
-                "semantic_bid": "password",
-            },
-        ),
+        active_transactions=({"transaction_kind": "editable_field_assignment", "semantic_bid": "password"},),
     )
     assert envelope.decision == "transact"
     assert [candidate.bid for candidate in envelope.candidates] == ["username"]
@@ -90,9 +80,7 @@ def test_v7_calendar_shift_is_repeatable_while_component_open_is_not() -> None:
         {"transaction_kind": "datepicker_open", "semantic_bid": "open"},
         {"transaction_kind": "calendar_month_shift", "semantic_bid": "date"},
     )
-    envelope = assemble_action_envelope_v7(
-        candidates=rows, active_transactions=history
-    )
+    envelope = assemble_action_envelope_v7(candidates=rows, active_transactions=history)
     assert [candidate.bid for candidate in envelope.candidates] == ["next"]
 
 
@@ -106,10 +94,7 @@ def test_v7_empty_envelope_abstains_without_model() -> None:
 
 def test_v7_multirow_envelope_uses_model_only_with_fixed_decision() -> None:
     envelope = assemble_action_envelope_v7(
-        candidates=(
-            row("from", "autocomplete_query"),
-            row("to", "autocomplete_query"),
-        )
+        candidates=(row("from", "autocomplete_query"), row("to", "autocomplete_query"))
     )
     assert envelope.model_call_required is True
     messages = envelope_messages_v7(
@@ -117,40 +102,27 @@ def test_v7_multirow_envelope_uses_model_only_with_fixed_decision() -> None:
     )
     assert "FIXED DECISION: transact" in messages[1]["content"]
     assert "submit" not in messages[1]["content"].casefold()
-    resolution = resolve_action_envelope_v7(
-        envelope, model_output='{"decision":"transact","bid":"to"}'
-    )
+    resolution = resolve_action_envelope_v7(envelope, model_output='{"decision":"transact","bid":"to"}')
     assert resolution.bid == "to"
     assert resolution.source == "shared_model"
     with pytest.raises(ValueError, match="fixed envelope decision"):
-        resolve_action_envelope_v7(
-            envelope, model_output='{"decision":"abstain","bid":null}'
-        )
+        resolve_action_envelope_v7(envelope, model_output='{"decision":"abstain","bid":null}')
 
 
 def test_v7_fail_closed_invariants_reject_ambiguous_or_mistyped_certificates() -> None:
     rows = (row("a", None), row("b", None))
     with pytest.raises(ValueError, match="multiple fresh"):
-        assemble_action_envelope_v7(
-            candidates=rows, admitted_certificate_bids=("a", "b")
-        )
+        assemble_action_envelope_v7(candidates=rows, admitted_certificate_bids=("a", "b"))
     with pytest.raises(ValueError, match="typed row"):
         assemble_action_envelope_v7(
-            candidates=(row("field", "editable_field_assignment"),),
-            admitted_certificate_bids=("field",),
+            candidates=(row("field", "editable_field_assignment"),), admitted_certificate_bids=("field",)
         )
 
 
 def test_v7_singleton_and_abstain_reject_unnecessary_model_calls() -> None:
-    singleton = assemble_action_envelope_v7(
-        candidates=(row("field", "editable_field_assignment"),)
-    )
+    singleton = assemble_action_envelope_v7(candidates=(row("field", "editable_field_assignment"),))
     with pytest.raises(ValueError, match="must not receive"):
-        resolve_action_envelope_v7(
-            singleton, model_output='{"decision":"transact","bid":"field"}'
-        )
+        resolve_action_envelope_v7(singleton, model_output='{"decision":"transact","bid":"field"}')
     abstain = assemble_action_envelope_v7(candidates=())
     with pytest.raises(ValueError, match="must not receive"):
-        resolve_action_envelope_v7(
-            abstain, model_output='{"decision":"abstain","bid":null}'
-        )
+        resolve_action_envelope_v7(abstain, model_output='{"decision":"abstain","bid":null}')

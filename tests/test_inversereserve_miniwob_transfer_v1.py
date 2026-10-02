@@ -1,17 +1,20 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
 import pytest
 
-import c414_adaptive_semantic_risk_diagnostic as c414
-from rcrps import inversereserve_miniwob_transfer_v1 as design
-
+from inversereserve.studies import inversereserve_miniwob_transfer_v1 as design
 
 ROOT = Path(__file__).resolve().parents[1]
-SURVEY = c414.load_json(Path(__file__).parent / "fixtures" / "inversereserve_miniwob_public_input_coverage_survey_v1.json")
+SURVEY = json.loads(
+    (
+        Path(__file__).parent / "fixtures" / "inversereserve_miniwob_public_input_coverage_survey_v1.json"
+    ).read_text(encoding="utf-8")
+)
 POPULATION = design.derive_population(SURVEY)
 
 
@@ -90,10 +93,10 @@ def fake_result(
 def synthetic_valid_rows(value: dict[str, Any]) -> list[dict[str, Any]]:
     rows = []
     for episode in design.episode_manifest(value):
-        success = (
-            episode["method"] == design.FULL_METHOD
-            or episode["task"] not in {"click-tab-2", "navigate-tree"}
-        )
+        success = episode["method"] == design.FULL_METHOD or episode["task"] not in {
+            "click-tab-2",
+            "navigate-tree",
+        }
         rows.append(
             fake_result(
                 episode,
@@ -106,9 +109,7 @@ def synthetic_valid_rows(value: dict[str, Any]) -> list[dict[str, Any]]:
 
 def test_outcome_free_population_is_exact_and_template_conservative() -> None:
     assert POPULATION["eligible_exact_tasks"] == list(design.ELIGIBLE_TASKS)
-    assert POPULATION["new_template_exact_tasks"] == list(
-        design.NEW_TEMPLATE_EXACT_TASKS
-    )
+    assert POPULATION["new_template_exact_tasks"] == list(design.NEW_TEMPLATE_EXACT_TASKS)
     assert POPULATION["primary_tasks"] == list(design.PRIMARY_TASKS)
     assert POPULATION["new_template_groups"] == [
         "click-collapsible",
@@ -117,9 +118,7 @@ def test_outcome_free_population_is_exact_and_template_conservative() -> None:
         "enter-password",
         "navigate-tree",
     ]
-    assert design.normalize_task_template("click-collapsible-2-nodelay") == (
-        "click-collapsible"
-    )
+    assert design.normalize_task_template("click-collapsible-2-nodelay") == ("click-collapsible")
     assert not set(design.PRIOR_EXACT_TASKS) & set(design.ELIGIBLE_TASKS)
 
 
@@ -140,9 +139,7 @@ def test_protocol_and_manifest_freeze_fresh_balanced_grid() -> None:
     assert value["outcome_based_exclusion_allowed"] is False
     rows = design.episode_manifest(value)
     assert len(rows) == len({row["episode_id"] for row in rows}) == 560
-    assert design.arm_order_counts(value) == {
-        arm: {0: 140, 1: 140} for arm in design.ARMS
-    }
+    assert design.arm_order_counts(value) == {arm: {0: 140, 1: 140} for arm in design.ARMS}
 
 
 def test_synthetic_complete_grid_passes_without_an_efficacy_gate(
@@ -157,9 +154,7 @@ def test_synthetic_complete_grid_passes_without_an_efficacy_gate(
     )
     assert analysis["metrics"][design.FULL_METHOD]["closed_successes"] == 280
     assert analysis["metrics"][design.SAFE_BASELINE]["closed_successes"] == 240
-    assert analysis["paired_stack_vs_safe_closed_success"]["tasks"] == list(
-        design.PRIMARY_TASKS
-    )
+    assert analysis["paired_stack_vs_safe_closed_success"]["tasks"] == list(design.PRIMARY_TASKS)
     assert all(analysis["checks"].values())
     assert analysis["passed"] is True
 

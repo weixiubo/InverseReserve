@@ -1,17 +1,12 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
+from inversereserve.observations.click_preview import WordBox
+from inversereserve.observations.deployed_action_scope_v2 import scope_deployed_action_candidates_v2
+from inversereserve.observations.screenshot_candidates import ScreenshotCandidate
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.click_preview import WordBox  # noqa: E402
-from rcrps.deployed_action_scope_v2 import (  # noqa: E402
-    scope_deployed_action_candidates_v2,
-)
-from rcrps.screenshot_candidates import ScreenshotCandidate  # noqa: E402
 
 
 def candidate(index: int, x: float, text: str = "") -> ScreenshotCandidate:
@@ -36,14 +31,9 @@ def test_noisy_icon_ocr_does_not_veto_the_physical_action_band() -> None:
         candidate(3, 406, text="v"),
         candidate(4, 458),
     ]
-
     scoped, decision = scope_deployed_action_candidates_v2(
-        instruction='For the user @alice, click the "Edit" control.',
-        words=words,
-        candidates=actions,
+        instruction='For the user @alice, click the "Edit" control.', words=words, candidates=actions
     )
-
     assert set(scoped) == set(actions)
     assert decision.reason == "repeated_action_band_v2"
     assert decision.structural_x_clusters == 5
-

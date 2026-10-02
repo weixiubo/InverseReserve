@@ -5,7 +5,7 @@ from typing import Any
 
 import pytest
 
-from rcrps import inversereserve_v19_unified_confirmation_v1 as design
+from inversereserve.studies import inversereserve_v19_unified_confirmation_v1 as design
 
 
 def protocol() -> dict[str, Any]:
@@ -96,9 +96,7 @@ def synthetic_passing_rows(value: dict[str, Any]) -> list[dict[str, Any]]:
 
 def test_protocol_fixes_independent_population_and_inference() -> None:
     value = protocol()
-    assert value["status"] == (
-        "independent_confirmation_frozen_before_any_35101_through_35120_reset"
-    )
+    assert value["status"] == ("independent_confirmation_frozen_before_any_35101_through_35120_reset")
     assert value["confirmation_seeds"] == list(range(35101, 35121))
     assert value["expected_episodes"] == 1080
     assert value["preregistration"] == design.PREREGISTRATION
@@ -123,23 +121,17 @@ def test_manifest_is_unique_and_balanced() -> None:
     value = protocol()
     rows = design.episode_manifest(value)
     assert len(rows) == len({row["episode_id"] for row in rows}) == 1080
-    assert design.arm_order_counts(value) == {
-        arm: {0: 120, 1: 120, 2: 120} for arm in design.ARMS
-    }
+    assert design.arm_order_counts(value) == {arm: {0: 120, 1: 120, 2: 120} for arm in design.ARMS}
 
 
 def test_synthetic_confirmation_passes_every_frozen_gate() -> None:
     value = protocol()
-    analysis = design.analyze_rows(
-        synthetic_passing_rows(value), value, all_claims_complete=True
-    )
+    analysis = design.analyze_rows(synthetic_passing_rows(value), value, all_claims_complete=True)
     assert analysis["metrics"][design.FULL_METHOD]["closed_successes"] == 240
     assert analysis["metrics"][design.SAFE_BASELINE]["closed_successes"] == 120
     assert analysis["primary_comparison"]["paired_episodes"] == 360
     assert analysis["primary_comparison"]["net_paired_successes"] == 120
-    assert min(
-        analysis["family_closed_successes"][design.FULL_METHOD].values()
-    ) == 40
+    assert min(analysis["family_closed_successes"][design.FULL_METHOD].values()) == 40
     assert all(analysis["checks"].values())
     assert analysis["passed"] is True
 
@@ -148,18 +140,14 @@ def test_incomplete_and_open_success_fail_closed() -> None:
     value = protocol()
     rows = synthetic_passing_rows(value)
     stack_success = next(
-        row
-        for row in rows
-        if row["episode"]["method"] == design.FULL_METHOD and row["success"]
+        row for row in rows if row["episode"]["method"] == design.FULL_METHOD and row["success"]
     )
     stack_success["active_transactions_at_stop"] = [{}]
     analysis = design.analyze_rows(rows, value, all_claims_complete=True)
     assert analysis["checks"]["stack_closes_every_success"] is False
     assert analysis["passed"] is False
 
-    incomplete = design.analyze_rows(
-        rows[:-1], value, all_claims_complete=False
-    )
+    incomplete = design.analyze_rows(rows[:-1], value, all_claims_complete=False)
     assert incomplete["exact_manifest"] is False
     assert incomplete["primary_comparison"] is None
     assert incomplete["checks"]["complete_exact_grid"] is False

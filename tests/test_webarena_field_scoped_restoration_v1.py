@@ -1,26 +1,20 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.transaction_actions_v4 import ContractActionV4  # noqa: E402
-from rcrps.typed_contracts_v4 import TransactionContractV4  # noqa: E402
-from rcrps.typed_observation import (  # noqa: E402
-    SemanticElement,
-    SemanticSnapshot,
-)
-from rcrps.webarena_field_scoped_restoration_v1 import (  # noqa: E402
+import inversereserve.adapters.webarena.webarena_multifield_agent_v3 as agent_module
+from inversereserve.adapters.webarena.webarena_field_scoped_restoration_v1 import (
     FIELD_RESTORATION_PROJECTION_V1,
     FailClosedWebArenaFieldRuntimeV1,
     check_editable_field_restoration_v1,
 )
-import rcrps.webarena_multifield_agent_v3 as agent_module  # noqa: E402
+from inversereserve.contracts.transaction_actions_v4 import ContractActionV4
+from inversereserve.contracts.typed_contracts_v4 import TransactionContractV4
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -101,52 +95,28 @@ def test_unrelated_dynamic_form_nodes_do_not_expand_owned_projection() -> None:
             element("cancel", role="button", tag="button"),
         )
     )
-    check = check_editable_field_restoration_v1(
-        before,
-        restored,
-        contract(),
-    )
+    check = check_editable_field_restoration_v1(before, restored, contract())
     assert check.passed
     assert check.delta.added_visible_bids == ("cancel", "dynamic")
 
 
 @pytest.mark.parametrize(
-    ("value", "readonly", "disabled"),
-    (
-        ("not restored", False, False),
-        ("", True, False),
-        ("", False, True),
-    ),
+    ("value", "readonly", "disabled"), (("not restored", False, False), ("", True, False), ("", False, True))
 )
-def test_target_value_and_status_mismatches_fail_closed(
-    value: str,
-    readonly: bool,
-    disabled: bool,
-) -> None:
+def test_target_value_and_status_mismatches_fail_closed(value: str, readonly: bool, disabled: bool) -> None:
     check = check_editable_field_restoration_v1(
         snapshot(),
-        snapshot(
-            target_value=value,
-            target_readonly=readonly,
-            target_disabled=disabled,
-        ),
+        snapshot(target_value=value, target_readonly=readonly, target_disabled=disabled),
         contract(),
     )
     assert not check.passed
 
 
 def test_runtime_audits_global_delta_but_certifies_declared_field() -> None:
-    runtime = FailClosedWebArenaFieldRuntimeV1(
-        lambda _action, _role: None,
-        lambda _contract, _cost: True,
-    )
+    runtime = FailClosedWebArenaFieldRuntimeV1(lambda _action, _role: None, lambda _contract, _cost: True)
     check = runtime._check_restoration(
         snapshot(),
-        snapshot(
-            extra=(
-                element("dynamic", role="textbox", tag="input", value="async"),
-            )
-        ),
+        snapshot(extra=(element("dynamic", role="textbox", tag="input", value="async"),)),
         contract(),
         trigger="test cleanup",
     )
@@ -172,20 +142,18 @@ def test_runtime_audits_global_delta_but_certifies_declared_field() -> None:
     ]
 
 
-def test_v3_agent_installs_field_scoped_runtime(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    executor = lambda _action, _role: None
-    reserve = lambda _contract, _cost: True
+def test_v3_agent_installs_field_scoped_runtime(monkeypatch: pytest.MonkeyPatch) -> None:
+
+    def executor(_action, _role):
+        return None
+
+    def reserve(_contract, _cost):
+        return True
 
     def fake_parent_init(self, **_kwargs) -> None:
         self.executor = executor
         self.interrupt_repair_reservation = reserve
 
-    monkeypatch.setattr(
-        agent_module.MultiFieldInverseReserveAgentV2,
-        "__init__",
-        fake_parent_init,
-    )
+    monkeypatch.setattr(agent_module.MultiFieldInverseReserveAgentV2, "__init__", fake_parent_init)
     agent = agent_module.MultiFieldInverseReserveAgentV3()
     assert isinstance(agent.runtime, FailClosedWebArenaFieldRuntimeV1)

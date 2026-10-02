@@ -1,20 +1,13 @@
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 
 import numpy as np
 
+from inversereserve.adapters.webarena.webarena_exact_mutation_agent_v1 import ExactMutationTransferAgentV1
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.webarena_exact_mutation_agent_v1 import (  # noqa: E402
-    ExactMutationTransferAgentV1,
-)
-
-
 GOAL = 'Change my bio to "hello" in the discussion forum'
 BUDGETS = {
     "maximum_gui_actions": 10,
@@ -24,12 +17,7 @@ BUDGETS = {
 }
 
 
-def observation(
-    nodes: list[dict],
-    *,
-    url: str,
-    goal: str = GOAL,
-) -> dict:
+def observation(nodes: list[dict], *, url: str, goal: str = GOAL) -> dict:
     strings: list[str] = []
 
     def string_index(value: object) -> int:
@@ -46,11 +34,7 @@ def observation(
     for index, row in enumerate(nodes):
         attrs = {"bid": row["bid"], **row.get("attributes", {})}
         attributes.append(
-            [
-                value
-                for name, item in attrs.items()
-                for value in (string_index(name), string_index(item))
-            ]
+            [value for name, item in attrs.items() for value in (string_index(name), string_index(item))]
         )
         parent = row.get("parent")
         parent_indexes.append(-1 if parent is None else by_bid[parent])
@@ -80,13 +64,7 @@ def observation(
         "dom_object": {
             "strings": strings,
             "documents": [
-                {
-                    "nodes": {
-                        "attributes": attributes,
-                        "parentIndex": parent_indexes,
-                        "nodeName": node_names,
-                    }
-                }
+                {"nodes": {"attributes": attributes, "parentIndex": parent_indexes, "nodeName": node_names}}
             ],
         },
         "extra_element_properties": {
@@ -123,24 +101,14 @@ def navigation_page() -> dict:
 def exact_form(*, value: str, saved: bool = False) -> dict:
     nodes = [
         {"bid": "page", "role": "generic", "tag": "main"},
-        {
-            "bid": "form",
-            "role": "form",
-            "name": "Profile settings",
-            "tag": "form",
-            "parent": "page",
-        },
+        {"bid": "form", "role": "form", "name": "Profile settings", "tag": "form", "parent": "page"},
         {
             "bid": "field",
             "role": "textbox",
             "name": "Bio",
             "tag": "input",
             "attributes": {"name": "bio", "type": "text"},
-            "properties": {
-                "value": value,
-                "readonly": False,
-                "disabled": False,
-            },
+            "properties": {"value": value, "readonly": False, "disabled": False},
             "parent": "form",
         },
         {
@@ -155,18 +123,9 @@ def exact_form(*, value: str, saved: bool = False) -> dict:
     ]
     if saved:
         nodes.append(
-            {
-                "bid": "saved",
-                "role": "status",
-                "name": "Profile saved",
-                "tag": "div",
-                "parent": "page",
-            }
+            {"bid": "saved", "role": "status", "name": "Profile saved", "tag": "div", "parent": "page"}
         )
-    return observation(
-        nodes,
-        url="http://127.0.0.1:20999/settings/profile",
-    )
+    return observation(nodes, url="http://127.0.0.1:20999/settings/profile")
 
 
 class QueueEnvironment:
@@ -178,18 +137,16 @@ class QueueEnvironment:
         self.calls.append(code)
         if not self.outputs:
             raise AssertionError("unexpected extra environment action")
-        return self.outputs.pop(0), 0.0, False, False, {}
+        return (self.outputs.pop(0), 0.0, False, False, {})
 
 
 def navigator(bid: str = "nav"):
+
     def generate(_messages: list[dict[str, str]]) -> dict:
         return {
             "cache_key": "navigation-key",
             "cache_hit": False,
-            "raw_output": (
-                f'<PACT_NAVIGATION>{{"decision":"click","bid":"{bid}"}}'
-                "</PACT_NAVIGATION>"
-            ),
+            "raw_output": f'<PACT_NAVIGATION>{{"decision":"click","bid":"{bid}"}}</PACT_NAVIGATION>',
             "input_tokens": 20,
             "generated_tokens": 8,
         }
@@ -206,26 +163,15 @@ def test_agent_navigates_then_executes_typed_fill_and_fresh_commit() -> None:
         [exact_form(value="prior"), exact_form(value="hello"), exact_form(value="hello", saved=True)]
     )
     agent = ExactMutationTransferAgentV1(
-        environment=environment,
-        observation=navigation_page(),
-        budgets=BUDGETS,
-        planner_generate=navigator(),
+        environment=environment, observation=navigation_page(), budgets=BUDGETS, planner_generate=navigator()
     )
     agent.run()
     result = agent.result()
     assert result["method_commit_effective"] is True
     assert result["typed_target_form_reached"] is True
     assert result["method_failure"] is None
-    assert environment.calls == [
-        "click('nav')",
-        "fill('field', 'hello', False)",
-        "click_no_wait('submit')",
-    ]
-    assert [row["role"] for row in result["actions"]] == [
-        "navigation",
-        "typed_forward",
-        "commit",
-    ]
+    assert environment.calls == ["click('nav')", "fill('field', 'hello', False)", "click_no_wait('submit')"]
+    assert [row["role"] for row in result["actions"]] == ["navigation", "typed_forward", "commit"]
     assert result["metrics"]["planner_calls"] == 1
     assert result["metrics"]["typed_transactions"] == 1
     assert result["metrics"]["certified_commits"] == 1
@@ -237,9 +183,7 @@ def test_agent_navigates_then_executes_typed_fill_and_fresh_commit() -> None:
 
 
 def test_agent_on_target_form_never_calls_navigation_model() -> None:
-    environment = QueueEnvironment(
-        [exact_form(value="hello"), exact_form(value="hello", saved=True)]
-    )
+    environment = QueueEnvironment([exact_form(value="hello"), exact_form(value="hello", saved=True)])
     agent = ExactMutationTransferAgentV1(
         environment=environment,
         observation=exact_form(value="prior"),
@@ -251,13 +195,11 @@ def test_agent_on_target_form_never_calls_navigation_model() -> None:
     assert result["method_commit_effective"] is True
     assert result["metrics"]["planner_calls"] == 0
     assert result["metrics"]["navigation_actions"] == 0
-    assert environment.calls == [
-        "fill('field', 'hello', False)",
-        "click_no_wait('submit')",
-    ]
+    assert environment.calls == ["fill('field', 'hello', False)", "click_no_wait('submit')"]
 
 
 def test_navigation_parse_failure_executes_no_action_and_retains_failure() -> None:
+
     def invalid(_messages):
         return {
             "cache_key": "bad",
@@ -269,10 +211,7 @@ def test_navigation_parse_failure_executes_no_action_and_retains_failure() -> No
 
     environment = QueueEnvironment([])
     agent = ExactMutationTransferAgentV1(
-        environment=environment,
-        observation=navigation_page(),
-        budgets=BUDGETS,
-        planner_generate=invalid,
+        environment=environment, observation=navigation_page(), budgets=BUDGETS, planner_generate=invalid
     )
     agent.run()
     result = agent.result()
@@ -286,10 +225,7 @@ def test_zero_effect_navigation_is_quarantined_and_not_repeated() -> None:
     same = navigation_page()
     environment = QueueEnvironment([same])
     agent = ExactMutationTransferAgentV1(
-        environment=environment,
-        observation=same,
-        budgets=BUDGETS,
-        planner_generate=navigator(),
+        environment=environment, observation=same, budgets=BUDGETS, planner_generate=navigator()
     )
     agent.run()
     result = agent.result()
@@ -305,26 +241,19 @@ def test_inverse_and_commit_reservation_stops_before_typed_forward() -> None:
     budgets = {**BUDGETS, "maximum_gui_actions": 3}
     environment = QueueEnvironment([exact_form(value="prior")])
     agent = ExactMutationTransferAgentV1(
-        environment=environment,
-        observation=navigation_page(),
-        budgets=budgets,
-        planner_generate=navigator(),
+        environment=environment, observation=navigation_page(), budgets=budgets, planner_generate=navigator()
     )
     agent.run()
     result = agent.result()
     assert result["method_commit_effective"] is False
-    assert result["method_failure"] == (
-        "inverse and commit budget reservation stopped mutation"
-    )
+    assert result["method_failure"] == "inverse and commit budget reservation stopped mutation"
     assert result["metrics"]["inverse_reservation_stops"] == 1
     assert result["metrics"]["typed_transactions"] == 0
     assert environment.calls == ["click('nav')"]
 
 
 def test_result_is_json_serializable_and_contains_no_task_or_evaluator_input() -> None:
-    environment = QueueEnvironment(
-        [exact_form(value="hello"), exact_form(value="hello", saved=True)]
-    )
+    environment = QueueEnvironment([exact_form(value="hello"), exact_form(value="hello", saved=True)])
     agent = ExactMutationTransferAgentV1(
         environment=environment,
         observation=exact_form(value="prior"),

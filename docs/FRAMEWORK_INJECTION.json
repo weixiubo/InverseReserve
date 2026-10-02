@@ -1,0 +1,12 @@
+{
+  "module": "inversereserve.adapters.webarena.webarena_verified_runtime_v1",
+  "function": "click_no_wait",
+  "injected_names": [
+    "get_elem_by_bid",
+    "page",
+    "demo_mode"
+  ],
+  "reason": "BrowserGym extracts the function source and compiles it in the current page action namespace. It is not a standalone callable.",
+  "lint_exception": "F821 on the single lookup line",
+  "tests": "tests/test_framework_action_injection.py"
+}

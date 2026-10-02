@@ -1,17 +1,12 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import numpy as np
 
+from inversereserve.controllers.confirmation_agents_v8 import FullPactConfirmationDriverV8
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.confirmation_agents_v8 import (  # noqa: E402
-    FullPactConfirmationDriverV8,
-)
 
 
 def observation() -> dict:
@@ -31,22 +26,10 @@ def observation() -> dict:
         },
         "dom_object": {
             "strings": ["button", "bid", "1"],
-            "documents": [
-                {
-                    "nodes": {
-                        "attributes": [[1, 2]],
-                        "parentIndex": [-1],
-                        "nodeName": [0],
-                    }
-                }
-            ],
+            "documents": [{"nodes": {"attributes": [[1, 2]], "parentIndex": [-1], "nodeName": [0]}}],
         },
         "extra_element_properties": {
-            "1": {
-                "visibility": 1.0,
-                "clickable": True,
-                "bbox": [5.0, 5.0, 80.0, 30.0],
-            }
+            "1": {"visibility": 1.0, "clickable": True, "bbox": [5.0, 5.0, 80.0, 30.0]}
         },
         "screenshot": np.zeros((100, 100, 3), dtype=np.uint8),
         "last_action_error": "",
@@ -60,14 +43,10 @@ class NoEffectEnvironment:
 
     def step(self, code: str):
         self.calls.append(code)
-        return observation(), float(self.success), self.success, False, {}
+        return (observation(), float(self.success), self.success, False, {})
 
 
-BUDGETS = {
-    "maximum_gui_actions": 40,
-    "maximum_planner_calls": 40,
-    "maximum_wall_seconds": 30.0,
-}
+BUDGETS = {"maximum_gui_actions": 40, "maximum_planner_calls": 40, "maximum_wall_seconds": 30.0}
 
 
 def forbidden_model(_messages):
@@ -77,10 +56,7 @@ def forbidden_model(_messages):
 def test_v8_quarantines_same_state_commit_after_one_attempt() -> None:
     environment = NoEffectEnvironment()
     driver = FullPactConfirmationDriverV8(
-        environment=environment,
-        observation=observation(),
-        budgets=BUDGETS,
-        planner_generate=forbidden_model,
+        environment=environment, observation=observation(), budgets=BUDGETS, planner_generate=forbidden_model
     )
     driver.run()
     result = driver.result()
@@ -97,10 +73,7 @@ def test_v8_quarantines_same_state_commit_after_one_attempt() -> None:
 def test_v8_terminal_commit_counts_as_effective_without_public_delta() -> None:
     environment = NoEffectEnvironment(success=True)
     driver = FullPactConfirmationDriverV8(
-        environment=environment,
-        observation=observation(),
-        budgets=BUDGETS,
-        planner_generate=forbidden_model,
+        environment=environment, observation=observation(), budgets=BUDGETS, planner_generate=forbidden_model
     )
     driver.run()
     result = driver.result()

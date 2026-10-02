@@ -1,18 +1,15 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
-from rcrps.webarena_public_navigation_v3 import (  # noqa: E402
+from inversereserve.adapters.webarena.webarena_public_navigation_v3 import (
     check_public_navigation_effect_v3,
     compile_public_navigation_v3,
     detect_public_recovery_signal_v3,
 )
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -63,20 +60,9 @@ def test_standard_public_button_is_eligible_without_optional_click_marker() -> N
             attributes={"disabled": ""},
             clickable=False,
         ),
+        element("form", role="form", name="Profile form", tag="form", clickable=False),
         element(
-            "form",
-            role="form",
-            name="Profile form",
-            tag="form",
-            clickable=False,
-        ),
-        element(
-            "implicit-submit",
-            role="button",
-            name="Continue",
-            tag="button",
-            parent="form",
-            clickable=False,
+            "implicit-submit", role="button", name="Continue", tag="button", parent="form", clickable=False
         ),
         element(
             "associated-submit",
@@ -87,18 +73,11 @@ def test_standard_public_button_is_eligible_without_optional_click_marker() -> N
             clickable=False,
         ),
         element(
-            "save",
-            role="button",
-            name="Save",
-            tag="button",
-            attributes={"type": "submit"},
-            clickable=False,
+            "save", role="button", name="Save", tag="button", attributes={"type": "submit"}, clickable=False
         ),
     )
     inventory = compile_public_navigation_v3(
-        current,
-        current_url="http://reddit.local/",
-        goal="change my bio",
+        current, current_url="http://reddit.local/", goal="change my bio"
     )
     assert {row.bid for row in inventory.candidates} == {"account"}
     account = inventory.candidates[0]
@@ -108,27 +87,15 @@ def test_standard_public_button_is_eligible_without_optional_click_marker() -> N
 
 def test_state_action_attempts_require_public_recovery_for_second_try() -> None:
     current = page(
-        element(
-            "home",
-            role="link",
-            name="Home",
-            tag="a",
-            attributes={"href": "/"},
-            clickable=True,
-        )
+        element("home", role="link", name="Home", tag="a", attributes={"href": "/"}, clickable=True)
     )
     first = compile_public_navigation_v3(
-        current,
-        current_url="http://gitlab.local/error",
-        goal="edit my profile",
+        current, current_url="http://gitlab.local/error", goal="edit my profile"
     )
     candidate = first.candidates[0]
     counts = {candidate.state_action_key: 1}
     exhausted = compile_public_navigation_v3(
-        current,
-        current_url="http://gitlab.local/error",
-        goal="edit my profile",
-        attempt_counts=counts,
+        current, current_url="http://gitlab.local/error", goal="edit my profile", attempt_counts=counts
     )
     assert exhausted.candidates == ()
     retry = compile_public_navigation_v3(
@@ -162,11 +129,7 @@ def test_public_502_text_enables_recovery_without_status_or_network_inputs() -> 
     )
     signal = detect_public_recovery_signal_v3(current)
     assert signal.detected is True
-    assert set(signal.matched_public_patterns) == {
-        "bad_gateway",
-        "not_responding",
-        "retry_guidance",
-    }
+    assert set(signal.matched_public_patterns) == {"bad_gateway", "not_responding", "retry_guidance"}
     assert signal.record()["uses_status_code"] is False
     assert signal.record()["uses_network_log"] is False
 
@@ -174,18 +137,11 @@ def test_public_502_text_enables_recovery_without_status_or_network_inputs() -> 
 def test_navigation_attempt_keys_are_unique_while_state_action_key_is_stable() -> None:
     before = page(
         element(
-            "profile",
-            role="link",
-            name="Profile",
-            tag="a",
-            attributes={"href": "/profile"},
-            clickable=True,
+            "profile", role="link", name="Profile", tag="a", attributes={"href": "/profile"}, clickable=True
         )
     )
     first_inventory = compile_public_navigation_v3(
-        before,
-        current_url="http://example.local/",
-        goal="edit profile",
+        before, current_url="http://example.local/", goal="edit profile"
     )
     first = first_inventory.candidates[0]
     second_inventory = compile_public_navigation_v3(

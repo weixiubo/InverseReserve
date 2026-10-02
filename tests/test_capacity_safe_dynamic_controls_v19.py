@@ -4,14 +4,12 @@ from types import SimpleNamespace
 
 import pytest
 
-from rcrps import capacity_safe_dynamic_controls_v19 as module
-from rcrps.capacity_reserve_drivers_v19 import StackWideCapacityDriverV19
+from inversereserve.controllers import capacity_safe_dynamic_controls_v19 as module
+from inversereserve.controllers.capacity_reserve_drivers_v19 import StackWideCapacityDriverV19
 
 
 def complete_driver(active: int):
-    value = module.CompleteCleanupReplanDriverV19.__new__(
-        module.CompleteCleanupReplanDriverV19
-    )
+    value = module.CompleteCleanupReplanDriverV19.__new__(module.CompleteCleanupReplanDriverV19)
     value.runtime = SimpleNamespace(
         active=[SimpleNamespace(contract=object()) for _ in range(active)],
         halted=False,
@@ -28,9 +26,7 @@ def complete_driver(active: int):
 
 
 def top_driver(active: int):
-    value = module.TopCleanupReplanDriverV19.__new__(
-        module.TopCleanupReplanDriverV19
-    )
+    value = module.TopCleanupReplanDriverV19.__new__(module.TopCleanupReplanDriverV19)
     value.runtime = SimpleNamespace(
         active=[SimpleNamespace(contract=object()) for _ in range(active)],
         halted=False,
@@ -44,9 +40,7 @@ def top_driver(active: int):
     value.top_cleanup_preserved_lower_events = 0
     events: list[dict] = []
     value.audit = events.append
-    value.inventory = lambda: SimpleNamespace(
-        contract_by_bid={"candidate": object()}
-    )
+    value.inventory = lambda: SimpleNamespace(contract_by_bid={"candidate": object()})
     return value, events
 
 
@@ -81,9 +75,7 @@ def test_complete_control_delegates_without_live_transaction(monkeypatch) -> Non
     monkeypatch.setattr(StackWideCapacityDriverV19, "inverse_reserve", parent)
     for active, decision in ((0, "transact"), (2, "commit")):
         value, events = complete_driver(active)
-        assert value.inverse_reserve(
-            SimpleNamespace(bid="candidate"), decision
-        ) == (True, 4)
+        assert value.inverse_reserve(SimpleNamespace(bid="candidate"), decision) == (True, 4)
         assert events == []
     assert calls == [("candidate", "transact"), ("candidate", "commit")]
 
@@ -127,9 +119,7 @@ def test_top_control_preserves_feasible_stack(monkeypatch) -> None:
         "inverse_reserve",
         lambda _self, _candidate, _decision: (True, 5),
     )
-    assert value.inverse_reserve(
-        SimpleNamespace(bid="candidate"), "transact"
-    ) == (True, 5)
+    assert value.inverse_reserve(SimpleNamespace(bid="candidate"), "transact") == (True, 5)
     assert len(value.runtime.active) == 2
     assert value.top_cleanup_attempts == 0
     assert events == []
@@ -144,8 +134,5 @@ def test_controls_use_the_exact_v19_stack_wide_runtime() -> None:
         module.TopCleanupReplanDriverV19,
         StackWideCapacityDriverV19,
     )
-    assert (
-        module.CompleteCleanupReplanDriverV19.method_id
-        == "complete_cleanup_replan_v19"
-    )
+    assert module.CompleteCleanupReplanDriverV19.method_id == "complete_cleanup_replan_v19"
     assert module.TopCleanupReplanDriverV19.method_id == "top_cleanup_replan_v19"

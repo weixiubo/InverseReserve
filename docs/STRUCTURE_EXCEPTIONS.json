@@ -1,0 +1,346 @@
+{
+  "target": {
+    "module_lines": 600,
+    "function_lines": 120,
+    "complexity": 15
+  },
+  "exceptions": [
+    {
+      "path": "src/inversereserve/controllers/confirmation_agents_v16.py",
+      "name": "interrupt_clearance_metrics_v16",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_controller_differential.py",
+        "tests/test_pact_v16_interrupt_clearance.py"
+      ],
+      "lines": 63,
+      "complexity": 28,
+      "ast_sha256": "69383bc7525b2e950536be6d41059ce27b5b30c311dd9be6eea5bb4655d68040"
+    },
+    {
+      "path": "src/inversereserve/studies/external_statistics.py",
+      "name": "_summarize_method_summary_record",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_external_statistics.py"
+      ],
+      "lines": 45,
+      "complexity": 20,
+      "ast_sha256": "bb7a1b030cb6b79653ad5387d23eb639a7921a4debe26df33f2b39258bf07dbd"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_cleanup_replan_successor_v1.py",
+      "name": "summarize_rows",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_cleanup_replan_successor_v1.py"
+      ],
+      "lines": 35,
+      "complexity": 21,
+      "ast_sha256": "c6ae5a3c4a3bd13588c58490d7f35f85a3eba09e7428c78a90ada070e9b8ac90"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_cross_family_stress_v1.py",
+      "name": "_rows_confirmation_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_inversereserve_cross_family_stress_v1.py"
+      ],
+      "lines": 73,
+      "complexity": 21,
+      "ast_sha256": "af53091c9523ed9a341eb97786fce2f298f1ef1d569ea50f46c4098115821c5e"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_cross_family_stress_v1.py",
+      "name": "_analyze_rows_arm_metrics_record",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_cross_family_stress_v1.py"
+      ],
+      "lines": 22,
+      "complexity": 18,
+      "ast_sha256": "361fb589cb6e4d75c05dda75ed78625196bf62e754c6ed47d66b1638cc93cf7a"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_cross_family_stress_v1.py",
+      "name": "_augment_task_metrics",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_cross_family_stress_v1.py"
+      ],
+      "lines": 35,
+      "complexity": 16,
+      "ast_sha256": "1b95ab018dee4d9513658654eb8fdc3a6f85f964a412ee1e87c1973dedec326e"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_cross_planner_replication_v1.py",
+      "name": "summarize_rows",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_cross_planner_replication_v1.py"
+      ],
+      "lines": 29,
+      "complexity": 16,
+      "ast_sha256": "49a2f8367b43930d32b21fd3bfa228a99f9b986eee5331fb4fcec08a213dad88"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_exogenous_handoff_v1.py",
+      "name": "_rows_confirmation_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_inversereserve_exogenous_handoff_v1.py"
+      ],
+      "lines": 62,
+      "complexity": 16,
+      "ast_sha256": "81d7f2243028a6bf17d441ba4ce61aefeb166eef696132c792bc385c4ea79e4b"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_final_v1.py",
+      "name": "_final_rows_confirmation_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_inversereserve_final_v1.py"
+      ],
+      "lines": 96,
+      "complexity": 26,
+      "ast_sha256": "d0830f4abfe1e22e9bc7682090a55143faa69fdcbc7a82f6ef6ffbb07ecd7e02"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_live_resource_stress_v3.py",
+      "name": "_analyze_rows_arm_metrics_record",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_live_resource_stress_v3.py"
+      ],
+      "lines": 26,
+      "complexity": 16,
+      "ast_sha256": "5534be40aaedcfd103c6473b38f1a0b7b9729308cf78411fa2806cee6a287538"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_minimal_cleanup_successor_v1.py",
+      "name": "summarize_rows",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_minimal_cleanup_successor_v1.py"
+      ],
+      "lines": 47,
+      "complexity": 24,
+      "ast_sha256": "2eb27b4018ac3832dd010be962e682738ff4b1aa1968e825cb47255dc7a0664c"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_miniwob_transfer_v1.py",
+      "name": "_summarize_rows_summary_record",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_miniwob_transfer_v1.py"
+      ],
+      "lines": 33,
+      "complexity": 23,
+      "ast_sha256": "0278be3a9799a43d7f7f067c9f37795c8059087f5d66cfa862c58bb7f25dff32"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_miniwob_transfer_v2.py",
+      "name": "_summarize_rows_summary_record",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_study_metric_differential.py"
+      ],
+      "lines": 40,
+      "complexity": 28,
+      "ast_sha256": "4da12259504513d7c0ab8602955f43a5eb128187979b9674f55e01061ff154ea"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_model_family_replication_v1.py",
+      "name": "summarize_rows",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_model_family_replication_v1.py"
+      ],
+      "lines": 29,
+      "complexity": 16,
+      "ast_sha256": "49a2f8367b43930d32b21fd3bfa228a99f9b986eee5331fb4fcec08a213dad88"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_single_obligation_successor_v1.py",
+      "name": "summarize_rows",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_single_obligation_successor_v1.py"
+      ],
+      "lines": 29,
+      "complexity": 16,
+      "ast_sha256": "49a2f8367b43930d32b21fd3bfa228a99f9b986eee5331fb4fcec08a213dad88"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_strong_control_successor_v1.py",
+      "name": "_summarize_rows_summary_record",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_strong_control_successor_v1.py"
+      ],
+      "lines": 37,
+      "complexity": 25,
+      "ast_sha256": "4f40eeaf78da38f034380a5c2fbc6c0f35ade3325d540bcf8475f1ffc4cf06a8"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_v19_unified_development_v1.py",
+      "name": "_summarize_rows_summary_record",
+      "category": "fixed research metric declaration",
+      "reason": "Fixed output metric names and reductions are kept together for correspondence with the registered analysis. No experiment execution or external I/O occurs in this table.",
+      "tests": [
+        "tests/test_inversereserve_v19_unified_development_v1.py"
+      ],
+      "lines": 32,
+      "complexity": 19,
+      "ast_sha256": "fbecc7d5533407b98a18729143ba86d3c120867e764617713b5e694430bbee06"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_webarena_navigation_holdout_v4.py",
+      "name": "development_authorizes_holdout",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_holdout_declaration_differential.py"
+      ],
+      "lines": 32,
+      "complexity": 26,
+      "ast_sha256": "c88be7bf8afd92d0eb55d1f4f655f3569a5af1399ff6f9b6c37d29b6c301d639"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_webarena_navigation_holdout_v4.py",
+      "name": "validate_protocol_shape",
+      "category": "ordered protocol schema declaration",
+      "reason": "Ordered field requirements preserve the original first-failure protocol validation contract. Splitting the declaration into version-agnostic schemas would obscure the registered study boundary.",
+      "tests": [
+        "tests/test_holdout_declaration_differential.py"
+      ],
+      "lines": 153,
+      "complexity": 15,
+      "ast_sha256": "eb9af399f758ed9e22555289e62a86a664b19214860e377b3e6c1f02bd358020"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_webarena_navigation_holdout_v9.py",
+      "name": "development_authorizes_holdout",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_holdout_declaration_differential.py"
+      ],
+      "lines": 34,
+      "complexity": 28,
+      "ast_sha256": "1bcb06a74e139f1782d7bbbf4cf32ce9e3f875545ea3df245d20fa23afea5355"
+    },
+    {
+      "path": "src/inversereserve/studies/inversereserve_webarena_navigation_holdout_v9.py",
+      "name": "validate_protocol_shape",
+      "category": "ordered protocol schema declaration",
+      "reason": "Ordered field requirements preserve the original first-failure protocol validation contract. Splitting the declaration into version-agnostic schemas would obscure the registered study boundary.",
+      "tests": [
+        "tests/test_holdout_declaration_differential.py"
+      ],
+      "lines": 148,
+      "complexity": 13,
+      "ast_sha256": "cd8a95eb57e9afb262e2fd07e2b6b1474bace640b8a1f60ecb0d63e88763b0c8"
+    },
+    {
+      "path": "src/inversereserve/studies/matched_confirmation_v10.py",
+      "name": "_final_rows_confirmation_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_study_metric_differential.py"
+      ],
+      "lines": 89,
+      "complexity": 23,
+      "ast_sha256": "b01b3a92780339e85682ad17b3808ad5c0bf8fb5e41a06244dcf5d3fc45a7020"
+    },
+    {
+      "path": "src/inversereserve/studies/matched_confirmation_v9.py",
+      "name": "_final_rows_confirmation_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_matched_confirmation_v9.py"
+      ],
+      "lines": 83,
+      "complexity": 22,
+      "ast_sha256": "d9b7ac6978cba3b81ad7a2f67a71840fa37a7c3bea2f48b642a893356b06ebe1"
+    },
+    {
+      "path": "src/inversereserve/studies/repair_holdout_v10.py",
+      "name": "_holdout_rows_confirmation_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_repair_holdout_v10.py"
+      ],
+      "lines": 103,
+      "complexity": 25,
+      "ast_sha256": "b9f137e765fbfc6cf926e567bb7537c44930da455299ed55c131cd74468816c6"
+    },
+    {
+      "path": "src/inversereserve/studies/repair_holdout_v9.py",
+      "name": "_holdout_rows_confirmation_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_repair_holdout_v9.py"
+      ],
+      "lines": 98,
+      "complexity": 24,
+      "ast_sha256": "3de845d46d227cddbd8c97d714cea3197fcf1b563e7fcd97f6922f79849763c1"
+    },
+    {
+      "path": "src/inversereserve/studies/webarena_exact_mutation_transfer_v1.py",
+      "name": "_analyze_transfer_rows_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_webarena_transfer_differential.py"
+      ],
+      "lines": 41,
+      "complexity": 18,
+      "ast_sha256": "3dcb301622990f4e0fc8fa7db5dd20d2a239ec3cc2565149ce24aa32e64c4eb0"
+    },
+    {
+      "path": "src/inversereserve/studies/webarena_exact_mutation_transfer_v2.py",
+      "name": "_method_integrity_checks",
+      "category": "registered confirmation gate table",
+      "reason": "Fixed named research gates remain together so their completeness and threshold correspondence can be audited against the protocol. This is a pure evidence predicate, not a runtime action policy.",
+      "tests": [
+        "tests/test_webarena_transfer_differential.py"
+      ],
+      "lines": 33,
+      "complexity": 18,
+      "ast_sha256": "848b9d47bad586ec1e7c59a4287a7f854b9740c2e837dd63cd555425afd745a4"
+    },
+    {
+      "path": "src/inversereserve/studies/webarena_exact_mutation_transfer_v2.py",
+      "name": "validate_protocol_shape_v2",
+      "category": "ordered protocol schema declaration",
+      "reason": "Ordered field requirements preserve the original first-failure protocol validation contract. Splitting the declaration into version-agnostic schemas would obscure the registered study boundary.",
+      "tests": [
+        "tests/test_webarena_transfer_differential.py"
+      ],
+      "lines": 83,
+      "complexity": 25,
+      "ast_sha256": "700658d1d0b8d364326f5f49064f4e9561c60900ebdd005d119af02a218f471d"
+    }
+  ]
+}

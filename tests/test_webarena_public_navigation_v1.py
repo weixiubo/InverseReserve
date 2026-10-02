@@ -1,23 +1,20 @@
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
-from rcrps.webarena_public_navigation_v1 import (  # noqa: E402
+from inversereserve.adapters.webarena.webarena_public_navigation_v1 import (
     check_public_navigation_effect_v1,
     compile_public_navigation_v1,
     navigation_attempt_key_v1,
     navigation_messages_v1,
     resolve_public_navigation_v1,
 )
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -74,13 +71,7 @@ def public_page() -> SemanticSnapshot:
             tag="a",
             attributes={"href": "https://evil.example/help"},
         ),
-        element(
-            "logout",
-            role="link",
-            name="Sign out",
-            tag="a",
-            attributes={"href": "/users/sign_out"},
-        ),
+        element("logout", role="link", name="Sign out", tag="a", attributes={"href": "/users/sign_out"}),
         element(
             "menu",
             role="button",
@@ -89,20 +80,9 @@ def public_page() -> SemanticSnapshot:
             attributes={"type": "button", "aria-haspopup": "menu"},
             properties={"hasPopup": True, "expanded": False},
         ),
+        element("save", role="button", name="Save changes", tag="button", attributes={"type": "submit"}),
         element(
-            "save",
-            role="button",
-            name="Save changes",
-            tag="button",
-            attributes={"type": "submit"},
-        ),
-        element(
-            "hidden",
-            role="link",
-            name="Profile",
-            tag="a",
-            attributes={"href": "/hidden"},
-            visible=False,
+            "hidden", role="link", name="Profile", tag="a", attributes={"href": "/hidden"}, visible=False
         ),
     )
 
@@ -113,11 +93,7 @@ def test_navigation_inventory_uses_only_same_origin_gets_and_nonterminal_control
         current_url="http://127.0.0.1:22023/",
         goal="set the homepage URL on my GitLab profile to example.org",
     )
-    assert [row.bid for row in inventory.candidates] == [
-        "profile",
-        "address",
-        "menu",
-    ]
+    assert [row.bid for row in inventory.candidates] == ["profile", "address", "menu"]
     profile = inventory.candidates[0]
     assert profile.kind == "same_origin_get_link"
     assert profile.href == "http://127.0.0.1:22023/-/profile"
@@ -130,9 +106,7 @@ def test_navigation_inventory_uses_only_same_origin_gets_and_nonterminal_control
 
 def test_cross_origin_session_terminal_hidden_and_submit_candidates_are_excluded() -> None:
     inventory = compile_public_navigation_v1(
-        public_page(),
-        current_url="http://127.0.0.1:22023/",
-        goal="change my profile",
+        public_page(), current_url="http://127.0.0.1:22023/", goal="change my profile"
     )
     observed = {row.bid for row in inventory.candidates}
     assert not observed & {"external", "logout", "save", "hidden"}
@@ -140,20 +114,19 @@ def test_cross_origin_session_terminal_hidden_and_submit_candidates_are_excluded
 
 def test_public_candidate_bound_is_deterministic_and_reports_omissions() -> None:
     rows = tuple(
-        element(
-            f"link{index}",
-            role="link",
-            name=f"Page {index}",
-            tag="a",
-            attributes={"href": f"/page/{index}"},
+        (
+            element(
+                f"link{index}",
+                role="link",
+                name=f"Page {index}",
+                tag="a",
+                attributes={"href": f"/page/{index}"},
+            )
+            for index in range(5)
         )
-        for index in range(5)
     )
     inventory = compile_public_navigation_v1(
-        snapshot(*rows),
-        current_url="http://127.0.0.1:20999/",
-        goal="Open Page 3",
-        maximum_candidates=2,
+        snapshot(*rows), current_url="http://127.0.0.1:20999/", goal="Open Page 3", maximum_candidates=2
     )
     assert inventory.visible_eligible_count == 5
     assert inventory.omitted_count == 3
@@ -162,49 +135,25 @@ def test_public_candidate_bound_is_deterministic_and_reports_omissions() -> None
 
 def test_no_effect_attempt_key_is_quarantined_only_at_same_public_state() -> None:
     before = public_page()
-    first = compile_public_navigation_v1(
-        before,
-        current_url="http://127.0.0.1:22023/",
-        goal="edit profile",
-    )
-    selected = next(row for row in first.candidates if row.bid == "profile")
-    key = navigation_attempt_key_v1(
-        snapshot=before,
-        current_url="http://127.0.0.1:22023/",
-        bid=selected.bid,
-    )
+    first = compile_public_navigation_v1(before, current_url="http://127.0.0.1:22023/", goal="edit profile")
+    selected = next((row for row in first.candidates if row.bid == "profile"))
+    key = navigation_attempt_key_v1(snapshot=before, current_url="http://127.0.0.1:22023/", bid=selected.bid)
     quarantined = compile_public_navigation_v1(
-        before,
-        current_url="http://127.0.0.1:22023/",
-        goal="edit profile",
-        quarantined_attempt_keys=(key,),
+        before, current_url="http://127.0.0.1:22023/", goal="edit profile", quarantined_attempt_keys=(key,)
     )
     assert "profile" not in {row.bid for row in quarantined.candidates}
-
     changed = snapshot(
-        *before.elements,
-        element(
-            "new",
-            role="link",
-            name="New page",
-            tag="a",
-            attributes={"href": "/new"},
-        ),
+        *before.elements, element("new", role="link", name="New page", tag="a", attributes={"href": "/new"})
     )
     changed_inventory = compile_public_navigation_v1(
-        changed,
-        current_url="http://127.0.0.1:22023/",
-        goal="edit profile",
-        quarantined_attempt_keys=(key,),
+        changed, current_url="http://127.0.0.1:22023/", goal="edit profile", quarantined_attempt_keys=(key,)
     )
     assert "profile" in {row.bid for row in changed_inventory.candidates}
 
 
 def test_navigation_prompt_and_strict_resolution_bind_one_current_bid() -> None:
     inventory = compile_public_navigation_v1(
-        public_page(),
-        current_url="http://127.0.0.1:22023/",
-        goal="edit my profile",
+        public_page(), current_url="http://127.0.0.1:22023/", goal="edit my profile"
     )
     messages = navigation_messages_v1(
         goal="edit my profile",
@@ -214,37 +163,20 @@ def test_navigation_prompt_and_strict_resolution_bind_one_current_bid() -> None:
     )
     payload = json.loads(messages[1]["content"])
     assert payload["goal"] == "edit my profile"
-    assert {row["bid"] for row in payload["candidates"]} == {
-        "profile",
-        "address",
-        "menu",
-    }
+    assert {row["bid"] for row in payload["candidates"]} == {"profile", "address", "menu"}
     decision = resolve_public_navigation_v1(
-        inventory,
-        model_output=(
-            '<PACT_NAVIGATION>{"decision":"click","bid":"profile"}'
-            "</PACT_NAVIGATION>"
-        ),
+        inventory, model_output='<PACT_NAVIGATION>{"decision":"click","bid":"profile"}</PACT_NAVIGATION>'
     )
     assert decision.allowed is True
     assert decision.candidate is not None
     assert decision.candidate.bid == "profile"
-
     abstain = resolve_public_navigation_v1(
-        inventory,
-        model_output=(
-            '<PACT_NAVIGATION>{"decision":"abstain","bid":null}'
-            "</PACT_NAVIGATION>"
-        ),
+        inventory, model_output='<PACT_NAVIGATION>{"decision":"abstain","bid":null}</PACT_NAVIGATION>'
     )
     assert abstain.allowed is False
     with pytest.raises(ValueError, match="outside"):
         resolve_public_navigation_v1(
-            inventory,
-            model_output=(
-                '<PACT_NAVIGATION>{"decision":"click","bid":"invented"}'
-                "</PACT_NAVIGATION>"
-            ),
+            inventory, model_output='<PACT_NAVIGATION>{"decision":"click","bid":"invented"}</PACT_NAVIGATION>'
         )
 
 
@@ -253,23 +185,13 @@ def test_navigation_prompt_and_strict_resolution_bind_one_current_bid() -> None:
     [
         '{"decision":"click","bid":"profile"}',
         "<PACT_NAVIGATION>not json</PACT_NAVIGATION>",
-        (
-            '<PACT_NAVIGATION>{"decision":"click","bid":"profile","url":"/x"}'
-            "</PACT_NAVIGATION>"
-        ),
-        (
-            '<PACT_NAVIGATION>{"decision":"click","bid":"profile"}'
-            "</PACT_NAVIGATION>"
-            '<PACT_NAVIGATION>{"decision":"abstain","bid":null}'
-            "</PACT_NAVIGATION>"
-        ),
+        '<PACT_NAVIGATION>{"decision":"click","bid":"profile","url":"/x"}</PACT_NAVIGATION>',
+        '<PACT_NAVIGATION>{"decision":"click","bid":"profile"}</PACT_NAVIGATION><PACT_NAVIGATION>{"decision":"abstain","bid":null}</PACT_NAVIGATION>',
     ],
 )
 def test_navigation_model_output_fails_closed(model_output: str) -> None:
     inventory = compile_public_navigation_v1(
-        public_page(),
-        current_url="http://127.0.0.1:22023/",
-        goal="edit my profile",
+        public_page(), current_url="http://127.0.0.1:22023/", goal="edit my profile"
     )
     with pytest.raises(ValueError):
         resolve_public_navigation_v1(inventory, model_output=model_output)
@@ -278,11 +200,9 @@ def test_navigation_model_output_fails_closed(model_output: str) -> None:
 def test_navigation_effect_requires_url_or_public_semantic_change() -> None:
     before = public_page()
     inventory = compile_public_navigation_v1(
-        before,
-        current_url="http://127.0.0.1:22023/",
-        goal="edit my profile",
+        before, current_url="http://127.0.0.1:22023/", goal="edit my profile"
     )
-    candidate = next(row for row in inventory.candidates if row.bid == "profile")
+    candidate = next((row for row in inventory.candidates if row.bid == "profile"))
     no_effect = check_public_navigation_effect_v1(
         before=before,
         after=before,

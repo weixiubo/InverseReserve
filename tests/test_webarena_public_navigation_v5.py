@@ -1,23 +1,16 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
-from rcrps.webarena_public_navigation_v3 import (  # noqa: E402
-    compile_public_navigation_v3,
-)
-from rcrps.webarena_public_navigation_v5 import (  # noqa: E402
+from inversereserve.adapters.webarena.webarena_public_navigation_v3 import compile_public_navigation_v3
+from inversereserve.adapters.webarena.webarena_public_navigation_v5 import (
     compile_public_navigation_v5,
     opened_row_edit_decision_v5,
     quoted_entity_row_action_decision_v5,
 )
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
 
-
+ROOT = Path(__file__).resolve().parents[1]
 GOAL = 'Change the page title of "Home Page" page on my site to "New".'
 
 
@@ -67,18 +60,11 @@ def grid_snapshot() -> SemanticSnapshot:
 def test_row_action_is_promoted_and_preempts_inline_entity_click() -> None:
     snapshot = grid_snapshot()
     base = compile_public_navigation_v3(
-        snapshot,
-        current_url="http://example.local/admin/cms/page/",
-        goal=GOAL,
-        maximum_candidates=2,
+        snapshot, current_url="http://example.local/admin/cms/page/", goal=GOAL, maximum_candidates=2
     )
     assert "select_home" not in {row.bid for row in base.candidates}
-
     inventory = compile_public_navigation_v5(
-        snapshot,
-        current_url="http://example.local/admin/cms/page/",
-        goal=GOAL,
-        maximum_candidates=2,
+        snapshot, current_url="http://example.local/admin/cms/page/", goal=GOAL, maximum_candidates=2
     )
     assert inventory.row_action_binding.allowed is True
     assert inventory.row_action_binding.entity_bid == "home"
@@ -86,7 +72,6 @@ def test_row_action_is_promoted_and_preempts_inline_entity_click() -> None:
     assert inventory.row_action_binding.action_bid == "select_home"
     assert inventory.row_action_binding.promoted is True
     assert "select_home" in {row.bid for row in inventory.candidates}
-
     decision = quoted_entity_row_action_decision_v5(inventory)
     assert decision is not None
     assert decision.candidate.bid == "select_home"
@@ -101,9 +86,7 @@ def test_opened_row_requires_one_exact_visible_edit_action() -> None:
         )
     )
     inventory = compile_public_navigation_v5(
-        snapshot,
-        current_url="http://example.local/admin/cms/page/",
-        goal=GOAL,
+        snapshot, current_url="http://example.local/admin/cms/page/", goal=GOAL
     )
     decision = opened_row_edit_decision_v5(inventory)
     assert decision is not None
@@ -121,9 +104,7 @@ def test_row_action_binding_fails_closed_when_two_rows_match_entity() -> None:
         )
     )
     inventory = compile_public_navigation_v5(
-        snapshot,
-        current_url="http://example.local/admin/cms/page/",
-        goal=GOAL,
+        snapshot, current_url="http://example.local/admin/cms/page/", goal=GOAL
     )
     assert inventory.row_action_binding.allowed is False
     assert quoted_entity_row_action_decision_v5(inventory) is None

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from rcrps import inversereserve_v19_unified_development_v1 as design
+from inversereserve.studies import inversereserve_v19_unified_development_v1 as design
 
 
 def protocol() -> dict[str, Any]:
@@ -25,11 +25,7 @@ def fake_result(
     planner_actual_calls: int = 0,
 ) -> dict[str, Any]:
     restoration = int(not success)
-    reservation_rule = (
-        "proposal_local"
-        if episode["method"] == design.LOCAL_ABLATION
-        else "stack_wide"
-    )
+    reservation_rule = "proposal_local" if episode["method"] == design.LOCAL_ABLATION else "stack_wide"
     return {
         "episode": episode,
         "success": success,
@@ -68,22 +64,15 @@ def fake_result(
 
 def test_protocol_is_uniform_nonconfirmatory_and_create_once() -> None:
     value = protocol()
-    assert value["status"] == (
-        "development_only_frozen_before_any_35001_or_35002_reset"
-    )
+    assert value["status"] == ("development_only_frozen_before_any_35001_or_35002_reset")
     assert value["development_seeds"] == [35001, 35002]
     assert value["uniform_action_budgets"] == {
         "tight": 8,
         "medium": 16,
         "ample": 32,
     }
-    assert all(
-        task["budget_levels"] == value["uniform_action_budgets"]
-        for task in value["tasks"]
-    )
-    assert value["purpose"]["claim_status"] == (
-        "development_only_no_submission_claim"
-    )
+    assert all(task["budget_levels"] == value["uniform_action_budgets"] for task in value["tasks"])
+    assert value["purpose"]["claim_status"] == ("development_only_no_submission_claim")
     assert value["outcome_based_exclusion_allowed"] is False
     assert value["partial_reexecution_allowed"] is False
     assert value["completed_episode_replay_allowed"] is False
@@ -95,9 +84,7 @@ def test_manifest_is_exact_unique_and_counterbalanced() -> None:
     assert len(rows) == len({row["episode_id"] for row in rows}) == 108
     assert set(row["task"] for row in rows) == set(design.TASK_FAMILIES)
     assert set(row["method"] for row in rows) == set(design.ARMS)
-    assert design.arm_order_counts(value) == {
-        arm: {0: 12, 1: 12, 2: 12} for arm in design.ARMS
-    }
+    assert design.arm_order_counts(value) == {arm: {0: 12, 1: 12, 2: 12} for arm in design.ARMS}
 
 
 def test_synthetic_functional_population_passes_frozen_gates() -> None:
@@ -136,34 +123,22 @@ def test_open_success_and_missing_row_fail_closed() -> None:
     value = protocol()
     manifest = design.episode_manifest(value)
     rows = [fake_result(episode, success=False) for episode in manifest]
-    stack = next(
-        row
-        for row in rows
-        if row["episode"]["method"] == design.FULL_METHOD
-    )
+    stack = next(row for row in rows if row["episode"]["method"] == design.FULL_METHOD)
     stack["success"] = True
     stack["active_transactions_at_stop"] = [{}]
     analysis = design.analyze_rows(rows, value, all_claims_complete=True)
     assert analysis["checks"]["stack_closes_every_success"] is False
     assert analysis["passed"] is False
 
-    incomplete = design.analyze_rows(
-        rows[:-1], value, all_claims_complete=False
-    )
+    incomplete = design.analyze_rows(rows[:-1], value, all_claims_complete=False)
     assert incomplete["exact_manifest"] is False
     assert incomplete["checks"]["complete_exact_grid"] is False
 
 
 def test_v19_arms_share_the_same_runtime_family() -> None:
-    assert design.DRIVERS[design.FULL_METHOD].method_id == (
-        "stack_wide_reserve_v19"
-    )
-    assert design.DRIVERS[design.LOCAL_ABLATION].method_id == (
-        "proposal_local_reserve_v19"
-    )
-    assert design.DRIVERS[design.SAFE_BASELINE].method_id == (
-        "single_active_obligation_v19"
-    )
+    assert design.DRIVERS[design.FULL_METHOD].method_id == ("stack_wide_reserve_v19")
+    assert design.DRIVERS[design.LOCAL_ABLATION].method_id == ("proposal_local_reserve_v19")
+    assert design.DRIVERS[design.SAFE_BASELINE].method_id == ("single_active_obligation_v19")
     assert issubclass(
         design.DRIVERS[design.SAFE_BASELINE],
         design.DRIVERS[design.FULL_METHOD],

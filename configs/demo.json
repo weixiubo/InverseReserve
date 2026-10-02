@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "run_id": "offline-commit-001",
+  "backend": "replay",
+  "method": "full",
+  "options": {
+    "scenario": "commit"
+  }
+}

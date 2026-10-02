@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from rcrps.inversereserve_live_resource_stress_v2 import (
+from inversereserve.controllers.pact_controller_v15 import FailClosedTransactionRuntimeV15
+from inversereserve.studies.inversereserve_live_resource_stress_v1 import GUI_ACTION_BUDGETS
+from inversereserve.studies.inversereserve_live_resource_stress_v2 import (
     ARMS,
     DRIVERS,
     SEEDS,
     episode_manifest,
 )
-from rcrps.inversereserve_live_resource_stress_v1 import GUI_ACTION_BUDGETS
-from rcrps.pact_controller_v15 import FailClosedTransactionRuntimeV15
 
 
 def _protocol() -> dict:

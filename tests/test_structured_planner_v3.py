@@ -1,15 +1,12 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
+from inversereserve.models.structured_planner import planner_messages
+from inversereserve.models.structured_planner_v3 import successor_action_inventory
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.structured_planner import planner_messages  # noqa: E402
-from rcrps.structured_planner_v3 import successor_action_inventory  # noqa: E402
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
 
 
 def element(
@@ -45,14 +42,8 @@ def snapshot() -> SemanticSnapshot:
                 role="combobox",
                 name="Country",
                 tag="input",
-                properties=(
-                    ("autocomplete", "list"),
-                    ("hasPopup", "listbox"),
-                ),
-                attributes=(
-                    ("aria-autocomplete", "list"),
-                    ("aria-haspopup", "listbox"),
-                ),
+                properties=(("autocomplete", "list"), ("hasPopup", "listbox")),
+                attributes=(("aria-autocomplete", "list"), ("aria-haspopup", "listbox")),
             ),
             element(
                 "help",
@@ -62,20 +53,14 @@ def snapshot() -> SemanticSnapshot:
                 properties=(("hasPopup", "dialog"),),
                 attributes=(("aria-haspopup", "dialog"),),
             ),
-            element(
-                "save",
-                role="button",
-                name="Save",
-                tag="button",
-            ),
+            element("save", role="button", name="Save", tag="button"),
         )
     )
 
 
 def test_successor_inventory_exposes_parameterized_and_popup_contracts() -> None:
     result = successor_action_inventory(
-        snapshot(),
-        'Enter an item that starts with "Mon" and ends with "ia".',
+        snapshot(), 'Enter an item that starts with "Mon" and ends with "ia".'
     )
     lookup = {row.bid: row for row in result.candidates}
     assert result.allowed
@@ -94,10 +79,7 @@ def test_successor_inventory_exposes_parameterized_and_popup_contracts() -> None
 
 
 def test_suffix_only_constraint_uses_click_popup_without_inventing_a_query() -> None:
-    result = successor_action_inventory(
-        snapshot(),
-        'Choose an item that ends with "stan".',
-    )
+    result = successor_action_inventory(snapshot(), 'Choose an item that ends with "stan".')
     lookup = {row.bid: row for row in result.candidates}
     assert result.allowed and result.query is None
     assert lookup["country"].preview_kind == "popup_dialog_open"

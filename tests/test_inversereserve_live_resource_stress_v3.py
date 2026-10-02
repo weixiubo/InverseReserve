@@ -2,11 +2,8 @@ from __future__ import annotations
 
 import copy
 
-from rcrps import inversereserve_live_resource_stress_v3 as design
-from rcrps.inversereserve_live_resource_stress_v1 import (
-    FULL_METHOD,
-    LOCAL_ABLATION,
-)
+from inversereserve.studies import inversereserve_live_resource_stress_v3 as design
+from inversereserve.studies.inversereserve_live_resource_stress_v1 import FULL_METHOD, LOCAL_ABLATION
 
 
 def _protocol() -> dict:
@@ -69,9 +66,7 @@ def test_v3_manifest_is_fresh_complete_and_counterbalanced() -> None:
     assert len({row["episode_id"] for row in rows}) == 160
     for arm in design.ARMS:
         assert sum(row["method"] == arm for row in rows) == 80
-        assert sum(
-            row["method"] == arm and row["arm_position"] == 0 for row in rows
-        ) == 40
+        assert sum(row["method"] == arm and row["arm_position"] == 0 for row in rows) == 40
 
 
 def _analysis_row(episode: dict, *, unsafe_local: bool) -> dict:
@@ -116,10 +111,7 @@ def test_v3_analysis_uses_the_frozen_obligation_safety_estimand() -> None:
     protocol = _protocol()
     rows = []
     for episode in design.episode_manifest(protocol):
-        unsafe_local = (
-            episode["method"] == LOCAL_ABLATION
-            and episode["maximum_gui_actions"] == 2
-        )
+        unsafe_local = episode["method"] == LOCAL_ABLATION and episode["maximum_gui_actions"] == 2
         rows.append(_analysis_row(episode, unsafe_local=unsafe_local))
     result = design.analyze_rows(rows, protocol, all_claims_complete=True)
     assert result["passed"] is True

@@ -1,22 +1,19 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import pytest
 
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from rcrps.structured_planner import (  # noqa: E402
+from inversereserve.models.structured_planner import (
     ActionCandidate,
     action_candidates,
     parse_planner_decision,
     planner_messages,
     render_action_inventory,
 )
-from rcrps.typed_observation import SemanticElement, SemanticSnapshot  # noqa: E402
+from inversereserve.observations.typed_observation import SemanticElement, SemanticSnapshot
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def element(
@@ -64,7 +61,6 @@ def test_inventory_exposes_typed_exploration_and_direct_commit() -> None:
             element("submit", role="button", name="Submit"),
         )
     )
-
     rows = action_candidates(snapshot)
     lookup = {row.bid: row for row in rows}
     assert lookup["header"].preview_kind == "disclosure_toggle"
@@ -96,15 +92,9 @@ def test_terminal_button_descendant_is_not_suppressed_by_parent_contract() -> No
                 properties={"expanded": False, "selected": False},
                 clickable=True,
             ),
-            element(
-                "submit",
-                role="button",
-                name="Submit",
-                parent="submit-tab",
-            ),
+            element("submit", role="button", name="Submit", parent="submit-tab"),
         )
     )
-
     lookup = {row.bid: row for row in action_candidates(snapshot)}
     assert lookup["submit-tab"].preview_kind == "tab_switch"
     assert lookup["submit"].preview_kind is None
@@ -116,13 +106,7 @@ def test_file_control_is_a_direct_candidate_with_owner_text() -> None:
         (
             element("tree", role="list", tag="ul", clickable=False),
             element("li", role="listitem", parent="tree", tag="li", text="Report"),
-            element(
-                "file",
-                dom_parent="li",
-                tag="span",
-                classes="file",
-                clickable=False,
-            ),
+            element("file", dom_parent="li", tag="span", classes="file", clickable=False),
         )
     )
     lookup = {row.bid: row for row in action_candidates(snapshot)}
@@ -135,34 +119,21 @@ def test_file_control_is_a_direct_candidate_with_owner_text() -> None:
 def test_planner_parser_enforces_inventory_and_typed_exploration() -> None:
     direct = ActionCandidate("save", "click", "button", "Save", (), None, "save", None)
     typed = ActionCandidate(
-        "section",
-        "click",
-        "tab",
-        "Section",
-        (("expanded", False),),
-        "disclosure_toggle",
-        "section",
-        None,
+        "section", "click", "tab", "Section", (("expanded", False),), "disclosure_toggle", "section", None
     )
     rows = (direct, typed)
-
     commit = parse_planner_decision('{"decision":"commit","bid":"save"}', rows)
-    explore = parse_planner_decision(
-        '```json\n{"decision":"explore","bid":"section"}\n```', rows
-    )
+    explore = parse_planner_decision('```json\n{"decision":"explore","bid":"section"}\n```', rows)
     abstain = parse_planner_decision('{"decision":"abstain","bid":null}', rows)
     assert commit.candidate == direct
     assert explore.candidate == typed
     assert abstain.candidate is None
-
     with pytest.raises(ValueError, match="untyped control"):
         parse_planner_decision('{"decision":"explore","bid":"save"}', rows)
     with pytest.raises(ValueError, match="absent"):
         parse_planner_decision('{"decision":"commit","bid":"missing"}', rows)
     with pytest.raises(ValueError, match="after the JSON"):
-        parse_planner_decision(
-            '{"decision":"commit","bid":"save"} explanation', rows
-        )
+        parse_planner_decision('{"decision":"commit","bid":"save"} explanation', rows)
 
 
 def test_prompt_has_equal_grounded_schema() -> None:
