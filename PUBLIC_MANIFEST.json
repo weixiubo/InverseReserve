@@ -8,8 +8,8 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256": "78db75bd028f48edf33daa1c95e43e1a7ac047feba640ee15ce56f1b1c84a96c",
-      "bytes": 551
+      "sha256": "e79b62d805ab7d8a5f66e603b667c1e411c23434b3d7aeace1ca4c2c089682b2",
+      "bytes": 611
     },
     {
       "path": ".gitignore",
@@ -23,8 +23,8 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "693c35c05cdbb789a5f20f7563ada021350e836524d474b391e6f80fdbdb9090",
-      "bytes": 884
+      "sha256": "e3747b437cf95d1f0d8942a4bfabdca132ed5bfabaf732c01cf1b43885627705",
+      "bytes": 1382
     },
     {
       "path": "LICENSE",
@@ -33,8 +33,8 @@
     },
     {
       "path": "MANIFEST.in",
-      "sha256": "6110ce5b5a93ce6961a92844b46abdccb9ebd0193db49d33783106387e9d608b",
-      "bytes": 485
+      "sha256": "b0f37be6ba8f88b6118e46b13d504974c874b4291a9b08380fcd099ed2797f5d",
+      "bytes": 411
     },
     {
       "path": "README.md",
@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "52de9a8c8f03ea4f800d4fa5a3698276c4a54f34ca0d43335ccffc869bb3dcd8",
-      "bytes": 3126
+      "sha256": "1c850b9425d2d0ff824cf27bd2f30fd4b56265c0aa84d06e06f7ffd6ad837a83",
+      "bytes": 3937
     },
     {
       "path": "examples/capacity_smoke.py",
@@ -4285,6 +4285,11 @@
       "path": "scripts/check_release.py",
       "sha256": "8fbed466080a1c3eaecae2d96462828aaa8999970c1c73c6dc53ab6fc99fccd0",
       "bytes": 4819
+    },
+    {
+      "path": "scripts/check_sdist.py",
+      "sha256": "585eb6e898939c6b5d31548d0707f2ce84e41fe006d330fb80a67a033a1a304f",
+      "bytes": 3372
     },
     {
       "path": "scripts/check_structure.py",
