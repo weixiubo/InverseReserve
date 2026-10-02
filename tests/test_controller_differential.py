@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-import hashlib
 import importlib
 import sys
-import tarfile
 import time
 from pathlib import Path
 
 import pytest
 
+from .reference_support import copy_reference
 from .test_confirmation_agents_v8 import BUDGETS, NoEffectEnvironment, forbidden_model, observation
 from .test_webarena_exact_mutation_agent_v1 import (
     BUDGETS as WEB_BUDGETS,
@@ -22,18 +21,11 @@ from .test_webarena_exact_mutation_agent_v1 import (
     navigator,
 )
 
-BASELINE = Path(__file__).resolve().parents[1] / "reproduce/maintainer-baseline/inversereserve-1480943.tar.gz"
-SHA256 = "94ebee505a76e81a3996cc29cd931c0ab815d0a51f00528affaa7b3c05ce227f"
-
 
 @pytest.fixture(scope="module")
 def original_package(tmp_path_factory):
-    assert hashlib.sha256(BASELINE.read_bytes()).hexdigest() == SHA256
-    root = tmp_path_factory.mktemp("original-inversereserve")
-    with tarfile.open(BASELINE) as archive:
-        members = [m for m in archive.getmembers() if m.isfile() and m.name.startswith("src/rcrps/")]
-        assert members
-        archive.extractall(root, members=members, filter="data")
+    root = tmp_path_factory.mktemp("reference-inversereserve")
+    copy_reference(root)
     source = str(root / "src")
     sys.path.insert(0, source)
     try:

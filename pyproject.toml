@@ -30,6 +30,7 @@ where = ["src"]
 inversereserve = ["py.typed", "resource_catalog.json", "evidence_data/*.json", "evidence_data/*.tar.gz"]
 
 [tool.pytest.ini_options]
+norecursedirs = ["reference", ".*", "build", "dist", "*.egg"]
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "--import-mode=importlib"
@@ -37,7 +38,7 @@ addopts = "--import-mode=importlib"
 [tool.ruff]
 line-length = 110
 target-version = "py312"
-extend-exclude = ["reproduce", "build", "dist"]
+extend-exclude = ["tests/reference", "reproduce", "build", "dist"]
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "I", "B"]
 

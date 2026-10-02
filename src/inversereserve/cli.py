@@ -27,7 +27,7 @@ def parser() -> argparse.ArgumentParser:
     experiment.add_argument("--resume", action="store_true", help="reuse only a complete verified result")
     commands.add_parser("reproduce", help="verify original evidence and rebuild its frozen analysis")
     for command in (doctor, experiment):
-        for name in ("data", "models", "runs", "archives"):
+        for name in ("data", "models", "runs", "evidence"):
             command.add_argument(f"--{name}-dir")
     return root
 
@@ -39,7 +39,7 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
         from inversereserve.reproduction import reproduce
 
         return reproduce()
-    overrides = {kind: getattr(args, f"{kind}_dir") for kind in ("data", "models", "runs", "archives")}
+    overrides = {kind: getattr(args, f"{kind}_dir") for kind in ("data", "models", "runs", "evidence")}
     if args.command == "run":
         return run(read_config(args.config, overrides), resume=args.resume)
     catalog = json.loads(files("inversereserve").joinpath("resource_catalog.json").read_text())

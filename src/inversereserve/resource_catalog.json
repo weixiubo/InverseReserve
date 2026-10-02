@@ -35,7 +35,7 @@
       "source": "Author backup PROJECT_ASSETS.json and runtime audit",
       "license": "Private audit; review before distribution",
       "sha256": null,
-      "how_to_get": "Recover the original runtime audit from the private research archive; do not restore old virtual environments wholesale."
+      "how_to_get": "Place the original PROJECT_ASSETS.json contents at the data/runtime-audit.json resource. Environment dependency and pinned model provenance are recorded separately in data/environment-provenance.json; recreate current environments from uv.lock."
     },
     {
       "id": "webarena-images",

@@ -22,7 +22,7 @@
   unrelated directory, with no optional model/browser dependency. No caller or
   user resource directories are created until explicit run.
 - A manifest-controlled public export installs from uv.lock into a fresh .venv
-  and runs the complete test suite. Public files, compressed source snapshots,
+  and runs the complete test suite. Public files, reference implementation fixtures,
   and proposed Git history are scanned for credential patterns. This bounded
   pattern scan is not proof that every possible private datum is detectable.
 
@@ -31,7 +31,7 @@
 The original scientific source 30300a63d3d92d62da0384c214f4896e2116502c verifies
 821 original files and 360 episodes with 50,000 bootstrap samples. Success counts
 remain raw 45, typed 6, full 120. All original reproduce/ bytes are unchanged.
-The complete baseline source is separately archived and SHA256 bound. New runs
+The required original producer modules are regression fixtures with per-file SHA256 checks. New runs
 use the maintained source identity and explicitly mark historical_evidence false.
 
 ## Resource-dependent checks outstanding
@@ -40,6 +40,10 @@ Real browser state, Chromium integration, GPU inference/model numerics, complete
 external datasets, private WebArena/container studies and new sealed primary
 experiments have not run here. Dependency resolution is not integration proof.
 The runtime-cost replication module has no maintained callers and depends on an
-unpublished script/private preregistration; it is preserved in the baseline archive,
+unpublished script/private preregistration; it is removed from the current working tree,
 not advertised as an installed study. ARCHIVED_MODULES.json records that decision.
 No large resource was downloaded and no paid or remote experiment service was used.
+
+The material-cleanup checks and current retained source list are documented in
+MATERIALS.md and tests/reference/MANIFEST.json. Whole-source bundles are no longer
+part of the current distribution. Scientific evidence identities are unchanged.

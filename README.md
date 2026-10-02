@@ -48,3 +48,5 @@ commands are in this README and [MIGRATION](docs/MIGRATION.md).
 See [DEVELOPMENT](docs/DEVELOPMENT.md), [CONTRIBUTING](CONTRIBUTING.md),
 [VALIDATION](docs/VALIDATION.md), and [resource catalogue](src/inversereserve/resource_catalog.json).
 License: Apache-2.0. Publishing this local repository is a separate action.
+
+Material ownership and deletion rules: [docs/MATERIALS.md](docs/MATERIALS.md).

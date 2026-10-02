@@ -8,22 +8,19 @@
 | local relative `runs/`, external sibling assets or old cache paths | configured research resource roots |
 | offline `python reproduce/verify.py` | installed `inversereserve reproduce` (same original bytes/verifier) |
 
-Twenty-one source-bound historical scripts and the old wrapper/requirements lock
-were removed after preserving the complete baseline Git source snapshot under
-`reproduce/maintainer-baseline/`. They are not interchangeable with current
-experiments: old pre-registrations bind source digests and prior sealed outcomes.
-To inspect or rerun a historical entry, verify SOURCE.json and extract the snapshot
-into a separate archive work directory; supply its own pinned resources. Never
-rewrite an old source digest to make new code pass a frozen protocol gate.
+Unused source-bound runner scripts, obsolete wrappers and the standalone
+runtime-cost module with an unpublished private caller are removed from the
+working tree. `ENTRY_MIGRATION.json` records supported replacements.
+Regression tests compare maintained search/controller/protocol behavior with
+only the required producer modules in `tests/reference`.
 
-Current runs write protocol.json (new source identity and resources), result.json,
-and complete.json (result hash). Failed startup retains failure.json. A complete
-verified run can be reused with `--resume`; incomplete GUI runs require a new ID
-and reset environment, preserving the old record for diagnosis.
+Current runs write protocol.json, result.json and complete.json; failed startup
+retains failure.json. Verified completed runs support `--resume`. Incomplete GUI
+runs require a fresh run ID and environment reset.
 
-The intentional duplicate-coordinate search termination fix is documented in
-BEHAVIOR_CHANGES.md. All original test assertions remain, with namespace/owner
-changes mapped in TEST_MIGRATION.json. Old source files and evidence remain byte
-preserved rather than formatted or repaired during this refactor.
+The intentional duplicate-coordinate termination fix is documented in
+BEHAVIOR_CHANGES.md. TEST_MIGRATION.json records namespace and ownership changes;
+all original valid assertions remain. The immutable scientific evidence keeps
+its original source identities, independently of current implementations.
 
-The standalone runtime-cost replication module has no maintained callers and loads an unpublished latency script from a source-tree path. Its original bytes remain in the maintainer baseline archive; see ARCHIVED_MODULES.json. New installation does not advertise that private protocol as executable.
+See [MATERIALS.md](MATERIALS.md) for material ownership and deletion rules.

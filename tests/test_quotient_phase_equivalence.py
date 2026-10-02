@@ -1,11 +1,7 @@
 """Fixed-observation comparisons against the complete hash-verified original search."""
 
-import hashlib
-import json
 import sys
-import tarfile
 from dataclasses import asdict
-from pathlib import Path
 from types import ModuleType
 
 import numpy as np
@@ -14,15 +10,12 @@ import pytest
 from inversereserve.interface import PreviewObservation
 from inversereserve.quotient_search import QuotientConfig, generate_quotient_query_order
 
+from .reference_support import read_reference
+
 
 @pytest.fixture(scope="module")
 def original():
-    root = Path(__file__).resolve().parents[1] / "reproduce/maintainer-baseline"
-    metadata = json.loads((root / "SOURCE.json").read_text())
-    archive = root / metadata["archive"]
-    assert hashlib.sha256(archive.read_bytes()).hexdigest() == metadata["sha256"]
-    with tarfile.open(archive) as bundle:
-        source = bundle.extractfile("src/rcrps/quotient_search.py").read().decode()
+    source = read_reference("src/rcrps/quotient_search.py").decode()
     module = ModuleType("inverse_original_quotient")
     module.__package__ = "inversereserve"
     sys.modules[module.__name__] = module

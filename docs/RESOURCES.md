@@ -3,7 +3,7 @@
 Source, docs and tests live in `~/project/InverseReserve`; its `.venv` is disposable.
 External data defaults to `~/research/data/InverseReserve`, models to
 `~/research/models`, runs to `~/research/runs/InverseReserve`, and preserved history
-to `~/research/archives`. Nothing is created merely by importing the package.
+to `~/research/data/<project>/evidence`. Nothing is created merely by importing the package.
 
 Root precedence is command flags, explicit run-config paths, INVERSERESERVE_*_DIR
 environment variables, user JSON, then defaults. Run-config relative paths are
@@ -20,7 +20,7 @@ Individual doctor catalogue entries also accept
 INVERSERESERVE_RESOURCE_<UPPERCASE_ID_WITH_UNDERSCORES>. Experiment backend paths
 are explicitly resolved from their `options` values; the catalogue is an inventory,
 not a hidden mechanism for changing an experiment's inputs. `{data}`, `{models}`,
-`{runs}` and `{archives}` are the supported path placeholders.
+`{runs}` and `{evidence}` are the supported path placeholders.
 
 An external replay uses `options.replay_file` and an exact corresponding
 `required_files` entry `{ "path": "episode.json", "sha256": "<64 hex digits>" }`.
