@@ -1,0 +1,588 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter an item that starts with \"Ger\" and ends with \"many\".",
+    "goal_sha256": "fc451d46a0e840ab099560935683a6bf4b0fb94e0bd25274a373b56935e092b8",
+    "controller_arm": "full_pact_v13",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter an item that starts with \"Ger\" and ends with \"many\".",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "prefix_suffix",
+      "prefix": "Ger",
+      "suffix": "many",
+      "exact": null
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "envelope_decision_v8",
+      "inventory_count": 3,
+      "envelope": {
+        "decision": "transact",
+        "candidates": [
+          {
+            "bid": "17",
+            "op": "fill",
+            "arg": "Ger",
+            "enable_autocomplete_menu": true,
+            "role": "textbox",
+            "label": "Tags:",
+            "state": {},
+            "transaction_kind": "autocomplete_query",
+            "semantic_bid": "17",
+            "parent_bid": "15",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [],
+        "reason": "no commit is certified; unfinished goal-bound typed rows remain",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "16",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "18",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "transact",
+        "bid": "17",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 1,
+      "type": "inverse_budget_reservation",
+      "decision": "transact",
+      "bid": "17",
+      "active_inverse_cost": 2,
+      "remaining_after_action": 39,
+      "allowed": true
+    },
+    {
+      "event_index": 2,
+      "type": "typed_transaction_result_v8",
+      "bid": "17",
+      "admitted": true,
+      "reason": "typed postcondition admitted the transaction",
+      "interrupt_repairs": 0,
+      "halted": false
+    },
+    {
+      "event_index": 3,
+      "type": "envelope_decision_v8",
+      "inventory_count": 4,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "22",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "option",
+            "label": "Germany",
+            "state": {},
+            "transaction_kind": null,
+            "semantic_bid": "22",
+            "parent_bid": "21",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "22"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "16",
+          "allowed": false,
+          "anchor_kind": "exact_target",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "18",
+          "allowed": false,
+          "anchor_kind": "exact_target",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "22",
+          "allowed": true,
+          "anchor_kind": "exact_target",
+          "reason": "one visible row satisfies the exact public goal constraint",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "17",
+          "label": "Tags:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "17",
+          "operation": "fill",
+          "argument": "Ger",
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "22",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 4,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "22",
+      "active_inverse_cost": 2,
+      "remaining_after_action": 38,
+      "allowed": true
+    },
+    {
+      "event_index": 5,
+      "type": "certified_commit_result_v8",
+      "bid": "22",
+      "anchor_kind": "exact_target",
+      "certificate": {
+        "allowed": true,
+        "reason": "one visible row satisfies the exact public goal constraint",
+        "grounding": {
+          "allowed": true,
+          "reason": "one visible row satisfies the exact public goal constraint",
+          "anchor_kind": "exact_target",
+          "evidence_bids": [],
+          "competing_bids": [
+            "22"
+          ],
+          "certified_bid": "22"
+        },
+        "certified_action": {
+          "operation": "click",
+          "bid": "22",
+          "argument": null,
+          "enable_autocomplete_menu": false
+        },
+        "observation_fingerprint_sha256": "61322c213df146bdd4ea612ecf16e5d8ed9995d7d9f4daeffc7ea42f5881f36c",
+        "active_stack_signature": [
+          [
+            "autocomplete_query",
+            "17",
+            "fill",
+            "17",
+            "Ger",
+            true
+          ]
+        ]
+      },
+      "executed": true,
+      "reason": "fresh complete-public certificate authorized the exact commit action",
+      "halted": false,
+      "terminal": false
+    },
+    {
+      "event_index": 6,
+      "type": "commit_effect_result_v8",
+      "bid": "22",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "a7bfe8db8faa7891e2f8efe0668d1efa6974738980611495fad9d3832d8c84c3",
+      "resolved_semantic_bids": [
+        "17"
+      ]
+    },
+    {
+      "event_index": 7,
+      "type": "envelope_decision_v8",
+      "inventory_count": 3,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "18",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "button",
+            "label": "Submit",
+            "state": {},
+            "transaction_kind": null,
+            "semantic_bid": "18",
+            "parent_bid": "15",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "18"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "16",
+          "allowed": false,
+          "anchor_kind": "state_supported_form_action",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "18",
+          "allowed": true,
+          "anchor_kind": "state_supported_form_action",
+          "reason": "one form action is supported by complete public goal state",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "17",
+          "label": "Tags:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "17",
+          "operation": "fill",
+          "argument": "Ger",
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [
+        "17"
+      ],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "18",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 8,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "18",
+      "active_inverse_cost": 2,
+      "remaining_after_action": 37,
+      "allowed": true
+    },
+    {
+      "event_index": 9,
+      "type": "certified_commit_result_v8",
+      "bid": "18",
+      "anchor_kind": "state_supported_form_action",
+      "certificate": {
+        "allowed": true,
+        "reason": "one form action is supported by complete public goal state",
+        "grounding": {
+          "allowed": true,
+          "reason": "one form action is supported by complete public goal state",
+          "anchor_kind": "state_supported_form_action",
+          "evidence_bids": [
+            "17"
+          ],
+          "competing_bids": [
+            "18"
+          ],
+          "certified_bid": "18"
+        },
+        "certified_action": {
+          "operation": "click",
+          "bid": "18",
+          "argument": null,
+          "enable_autocomplete_menu": false
+        },
+        "observation_fingerprint_sha256": "2920099dfb1a4eb2864cc39f367e3ca7add1a9e9070e3573e8a4f30b65b6d08a",
+        "active_stack_signature": [
+          [
+            "autocomplete_query",
+            "17",
+            "fill",
+            "17",
+            "Ger",
+            true
+          ]
+        ]
+      },
+      "executed": true,
+      "reason": "fresh complete-public certificate authorized the exact commit action",
+      "halted": false,
+      "terminal": true
+    },
+    {
+      "event_index": 10,
+      "type": "commit_effect_result_v8",
+      "bid": "18",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "486323b5a41f48233ed523e9914970c4bc80e705785ae2862d8d23290bb962ba",
+      "resolved_semantic_bids": []
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "typed_forward",
+      "code": "fill('17', 'Ger', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "commit",
+      "code": "click('22')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "commit",
+      "code": "click('18')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [
+    {
+      "event_index": 0,
+      "type": "action",
+      "role": "typed_forward",
+      "action": {
+        "operation": "fill",
+        "bid": "17",
+        "argument": "Ger",
+        "enable_autocomplete_menu": true
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 1,
+      "type": "postcondition",
+      "context": "typed forward",
+      "contract_kind": "autocomplete_query",
+      "passed": true,
+      "reason": "query value and public suggestion surface appeared",
+      "delta": {
+        "added_visible_bids": [
+          "19",
+          "21",
+          "22"
+        ],
+        "removed_visible_bids": [],
+        "changed_visible_bids": [
+          "12",
+          "13",
+          "15",
+          "17"
+        ],
+        "newly_visible_text": [
+          "Germany"
+        ]
+      },
+      "checker_version": "PACT-v9-suggestion-population"
+    },
+    {
+      "event_index": 2,
+      "type": "complete_public_commit_observation_check_v13",
+      "passed": true,
+      "fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13",
+      "field_scope": "all_retained_semantic_snapshot_fields"
+    },
+    {
+      "event_index": 3,
+      "type": "action",
+      "role": "commit",
+      "action": {
+        "operation": "click",
+        "bid": "22",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 4,
+      "type": "complete_public_commit_observation_check_v13",
+      "passed": true,
+      "fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13",
+      "field_scope": "all_retained_semantic_snapshot_fields"
+    },
+    {
+      "event_index": 5,
+      "type": "action",
+      "role": "commit",
+      "action": {
+        "operation": "click",
+        "bid": "18",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": true,
+      "truncated": false,
+      "action_error": ""
+    }
+  ],
+  "active_transactions_at_stop": [
+    {
+      "bid": "17",
+      "label": "Tags:",
+      "transaction_kind": "autocomplete_query",
+      "semantic_bid": "17",
+      "operation": "fill",
+      "argument": "Ger",
+      "interrupt_repairs": 0
+    }
+  ],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 3,
+    "planner_calls": 0,
+    "planner_actual_calls": 0,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 1,
+    "certified_commits": 2,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 1.7141349841840565,
+    "commit_effect_passes": 2,
+    "commit_effect_failures": 0,
+    "quarantined_commit_keys": 0,
+    "resolved_transaction_bids": 1,
+    "inverse_reservation_audits": 3,
+    "inverse_reservation_stops": 0,
+    "interrupt_repair_reservation_audits": 0,
+    "interrupt_repair_reservation_fallbacks": 0,
+    "interrupt_repair_inverse_fallbacks": 0,
+    "unchanged_public_inverse_skips": 0,
+    "complete_public_observation_checks_v12": 0,
+    "complete_public_inverse_skips_v12": 0,
+    "complete_public_commit_checks_v13": 2,
+    "complete_public_commit_passes_v13": 2,
+    "complete_public_commit_rejections_v13": 0
+  },
+  "effect_ledger_v8": [
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "7d5cdf13f5cd12f61c538223a68a85c779bbeafc72d060ccac4d09461df62286",
+      "after_sha256": "73c9d86fc4c9490f0bf13b9a4bb86d0fdb7ae4faebfb773eca8ce461f79bf93a",
+      "key_sha256": "a7bfe8db8faa7891e2f8efe0668d1efa6974738980611495fad9d3832d8c84c3",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "22",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    },
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "73c9d86fc4c9490f0bf13b9a4bb86d0fdb7ae4faebfb773eca8ce461f79bf93a",
+      "after_sha256": "73c9d86fc4c9490f0bf13b9a4bb86d0fdb7ae4faebfb773eca8ce461f79bf93a",
+      "key_sha256": "486323b5a41f48233ed523e9914970c4bc80e705785ae2862d8d23290bb962ba",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "18",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    }
+  ],
+  "resolved_semantic_bids_v8": [
+    "17"
+  ],
+  "episode": {
+    "episode_index": 4,
+    "task_index": 1,
+    "seed_index": 0,
+    "arm_position": 1,
+    "task": "use-autocomplete-nodelay",
+    "family_group": "autocomplete",
+    "seed": 27701,
+    "method": "full_pact_v13",
+    "episode_id": "use-autocomplete-nodelay__seed27701__full_pact_v13"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

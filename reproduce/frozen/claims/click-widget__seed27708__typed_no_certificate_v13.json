@@ -1,0 +1,18 @@
+{
+  "candidate": "InverseReserve-final-v1-open-claim",
+  "completed_utc": "2026-07-17T15:55:00Z",
+  "status": "complete",
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433",
+  "episode": {
+    "episode_index": 142,
+    "task_index": 5,
+    "seed_index": 7,
+    "arm_position": 1,
+    "task": "click-widget",
+    "family_group": "direct_widget_control",
+    "seed": 27708,
+    "method": "typed_no_certificate_v13",
+    "episode_id": "click-widget__seed27708__typed_no_certificate_v13"
+  },
+  "episode_sha256": "fee9761fc352379e1c95cf0ed73f17b528c97c2f12142bbef31d939a19d298c7"
+}

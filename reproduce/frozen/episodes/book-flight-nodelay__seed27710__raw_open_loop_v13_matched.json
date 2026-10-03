@@ -1,0 +1,252 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "action error: TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"27\")\n  -   locator resolved to <button value=\"\" bid=\"27\" id=\"search\" browsergym_set_of_…>Search</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #1\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #2\n  -   waiting 20ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #3\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #4\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #5\n  -   waiting 500ms\n",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Book the shortest one-way flight from: Islip, NY to: ABE on 12/30/2016.",
+    "goal_sha256": "0ce67308f6555069ab69b87c99ef3369c0022075c9323fa9dee88bf1aa35d1c6",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Book the shortest one-way flight from: Islip, NY to: ABE on 12/30/2016.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "19",
+        "label": "From",
+        "value": "Islip, NY",
+        "label_span": {
+          "text": "from",
+          "start": 33,
+          "end": 37
+        },
+        "value_span": {
+          "text": "Islip, NY",
+          "start": 39,
+          "end": 48
+        }
+      },
+      {
+        "bid": "21",
+        "label": "To",
+        "value": "ABE",
+        "label_span": {
+          "text": "to",
+          "start": 49,
+          "end": 51
+        },
+        "value_span": {
+          "text": "ABE",
+          "start": 53,
+          "end": 56
+        }
+      }
+    ],
+    "date_anchor": {
+      "text": "12/30/2016",
+      "canonical": "12/30/2016",
+      "month": 12,
+      "day": 30,
+      "year": 2016,
+      "span": {
+        "text": "12/30/2016",
+        "start": 60,
+        "end": 70
+      }
+    },
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": {
+      "kind": "min_duration",
+      "span": {
+        "text": "shortest",
+        "start": 9,
+        "end": 17
+      }
+    },
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "10aedc5b9fb8444035eefd14983bb233f5786021ec63f6e9b760a977bf5623f9",
+      "inventory_count": 4,
+      "decision": "transact",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "e8fde9683f64ad0b433a155e8feaf645fb35ab8ddd72c9f5b99869c1647d2dd2",
+        "input_tokens": 949,
+        "generated_tokens": 14,
+        "cache_key": "e8fde9683f64ad0b433a155e8feaf645fb35ab8ddd72c9f5b99869c1647d2dd2",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "3243ac57204a5bd9f3aa147b48502d144b1710cb1845dffcab249281f4a19d2f",
+      "inventory_count": 5,
+      "decision": "commit",
+      "bid": "35",
+      "model": {
+        "messages_sha256": "3f9fbeb83e7004c0de7d0b33ee847dd46fc019244ccbc21e24316e2c94885d26",
+        "input_tokens": 1082,
+        "generated_tokens": 13,
+        "cache_key": "3f9fbeb83e7004c0de7d0b33ee847dd46fc019244ccbc21e24316e2c94885d26",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "10aedc5b9fb8444035eefd14983bb233f5786021ec63f6e9b760a977bf5623f9",
+      "inventory_count": 4,
+      "decision": "transact",
+      "bid": "21",
+      "model": {
+        "messages_sha256": "1eaee22dc8c767c95b90d72cb328fe4aa94594499a61f74dd7bc400cb054f4df",
+        "input_tokens": 1002,
+        "generated_tokens": 14,
+        "cache_key": "1eaee22dc8c767c95b90d72cb328fe4aa94594499a61f74dd7bc400cb054f4df",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 3,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "c35f86f948a0e29dd94076a72ffa65003bb5e03effb48d699088648c6323710c",
+      "inventory_count": 8,
+      "decision": "commit",
+      "bid": "27",
+      "model": {
+        "messages_sha256": "43da7215a5e4793429f866beabbf7d9a7c0778d1f5b567e9b5acb206fe0a2fef",
+        "input_tokens": 1378,
+        "generated_tokens": 13,
+        "cache_key": "43da7215a5e4793429f866beabbf7d9a7c0778d1f5b567e9b5acb206fe0a2fef",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('19', 'Islip, NY', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('35')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "raw_open_loop",
+      "code": "fill('21', 'ABE', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 3,
+      "role": "raw_open_loop",
+      "code": "click('27')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"27\")\n  -   locator resolved to <button value=\"\" bid=\"27\" id=\"search\" browsergym_set_of_…>Search</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #1\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #2\n  -   waiting 20ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #3\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #4\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   <div bid=\"46\" id=\"ui-id-19\" tabindex=\"-1\" browsergym_…>Easton, PA (ABE)</div> from <ul bid=\"31\" id=\"ui-id-2\" tabindex=\"0\" browsergym_se…>…</ul> subtree intercepts pointer events\n  - retrying click action, attempt #5\n  -   waiting 500ms\n",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 4,
+    "planner_calls": 4,
+    "planner_actual_calls": 4,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 2,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 1,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 5.117166997399181
+  },
+  "episode": {
+    "episode_index": 169,
+    "task_index": 2,
+    "seed_index": 9,
+    "arm_position": 1,
+    "task": "book-flight-nodelay",
+    "family_group": "flight_composite",
+    "seed": 27710,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "book-flight-nodelay__seed27710__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

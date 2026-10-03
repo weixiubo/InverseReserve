@@ -1,0 +1,159 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "planner parse failed: ValueError: commit requires a non-transaction row",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter an item that starts with \"Ic\" and ends with \"nd\".",
+    "goal_sha256": "6413609f10b9938f932a0e5350b2f89ddf91540115ef7871555fa9228942ff96",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter an item that starts with \"Ic\" and ends with \"nd\".",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "prefix_suffix",
+      "prefix": "Ic",
+      "suffix": "nd",
+      "exact": null
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "2c981a7087e6dfeb454a77d1293e066bd28342781b2edd93f4e5779ee8dca9ff",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "17",
+      "model": {
+        "messages_sha256": "c4634cb0c3479071e24a3438e0b945d3f08b8755b2abedd521526a1142cb677e",
+        "input_tokens": 720,
+        "generated_tokens": 14,
+        "cache_key": "c4634cb0c3479071e24a3438e0b945d3f08b8755b2abedd521526a1142cb677e",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "ba0515caabafc2aba2cad3721f76ddf70819108012b01bb985ecb32796ebd13a",
+      "inventory_count": 4,
+      "decision": "commit",
+      "bid": "22",
+      "model": {
+        "messages_sha256": "060a11bb5d256f861d86ccaf46e6673c55a92c122e6888f15adf81b0f96926e9",
+        "input_tokens": 847,
+        "generated_tokens": 13,
+        "cache_key": "060a11bb5d256f861d86ccaf46e6673c55a92c122e6888f15adf81b0f96926e9",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "planner_failure",
+      "model": {
+        "messages_sha256": "e56c9992fe322851a3aae9b789e67e4408895d7c5d636a57f09f88137f571548",
+        "input_tokens": 771,
+        "generated_tokens": 13,
+        "cache_key": "e56c9992fe322851a3aae9b789e67e4408895d7c5d636a57f09f88137f571548",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('17', 'Ic', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('22')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 3,
+    "planner_actual_calls": 3,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 1,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.709474174771458
+  },
+  "episode": {
+    "episode_index": 167,
+    "task_index": 1,
+    "seed_index": 9,
+    "arm_position": 2,
+    "task": "use-autocomplete-nodelay",
+    "family_group": "autocomplete",
+    "seed": 27710,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "use-autocomplete-nodelay__seed27710__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

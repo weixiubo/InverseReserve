@@ -1,0 +1,177 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter the username \"emile\" and the password \"gWc0i\" into the text fields and press login.",
+    "goal_sha256": "fb3c4ae6a2046068b0400cb5f9311dc01f2c1b2f74cad283a324378662237084",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter the username \"emile\" and the password \"gWc0i\" into the text fields and press login.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "16",
+        "label": "Username",
+        "value": "emile",
+        "label_span": {
+          "text": "username",
+          "start": 10,
+          "end": 18
+        },
+        "value_span": {
+          "text": "emile",
+          "start": 20,
+          "end": 25
+        }
+      },
+      {
+        "bid": "19",
+        "label": "Password",
+        "value": "gWc0i",
+        "label_span": {
+          "text": "password",
+          "start": 35,
+          "end": 43
+        },
+        "value_span": {
+          "text": "gWc0i",
+          "start": 45,
+          "end": 50
+        }
+      }
+    ],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "login",
+      "span": {
+        "text": "login",
+        "start": 83,
+        "end": 88
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "43e8a8a23950625fbbd387d72b5849d2fad801123f68d7ed1d7264d28af6f96f",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "eb1f87aacd7bafe3a35a77de24325e11dcca4a9f5eed15109c8ceff8191dc2f9",
+        "input_tokens": 787,
+        "generated_tokens": 14,
+        "cache_key": "eb1f87aacd7bafe3a35a77de24325e11dcca4a9f5eed15109c8ceff8191dc2f9",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "6fe5e14b140d711cb36665ca80c4540ab174d392964ef522b83ea43561cf8315",
+      "inventory_count": 2,
+      "decision": "commit",
+      "bid": "25",
+      "model": {
+        "messages_sha256": "90ffd2eb26cc6d2e2b07bd43ebf6d3882c98453e3aa689e8ec329f0cba33c866",
+        "input_tokens": 751,
+        "generated_tokens": 13,
+        "cache_key": "90ffd2eb26cc6d2e2b07bd43ebf6d3882c98453e3aa689e8ec329f0cba33c866",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'emile', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('25')",
+      "reward": 0.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 2,
+    "planner_actual_calls": 2,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 1,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 1.925502431113273
+  },
+  "episode": {
+    "episode_index": 299,
+    "task_index": 3,
+    "seed_index": 16,
+    "arm_position": 2,
+    "task": "login-user-popup",
+    "family_group": "login_interrupt",
+    "seed": 27717,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "login-user-popup__seed27717__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

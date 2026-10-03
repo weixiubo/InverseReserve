@@ -1,0 +1,768 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "planner parse failed: ValueError: transact requires a typed transaction row",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Enter the username \"sergio\" and the password \"GJ1\" into the text fields and press login.",
+    "goal_sha256": "a904fe612b3ab354c19f0a85d91d4f66e6815b4be565433c0acb17a9e5098078",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Enter the username \"sergio\" and the password \"GJ1\" into the text fields and press login.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "16",
+        "label": "Username",
+        "value": "sergio",
+        "label_span": {
+          "text": "username",
+          "start": 10,
+          "end": 18
+        },
+        "value_span": {
+          "text": "sergio",
+          "start": 20,
+          "end": 26
+        }
+      },
+      {
+        "bid": "19",
+        "label": "Password",
+        "value": "GJ1",
+        "label_span": {
+          "text": "password",
+          "start": 36,
+          "end": 44
+        },
+        "value_span": {
+          "text": "GJ1",
+          "start": 46,
+          "end": 49
+        }
+      }
+    ],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "login",
+      "span": {
+        "text": "login",
+        "start": 82,
+        "end": 87
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "296226d0c7bf6e0402ef250013725c6bd16772f9dd4a225cc1437a9a57c7b59c",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "d645f75c1421a7372b47c6e58088d6a5269b92a90fdd682adc1dc436d74dc1a2",
+        "input_tokens": 781,
+        "generated_tokens": 14,
+        "cache_key": "d645f75c1421a7372b47c6e58088d6a5269b92a90fdd682adc1dc436d74dc1a2",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "f2c6e3542a6026c389f65f512cdb0b85159937ae9b1ea9616657bd6e4ff541b6",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "6b5feba89a2e53b5df0170b6deda986e1717a18032a9a56c94c047268f3742e8",
+        "input_tokens": 834,
+        "generated_tokens": 14,
+        "cache_key": "6b5feba89a2e53b5df0170b6deda986e1717a18032a9a56c94c047268f3742e8",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "fe7862ce5595b610f5af1728d628918be1d3153c22e53fd2f2a85c4e8303c775",
+        "input_tokens": 888,
+        "generated_tokens": 14,
+        "cache_key": "fe7862ce5595b610f5af1728d628918be1d3153c22e53fd2f2a85c4e8303c775",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 3,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "54c703183e285ae63e3d7cd79e18be355c3b2ed03f9118d9a342833f1b81f980",
+        "input_tokens": 940,
+        "generated_tokens": 14,
+        "cache_key": "54c703183e285ae63e3d7cd79e18be355c3b2ed03f9118d9a342833f1b81f980",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 4,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "66e4385b06d5cc72512405bca004bdc1bdf937413d5ed900944286590d70802b",
+        "input_tokens": 992,
+        "generated_tokens": 14,
+        "cache_key": "66e4385b06d5cc72512405bca004bdc1bdf937413d5ed900944286590d70802b",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 5,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "40097805f021833fc3d8745d94924eff5bcffcb2d0d7d487e5efc3272620d31b",
+        "input_tokens": 1044,
+        "generated_tokens": 14,
+        "cache_key": "40097805f021833fc3d8745d94924eff5bcffcb2d0d7d487e5efc3272620d31b",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 6,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "bee923b10d2c1891940ebb88854c9bef11964e74a0088ffa6862a255666365b1",
+        "input_tokens": 1096,
+        "generated_tokens": 14,
+        "cache_key": "bee923b10d2c1891940ebb88854c9bef11964e74a0088ffa6862a255666365b1",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 7,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "76a2154b0034723767606b2a109b16b422aeb811652023be46bf1edea19365cd",
+        "input_tokens": 1148,
+        "generated_tokens": 14,
+        "cache_key": "76a2154b0034723767606b2a109b16b422aeb811652023be46bf1edea19365cd",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 8,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "0f3d853180fbb5319995027e10eb6dafd9da896413b0348ac66a0edf0a026989",
+        "input_tokens": 1200,
+        "generated_tokens": 14,
+        "cache_key": "0f3d853180fbb5319995027e10eb6dafd9da896413b0348ac66a0edf0a026989",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 9,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "7315e00c7d6aabb28f63be6a9af2bac8ff4cf2ff268716ee1430d96995e279a1",
+        "input_tokens": 1252,
+        "generated_tokens": 14,
+        "cache_key": "7315e00c7d6aabb28f63be6a9af2bac8ff4cf2ff268716ee1430d96995e279a1",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 10,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "d4a91009ce8191349651e3d0a705451d9777d922900e200d2297f58b051172b8",
+        "input_tokens": 1304,
+        "generated_tokens": 14,
+        "cache_key": "d4a91009ce8191349651e3d0a705451d9777d922900e200d2297f58b051172b8",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 11,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "84279d9072e495932d51d617f9358529e248db6933e19d0902515e4b49dda8d3",
+        "input_tokens": 1356,
+        "generated_tokens": 14,
+        "cache_key": "84279d9072e495932d51d617f9358529e248db6933e19d0902515e4b49dda8d3",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 12,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "fbb1d20967f1040cf14f10169d152cc47383ef5cebfbe9a3d7aec1cd30269d73",
+        "input_tokens": 1408,
+        "generated_tokens": 14,
+        "cache_key": "fbb1d20967f1040cf14f10169d152cc47383ef5cebfbe9a3d7aec1cd30269d73",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 13,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "35192dd7442eba4f629b1e7ba4ea770736c57f46a9d1bafe93b8bcdea1fb3b61",
+        "input_tokens": 1460,
+        "generated_tokens": 14,
+        "cache_key": "35192dd7442eba4f629b1e7ba4ea770736c57f46a9d1bafe93b8bcdea1fb3b61",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 14,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "72aa46184ac15d1dfce592b091f3c5b2832dc1943342eca59d2c148c0d3cf0d4",
+        "input_tokens": 1512,
+        "generated_tokens": 14,
+        "cache_key": "72aa46184ac15d1dfce592b091f3c5b2832dc1943342eca59d2c148c0d3cf0d4",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 15,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "6828da557c483973c4bad57db5fc88e9afcdb7dced1543b91a619ff1d435551a",
+        "input_tokens": 1564,
+        "generated_tokens": 14,
+        "cache_key": "6828da557c483973c4bad57db5fc88e9afcdb7dced1543b91a619ff1d435551a",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 16,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "dba1155bc3158cbd36ddef9c57b3f6b74c9553c3a6a0f35b2970dd9724831e89",
+        "input_tokens": 1616,
+        "generated_tokens": 14,
+        "cache_key": "dba1155bc3158cbd36ddef9c57b3f6b74c9553c3a6a0f35b2970dd9724831e89",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 17,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "158eacd7865d10edc283a35c8e952d19a6ea687199905d2ca588a5d6b5a80b4c",
+        "input_tokens": 1668,
+        "generated_tokens": 14,
+        "cache_key": "158eacd7865d10edc283a35c8e952d19a6ea687199905d2ca588a5d6b5a80b4c",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 18,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "a815faa232e29702bf6b3145728e9a4933e312a69ae38a5ad60fa8d168de0b07",
+        "input_tokens": 1720,
+        "generated_tokens": 14,
+        "cache_key": "a815faa232e29702bf6b3145728e9a4933e312a69ae38a5ad60fa8d168de0b07",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 19,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "b177fa57e7b6e2381731b9d8f2b63bbf893f8133ee8086861cf16811f40b50f4",
+      "inventory_count": 3,
+      "decision": "transact",
+      "bid": "16",
+      "model": {
+        "messages_sha256": "be9bf483b8e5aea8e21df156c6943dcffb502cc7270661838e09c6c85052c4e6",
+        "input_tokens": 1772,
+        "generated_tokens": 14,
+        "cache_key": "be9bf483b8e5aea8e21df156c6943dcffb502cc7270661838e09c6c85052c4e6",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 20,
+      "type": "planner_failure",
+      "model": {
+        "messages_sha256": "23c3aa4dd0d93de345282bde0c9910c756ea47c4d7f5a6444f701bccfa10184e",
+        "input_tokens": 1824,
+        "generated_tokens": 14,
+        "cache_key": "23c3aa4dd0d93de345282bde0c9910c756ea47c4d7f5a6444f701bccfa10184e",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "fill('19', 'GJ1', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 3,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 4,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 5,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 6,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 7,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 8,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 9,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 10,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 11,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 12,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 13,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 14,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 15,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 16,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 17,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 18,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 19,
+      "role": "raw_open_loop",
+      "code": "fill('16', 'sergio', False)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 20,
+    "planner_calls": 21,
+    "planner_actual_calls": 21,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 1,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 21.61640152009204
+  },
+  "episode": {
+    "episode_index": 316,
+    "task_index": 3,
+    "seed_index": 17,
+    "arm_position": 1,
+    "task": "login-user-popup",
+    "family_group": "login_interrupt",
+    "seed": 27718,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "login-user-popup__seed27718__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

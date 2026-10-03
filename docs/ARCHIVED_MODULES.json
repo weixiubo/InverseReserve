@@ -1,0 +1,9 @@
+[
+  {
+    "original_module": "rcrps.inversereserve_runtime_cost_replication_v1",
+    "archive": "tests/reference/MANIFEST.json",
+    "member": "src/rcrps/inversereserve_runtime_cost_replication_v1.py",
+    "sha256": "a551698b0a6773dc6d53daaad5bf39f5e38bd6a40f44e8eec1c11a7001c2b600",
+    "reason": "No maintained source, script or test imports this module. It requires an unpublished latency script and private preregistration. Retained in the exact baseline archive for historical research; not a supported installed study."
+  }
+]

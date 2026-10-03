@@ -1,0 +1,105 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "driver failed: ValueError: multiple fresh commit certificates violate fail-closed v7",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Click on a \"button\" widget.",
+    "goal_sha256": "0eec79a0a4334fbd862fd13ffe256805ac9093f5f494ab08be695f764469cc53",
+    "controller_arm": "typed_no_certificate_v13",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": false,
+    "evaluator_info_observed_by_harness": false,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Click on a \"button\" widget.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": {
+      "role": "button",
+      "span": {
+        "text": "button",
+        "start": 12,
+        "end": 18
+      }
+    },
+    "terminal_intent": null,
+    "objective_anchor": null,
+    "rejected_reasons": [],
+    "widget_kind_anchor": {
+      "kind": "button",
+      "span": {
+        "text": "button",
+        "start": 12,
+        "end": 18
+      },
+      "existential": true
+    }
+  },
+  "trace": [],
+  "actions": [],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 0,
+    "planner_calls": 0,
+    "planner_actual_calls": 0,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 0.005582799203693867,
+    "commit_effect_passes": 0,
+    "commit_effect_failures": 0,
+    "quarantined_commit_keys": 0,
+    "resolved_transaction_bids": 0,
+    "inverse_reservation_audits": 0,
+    "inverse_reservation_stops": 0,
+    "interrupt_repair_reservation_audits": 0,
+    "interrupt_repair_reservation_fallbacks": 0,
+    "interrupt_repair_inverse_fallbacks": 0,
+    "complete_public_observation_checks_v12": 0,
+    "complete_public_inverse_skips_v12": 0,
+    "complete_public_commit_checks_v13": 0,
+    "complete_public_commit_passes_v13": 0,
+    "complete_public_commit_rejections_v13": 0
+  },
+  "effect_ledger_v8": [],
+  "resolved_semantic_bids_v8": [],
+  "episode": {
+    "episode_index": 105,
+    "task_index": 5,
+    "seed_index": 5,
+    "arm_position": 0,
+    "task": "click-widget",
+    "family_group": "direct_widget_control",
+    "seed": 27706,
+    "method": "typed_no_certificate_v13",
+    "episode_id": "click-widget__seed27706__typed_no_certificate_v13"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

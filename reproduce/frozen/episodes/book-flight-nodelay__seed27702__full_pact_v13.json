@@ -1,0 +1,3200 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Book the shortest one-way flight from: ZRK to: AKN on 11/05/2016.",
+    "goal_sha256": "f176a2f1366af0f3bd5d6b737682af46142d6d4c76fbb33f67e192e8f986876b",
+    "controller_arm": "full_pact_v13",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Book the shortest one-way flight from: ZRK to: AKN on 11/05/2016.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "19",
+        "label": "From",
+        "value": "ZRK",
+        "label_span": {
+          "text": "from",
+          "start": 33,
+          "end": 37
+        },
+        "value_span": {
+          "text": "ZRK",
+          "start": 39,
+          "end": 42
+        }
+      },
+      {
+        "bid": "21",
+        "label": "To",
+        "value": "AKN",
+        "label_span": {
+          "text": "to",
+          "start": 43,
+          "end": 45
+        },
+        "value_span": {
+          "text": "AKN",
+          "start": 47,
+          "end": 50
+        }
+      }
+    ],
+    "date_anchor": {
+      "text": "11/05/2016",
+      "canonical": "11/05/2016",
+      "month": 11,
+      "day": 5,
+      "year": 2016,
+      "span": {
+        "text": "11/05/2016",
+        "start": 54,
+        "end": 64
+      }
+    },
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": {
+      "kind": "min_duration",
+      "span": {
+        "text": "shortest",
+        "start": 9,
+        "end": 17
+      }
+    },
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "envelope_decision_v8",
+      "inventory_count": 4,
+      "envelope": {
+        "decision": "transact",
+        "candidates": [
+          {
+            "bid": "19",
+            "op": "fill",
+            "arg": "ZRK",
+            "enable_autocomplete_menu": true,
+            "role": "textbox",
+            "label": "From:",
+            "state": {},
+            "transaction_kind": "autocomplete_query",
+            "semantic_bid": "19",
+            "parent_bid": "18",
+            "publicly_actionable_offscreen": false
+          },
+          {
+            "bid": "21",
+            "op": "fill",
+            "arg": "AKN",
+            "enable_autocomplete_menu": true,
+            "role": "textbox",
+            "label": "To:",
+            "state": {},
+            "transaction_kind": "autocomplete_query",
+            "semantic_bid": "21",
+            "parent_bid": "20",
+            "publicly_actionable_offscreen": false
+          },
+          {
+            "bid": "25",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "textbox",
+            "label": "Departure Date",
+            "state": {},
+            "transaction_kind": "datepicker_open",
+            "semantic_bid": "25",
+            "parent_bid": "24",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [],
+        "reason": "no commit is certified; unfinished goal-bound typed rows remain",
+        "model_call_required": true
+      },
+      "certificate_audit": [
+        {
+          "bid": "27",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "transact",
+        "bid": "25",
+        "source": "shared_model"
+      },
+      "model": {
+        "messages_sha256": "c8a72e7549d85814a13fae13ed276c26ce49e74f0609b3df8de0e95114a9be3a",
+        "input_tokens": 657,
+        "generated_tokens": 14,
+        "cache_key": "c8a72e7549d85814a13fae13ed276c26ce49e74f0609b3df8de0e95114a9be3a",
+        "cache_hit": true,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "inverse_budget_reservation",
+      "decision": "transact",
+      "bid": "25",
+      "active_inverse_cost": 1,
+      "remaining_after_action": 39,
+      "allowed": true
+    },
+    {
+      "event_index": 2,
+      "type": "typed_transaction_result_v8",
+      "bid": "25",
+      "admitted": true,
+      "reason": "typed postcondition admitted the transaction",
+      "interrupt_repairs": 0,
+      "halted": false
+    },
+    {
+      "event_index": 3,
+      "type": "envelope_decision_v8",
+      "inventory_count": 67,
+      "envelope": {
+        "decision": "transact",
+        "candidates": [
+          {
+            "bid": "35",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "link",
+            "label": "Prev",
+            "state": {},
+            "transaction_kind": "calendar_month_shift",
+            "semantic_bid": "25",
+            "parent_bid": "34",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [],
+        "reason": "unresolved datepicker exposes only goal-directed month-shift transactions",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "102",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "104",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "106",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "108",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "110",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "112",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "114",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "103",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "105",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "107",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "109",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "111",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "113",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "115",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "117",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "119",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "121",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "123",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "125",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "127",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "129",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "118",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "120",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "122",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "124",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "126",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "128",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "130",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "25",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "27",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "65",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "67",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "69",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "66",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "68",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "70",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "72",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "74",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "76",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "78",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "80",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "82",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "84",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "73",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "75",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "77",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "79",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "81",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "83",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "85",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "87",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "89",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "91",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "93",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "95",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "97",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "99",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "88",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "90",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "92",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "94",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "96",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "98",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "100",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "25",
+          "label": "Departure Date",
+          "transaction_kind": "datepicker_open",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "transact",
+        "bid": "35",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 4,
+      "type": "inverse_budget_reservation",
+      "decision": "transact",
+      "bid": "35",
+      "active_inverse_cost": 2,
+      "remaining_after_action": 38,
+      "allowed": true
+    },
+    {
+      "event_index": 5,
+      "type": "typed_transaction_result_v8",
+      "bid": "35",
+      "admitted": true,
+      "reason": "typed postcondition admitted the transaction",
+      "interrupt_repairs": 0,
+      "halted": false
+    },
+    {
+      "event_index": 6,
+      "type": "envelope_decision_v8",
+      "inventory_count": 66,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "169",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "link",
+            "label": "5",
+            "state": {},
+            "transaction_kind": null,
+            "semantic_bid": "169",
+            "parent_bid": "168",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "169"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "132",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "134",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "160",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "162",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "164",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "166",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "168",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "161",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "163",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "165",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "167",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "169",
+          "allowed": true,
+          "anchor_kind": "calendar_day",
+          "reason": "one active date-picker transaction exposes the goal day in goal month",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "171",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "173",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "175",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "177",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "179",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "181",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "183",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "172",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "174",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "176",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "178",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "180",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "182",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "184",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "186",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "188",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "190",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "192",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "194",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "196",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "198",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "187",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "189",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "191",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "193",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "195",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "197",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "199",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "201",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "203",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "205",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "207",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "209",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "211",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "213",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "202",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "204",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "206",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "208",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "210",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "212",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "214",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "216",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "218",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "220",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "222",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "217",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "219",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "221",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "223",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "25",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "27",
+          "allowed": false,
+          "anchor_kind": "calendar_day",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "25",
+          "label": "Departure Date",
+          "transaction_kind": "datepicker_open",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "35",
+          "label": "Prev",
+          "transaction_kind": "calendar_month_shift",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "169",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 7,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "169",
+      "active_inverse_cost": 2,
+      "remaining_after_action": 37,
+      "allowed": true
+    },
+    {
+      "event_index": 8,
+      "type": "certified_commit_result_v8",
+      "bid": "169",
+      "anchor_kind": "calendar_day",
+      "certificate": {
+        "allowed": true,
+        "reason": "one active date-picker transaction exposes the goal day in goal month",
+        "grounding": {
+          "allowed": true,
+          "reason": "one active date-picker transaction exposes the goal day in goal month",
+          "anchor_kind": "calendar_day",
+          "evidence_bids": [
+            "25"
+          ],
+          "competing_bids": [
+            "169"
+          ],
+          "certified_bid": "169"
+        },
+        "certified_action": {
+          "operation": "click",
+          "bid": "169",
+          "argument": null,
+          "enable_autocomplete_menu": false
+        },
+        "observation_fingerprint_sha256": "07dd6587cefced7b56ad99ed5030d579ad00478f1f69ea08df7cbd6a8819bfe0",
+        "active_stack_signature": [
+          [
+            "datepicker_open",
+            "25",
+            "click",
+            "25",
+            null,
+            false
+          ],
+          [
+            "calendar_month_shift",
+            "25",
+            "click",
+            "35",
+            null,
+            false
+          ]
+        ]
+      },
+      "executed": true,
+      "reason": "fresh complete-public certificate authorized the exact commit action",
+      "halted": false,
+      "terminal": false
+    },
+    {
+      "event_index": 9,
+      "type": "commit_effect_result_v8",
+      "bid": "169",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "604a6fecf4b62e666ccc27dd6bd282fd9bd0a005c2ff0d69c483044501aa87e5",
+      "resolved_semantic_bids": [
+        "25"
+      ]
+    },
+    {
+      "event_index": 10,
+      "type": "envelope_decision_v8",
+      "inventory_count": 4,
+      "envelope": {
+        "decision": "transact",
+        "candidates": [
+          {
+            "bid": "19",
+            "op": "fill",
+            "arg": "ZRK",
+            "enable_autocomplete_menu": true,
+            "role": "textbox",
+            "label": "From:",
+            "state": {},
+            "transaction_kind": "autocomplete_query",
+            "semantic_bid": "19",
+            "parent_bid": "18",
+            "publicly_actionable_offscreen": false
+          },
+          {
+            "bid": "21",
+            "op": "fill",
+            "arg": "AKN",
+            "enable_autocomplete_menu": true,
+            "role": "textbox",
+            "label": "To:",
+            "state": {},
+            "transaction_kind": "autocomplete_query",
+            "semantic_bid": "21",
+            "parent_bid": "20",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [],
+        "reason": "no commit is certified; unfinished goal-bound typed rows remain",
+        "model_call_required": true
+      },
+      "certificate_audit": [
+        {
+          "bid": "25",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "27",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "25",
+          "label": "Departure Date",
+          "transaction_kind": "datepicker_open",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "35",
+          "label": "Prev",
+          "transaction_kind": "calendar_month_shift",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [
+        "25"
+      ],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "transact",
+        "bid": "19",
+        "source": "shared_model"
+      },
+      "model": {
+        "messages_sha256": "d7167ee4188eaa26b33d3cb9f1a277fb1484a19096f00656a39b5307547abf11",
+        "input_tokens": 678,
+        "generated_tokens": 14,
+        "cache_key": "d7167ee4188eaa26b33d3cb9f1a277fb1484a19096f00656a39b5307547abf11",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 11,
+      "type": "inverse_budget_reservation",
+      "decision": "transact",
+      "bid": "19",
+      "active_inverse_cost": 4,
+      "remaining_after_action": 36,
+      "allowed": true
+    },
+    {
+      "event_index": 12,
+      "type": "typed_transaction_result_v8",
+      "bid": "19",
+      "admitted": true,
+      "reason": "typed postcondition admitted the transaction",
+      "interrupt_repairs": 0,
+      "halted": false
+    },
+    {
+      "event_index": 13,
+      "type": "envelope_decision_v8",
+      "inventory_count": 5,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "228",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "option",
+            "label": "Rockford, IL - Van Galder Bus (ZRK)",
+            "state": {},
+            "transaction_kind": null,
+            "semantic_bid": "228",
+            "parent_bid": "227",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "228"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "228",
+          "allowed": true,
+          "anchor_kind": "active_field_value",
+          "reason": "one active autocomplete transaction exposes the grounded field value",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "25",
+          "allowed": false,
+          "anchor_kind": "active_field_value",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "27",
+          "allowed": false,
+          "anchor_kind": "active_field_value",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "25",
+          "label": "Departure Date",
+          "transaction_kind": "datepicker_open",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "35",
+          "label": "Prev",
+          "transaction_kind": "calendar_month_shift",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "19",
+          "label": "From:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "19",
+          "operation": "fill",
+          "argument": "ZRK",
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [
+        "25"
+      ],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "228",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 14,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "228",
+      "active_inverse_cost": 4,
+      "remaining_after_action": 35,
+      "allowed": true
+    },
+    {
+      "event_index": 15,
+      "type": "certified_commit_result_v8",
+      "bid": "228",
+      "anchor_kind": "active_field_value",
+      "certificate": {
+        "allowed": true,
+        "reason": "one active autocomplete transaction exposes the grounded field value",
+        "grounding": {
+          "allowed": true,
+          "reason": "one active autocomplete transaction exposes the grounded field value",
+          "anchor_kind": "active_field_value",
+          "evidence_bids": [
+            "19"
+          ],
+          "competing_bids": [
+            "228"
+          ],
+          "certified_bid": "228"
+        },
+        "certified_action": {
+          "operation": "click",
+          "bid": "228",
+          "argument": null,
+          "enable_autocomplete_menu": false
+        },
+        "observation_fingerprint_sha256": "d6d3bf16595c2fe9e0db48d34790f56511222524d09fe5ab5696ef6854fc1cb6",
+        "active_stack_signature": [
+          [
+            "datepicker_open",
+            "25",
+            "click",
+            "25",
+            null,
+            false
+          ],
+          [
+            "calendar_month_shift",
+            "25",
+            "click",
+            "35",
+            null,
+            false
+          ],
+          [
+            "autocomplete_query",
+            "19",
+            "fill",
+            "19",
+            "ZRK",
+            true
+          ]
+        ]
+      },
+      "executed": true,
+      "reason": "fresh complete-public certificate authorized the exact commit action",
+      "halted": false,
+      "terminal": false
+    },
+    {
+      "event_index": 16,
+      "type": "commit_effect_result_v8",
+      "bid": "228",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "66e525cf9dc85daee399e46655b62513ecaf804838f51a91c3317c0c4682aebe",
+      "resolved_semantic_bids": [
+        "19"
+      ]
+    },
+    {
+      "event_index": 17,
+      "type": "envelope_decision_v8",
+      "inventory_count": 4,
+      "envelope": {
+        "decision": "transact",
+        "candidates": [
+          {
+            "bid": "21",
+            "op": "fill",
+            "arg": "AKN",
+            "enable_autocomplete_menu": true,
+            "role": "textbox",
+            "label": "To:",
+            "state": {},
+            "transaction_kind": "autocomplete_query",
+            "semantic_bid": "21",
+            "parent_bid": "20",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [],
+        "reason": "no commit is certified; unfinished goal-bound typed rows remain",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "25",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "27",
+          "allowed": false,
+          "anchor_kind": null,
+          "reason": "no unique public role, target, active evidence, or completed state grounds commit",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "25",
+          "label": "Departure Date",
+          "transaction_kind": "datepicker_open",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "35",
+          "label": "Prev",
+          "transaction_kind": "calendar_month_shift",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "19",
+          "label": "From:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "19",
+          "operation": "fill",
+          "argument": "ZRK",
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [
+        "19",
+        "25"
+      ],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "transact",
+        "bid": "21",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 18,
+      "type": "inverse_budget_reservation",
+      "decision": "transact",
+      "bid": "21",
+      "active_inverse_cost": 6,
+      "remaining_after_action": 34,
+      "allowed": true
+    },
+    {
+      "event_index": 19,
+      "type": "typed_transaction_result_v8",
+      "bid": "21",
+      "admitted": true,
+      "reason": "typed postcondition admitted the transaction",
+      "interrupt_repairs": 0,
+      "halted": false
+    },
+    {
+      "event_index": 20,
+      "type": "envelope_decision_v8",
+      "inventory_count": 6,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "233",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "option",
+            "label": "King Salmon, AK (AKN)",
+            "state": {},
+            "transaction_kind": null,
+            "semantic_bid": "233",
+            "parent_bid": "232",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "233"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "233",
+          "allowed": true,
+          "anchor_kind": "active_field_value",
+          "reason": "one active autocomplete transaction exposes the grounded field value",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "235",
+          "allowed": false,
+          "anchor_kind": "active_field_value",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "25",
+          "allowed": false,
+          "anchor_kind": "active_field_value",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "27",
+          "allowed": false,
+          "anchor_kind": "active_field_value",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "25",
+          "label": "Departure Date",
+          "transaction_kind": "datepicker_open",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "35",
+          "label": "Prev",
+          "transaction_kind": "calendar_month_shift",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "19",
+          "label": "From:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "19",
+          "operation": "fill",
+          "argument": "ZRK",
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "21",
+          "label": "To:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "21",
+          "operation": "fill",
+          "argument": "AKN",
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [
+        "19",
+        "25"
+      ],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "233",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 21,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "233",
+      "active_inverse_cost": 6,
+      "remaining_after_action": 33,
+      "allowed": true
+    },
+    {
+      "event_index": 22,
+      "type": "certified_commit_result_v8",
+      "bid": "233",
+      "anchor_kind": "active_field_value",
+      "certificate": {
+        "allowed": true,
+        "reason": "one active autocomplete transaction exposes the grounded field value",
+        "grounding": {
+          "allowed": true,
+          "reason": "one active autocomplete transaction exposes the grounded field value",
+          "anchor_kind": "active_field_value",
+          "evidence_bids": [
+            "21"
+          ],
+          "competing_bids": [
+            "233"
+          ],
+          "certified_bid": "233"
+        },
+        "certified_action": {
+          "operation": "click",
+          "bid": "233",
+          "argument": null,
+          "enable_autocomplete_menu": false
+        },
+        "observation_fingerprint_sha256": "0bf7cc73bdf9874227f1371b21b80f49f6cccbc21975011c83bb36398242ea10",
+        "active_stack_signature": [
+          [
+            "datepicker_open",
+            "25",
+            "click",
+            "25",
+            null,
+            false
+          ],
+          [
+            "calendar_month_shift",
+            "25",
+            "click",
+            "35",
+            null,
+            false
+          ],
+          [
+            "autocomplete_query",
+            "19",
+            "fill",
+            "19",
+            "ZRK",
+            true
+          ],
+          [
+            "autocomplete_query",
+            "21",
+            "fill",
+            "21",
+            "AKN",
+            true
+          ]
+        ]
+      },
+      "executed": true,
+      "reason": "fresh complete-public certificate authorized the exact commit action",
+      "halted": false,
+      "terminal": false
+    },
+    {
+      "event_index": 23,
+      "type": "commit_effect_result_v8",
+      "bid": "233",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "9fa75efbd91311e7efffbd6eff2a73df0c6ab7827b0503cdcc88848663d0a744",
+      "resolved_semantic_bids": [
+        "21"
+      ]
+    },
+    {
+      "event_index": 24,
+      "type": "envelope_decision_v8",
+      "inventory_count": 4,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "27",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "button",
+            "label": "Search",
+            "state": {},
+            "transaction_kind": null,
+            "semantic_bid": "27",
+            "parent_bid": "26",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "27"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "25",
+          "allowed": false,
+          "anchor_kind": "state_supported_form_action",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "27",
+          "allowed": true,
+          "anchor_kind": "state_supported_form_action",
+          "reason": "one form action is supported by complete public goal state",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "25",
+          "label": "Departure Date",
+          "transaction_kind": "datepicker_open",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "35",
+          "label": "Prev",
+          "transaction_kind": "calendar_month_shift",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "19",
+          "label": "From:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "19",
+          "operation": "fill",
+          "argument": "ZRK",
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "21",
+          "label": "To:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "21",
+          "operation": "fill",
+          "argument": "AKN",
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [
+        "19",
+        "21",
+        "25"
+      ],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "27",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 25,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "27",
+      "active_inverse_cost": 6,
+      "remaining_after_action": 32,
+      "allowed": true
+    },
+    {
+      "event_index": 26,
+      "type": "certified_commit_result_v8",
+      "bid": "27",
+      "anchor_kind": "state_supported_form_action",
+      "certificate": {
+        "allowed": true,
+        "reason": "one form action is supported by complete public goal state",
+        "grounding": {
+          "allowed": true,
+          "reason": "one form action is supported by complete public goal state",
+          "anchor_kind": "state_supported_form_action",
+          "evidence_bids": [
+            "19",
+            "21",
+            "25"
+          ],
+          "competing_bids": [
+            "27"
+          ],
+          "certified_bid": "27"
+        },
+        "certified_action": {
+          "operation": "click",
+          "bid": "27",
+          "argument": null,
+          "enable_autocomplete_menu": false
+        },
+        "observation_fingerprint_sha256": "c0f2c7b48a2164d122f9872bc4d92174184aa598c58d31df01de9de031ffb343",
+        "active_stack_signature": [
+          [
+            "datepicker_open",
+            "25",
+            "click",
+            "25",
+            null,
+            false
+          ],
+          [
+            "calendar_month_shift",
+            "25",
+            "click",
+            "35",
+            null,
+            false
+          ],
+          [
+            "autocomplete_query",
+            "19",
+            "fill",
+            "19",
+            "ZRK",
+            true
+          ],
+          [
+            "autocomplete_query",
+            "21",
+            "fill",
+            "21",
+            "AKN",
+            true
+          ]
+        ]
+      },
+      "executed": true,
+      "reason": "fresh complete-public certificate authorized the exact commit action",
+      "halted": false,
+      "terminal": false
+    },
+    {
+      "event_index": 27,
+      "type": "commit_effect_result_v8",
+      "bid": "27",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "09b23991a8d19159d9ce7afc58dd985e321852e9b2e15aab028b14ed4ddb2250",
+      "resolved_semantic_bids": []
+    },
+    {
+      "event_index": 28,
+      "type": "envelope_decision_v8",
+      "inventory_count": 5,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "311",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "button",
+            "label": "Book flight for $1198",
+            "state": {
+              "objective_kind": "min_duration",
+              "objective_metric": 47,
+              "public_card_bid": "290",
+              "public_cost_cents": 119800,
+              "public_duration_minutes": 47
+            },
+            "transaction_kind": null,
+            "semantic_bid": "311",
+            "parent_bid": "310",
+            "publicly_actionable_offscreen": true
+          }
+        ],
+        "admitted_certificate_bids": [
+          "311"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "241",
+          "allowed": false,
+          "anchor_kind": "min_duration",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "267",
+          "allowed": false,
+          "anchor_kind": "min_duration",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "289",
+          "allowed": false,
+          "anchor_kind": "min_duration",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "311",
+          "allowed": true,
+          "anchor_kind": "min_duration",
+          "reason": "one public alternative is the unique comparative optimum",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        },
+        {
+          "bid": "333",
+          "allowed": false,
+          "anchor_kind": "min_duration",
+          "reason": "planner candidate is not the uniquely grounded row",
+          "commit_fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13"
+        }
+      ],
+      "active_transactions": [
+        {
+          "bid": "25",
+          "label": "Departure Date",
+          "transaction_kind": "datepicker_open",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "35",
+          "label": "Prev",
+          "transaction_kind": "calendar_month_shift",
+          "semantic_bid": "25",
+          "operation": "click",
+          "argument": null,
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "19",
+          "label": "From:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "19",
+          "operation": "fill",
+          "argument": "ZRK",
+          "interrupt_repairs": 0
+        },
+        {
+          "bid": "21",
+          "label": "To:",
+          "transaction_kind": "autocomplete_query",
+          "semantic_bid": "21",
+          "operation": "fill",
+          "argument": "AKN",
+          "interrupt_repairs": 0
+        }
+      ],
+      "resolved_semantic_bids": [
+        "19",
+        "21",
+        "25"
+      ],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "311",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 29,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "311",
+      "active_inverse_cost": 6,
+      "remaining_after_action": 31,
+      "allowed": true
+    },
+    {
+      "event_index": 30,
+      "type": "certified_commit_result_v8",
+      "bid": "311",
+      "anchor_kind": "min_duration",
+      "certificate": {
+        "allowed": true,
+        "reason": "one public alternative is the unique comparative optimum",
+        "grounding": {
+          "allowed": true,
+          "reason": "one public alternative is the unique comparative optimum",
+          "anchor_kind": "min_duration",
+          "evidence_bids": [
+            "246",
+            "268",
+            "290",
+            "312"
+          ],
+          "competing_bids": [
+            "311"
+          ],
+          "certified_bid": "311"
+        },
+        "certified_action": {
+          "operation": "click",
+          "bid": "311",
+          "argument": null,
+          "enable_autocomplete_menu": false
+        },
+        "observation_fingerprint_sha256": "2b391b71bfcfe28e8c7642023eff63f58ec8b9bbd003245a2a7ca5c459a95689",
+        "active_stack_signature": [
+          [
+            "datepicker_open",
+            "25",
+            "click",
+            "25",
+            null,
+            false
+          ],
+          [
+            "calendar_month_shift",
+            "25",
+            "click",
+            "35",
+            null,
+            false
+          ],
+          [
+            "autocomplete_query",
+            "19",
+            "fill",
+            "19",
+            "ZRK",
+            true
+          ],
+          [
+            "autocomplete_query",
+            "21",
+            "fill",
+            "21",
+            "AKN",
+            true
+          ]
+        ]
+      },
+      "executed": true,
+      "reason": "fresh complete-public certificate authorized the exact commit action",
+      "halted": false,
+      "terminal": true
+    },
+    {
+      "event_index": 31,
+      "type": "commit_effect_result_v8",
+      "bid": "311",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "ce638500ee76b8782e69831bf6e966334a14835267944eb856762cebf30524bd",
+      "resolved_semantic_bids": []
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "typed_forward",
+      "code": "click('25')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "typed_forward",
+      "code": "click('35')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "commit",
+      "code": "click('169')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 3,
+      "role": "typed_forward",
+      "code": "fill('19', 'ZRK', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 4,
+      "role": "commit",
+      "code": "click('228')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 5,
+      "role": "typed_forward",
+      "code": "fill('21', 'AKN', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 6,
+      "role": "commit",
+      "code": "click('233')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 7,
+      "role": "commit",
+      "code": "click('27')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 8,
+      "role": "commit",
+      "code": "click('311')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [
+    {
+      "event_index": 0,
+      "type": "action",
+      "role": "typed_forward",
+      "action": {
+        "operation": "click",
+        "bid": "25",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 1,
+      "type": "postcondition",
+      "context": "typed forward",
+      "contract_kind": "datepicker_open",
+      "passed": true,
+      "reason": "public calendar surface appeared",
+      "delta": {
+        "added_visible_bids": [
+          "100",
+          "101",
+          "102",
+          "103",
+          "104",
+          "105",
+          "106",
+          "107",
+          "108",
+          "109",
+          "110",
+          "111",
+          "112",
+          "113",
+          "114",
+          "115",
+          "116",
+          "117",
+          "118",
+          "119",
+          "120",
+          "121",
+          "122",
+          "123",
+          "124",
+          "125",
+          "126",
+          "127",
+          "128",
+          "129",
+          "130",
+          "33",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45",
+          "46",
+          "47",
+          "48",
+          "49",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "56",
+          "57",
+          "58",
+          "59",
+          "60",
+          "61",
+          "62",
+          "63",
+          "64",
+          "65",
+          "66",
+          "67",
+          "68",
+          "69",
+          "70",
+          "71",
+          "72",
+          "73",
+          "74",
+          "75",
+          "76",
+          "77",
+          "78",
+          "79",
+          "80",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "86",
+          "87",
+          "88",
+          "89",
+          "90",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "96",
+          "97",
+          "98",
+          "99"
+        ],
+        "removed_visible_bids": [],
+        "changed_visible_bids": [
+          "12"
+        ],
+        "newly_visible_text": [
+          "17",
+          "18 19 20 21 22 23 24",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25 26 27 28 29 30 31",
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31",
+          "Prev Next December 2016 Su Mo Tu We Th Fr Sa 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 Sunday Monday Tuesday Wednesday Thursday Friday Saturday",
+          "Prev Next December 2016",
+          "Prev",
+          "Next",
+          "December 2016",
+          "December",
+          "2016",
+          "Su Mo Tu We Th Fr Sa 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 Sunday Monday Tuesday Wednesday Thursday Friday Saturday",
+          "Su Mo Tu We Th Fr Sa Sunday Monday Tuesday Wednesday Thursday Friday Saturday",
+          "Su Sunday",
+          "Sunday Su",
+          "Mo Monday",
+          "Monday Mo",
+          "Tu Tuesday",
+          "Tuesday Tu",
+          "We Wednesday",
+          "Wednesday We",
+          "Th Thursday",
+          "Thursday Th",
+          "Fr Friday",
+          "Friday Fr",
+          "Sa Saturday",
+          "Saturday Sa",
+          "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31",
+          "1 2 3",
+          "1",
+          "2",
+          "3",
+          "4 5 6 7 8 9 10",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11 12 13 14 15 16 17",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16"
+        ]
+      },
+      "checker_version": "PACT-v9-suggestion-population"
+    },
+    {
+      "event_index": 2,
+      "type": "action",
+      "role": "typed_forward",
+      "action": {
+        "operation": "click",
+        "bid": "35",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 3,
+      "type": "postcondition",
+      "context": "typed forward",
+      "contract_kind": "calendar_month_shift",
+      "passed": true,
+      "reason": "public calendar moved exactly one month toward the goal",
+      "delta": {
+        "added_visible_bids": [
+          "131",
+          "132",
+          "133",
+          "134",
+          "135",
+          "136",
+          "137",
+          "138",
+          "139",
+          "140",
+          "141",
+          "142",
+          "143",
+          "144",
+          "145",
+          "146",
+          "147",
+          "148",
+          "149",
+          "150",
+          "151",
+          "152",
+          "153",
+          "154",
+          "155",
+          "156",
+          "157",
+          "158",
+          "159",
+          "160",
+          "161",
+          "162",
+          "163",
+          "164",
+          "165",
+          "166",
+          "167",
+          "168",
+          "169",
+          "170",
+          "171",
+          "172",
+          "173",
+          "174",
+          "175",
+          "176",
+          "177",
+          "178",
+          "179",
+          "180",
+          "181",
+          "182",
+          "183",
+          "184",
+          "185",
+          "186",
+          "187",
+          "188",
+          "189",
+          "190",
+          "191",
+          "192",
+          "193",
+          "194",
+          "195",
+          "196",
+          "197",
+          "198",
+          "199",
+          "200",
+          "201",
+          "202",
+          "203",
+          "204",
+          "205",
+          "206",
+          "207",
+          "208",
+          "209",
+          "210",
+          "211",
+          "212",
+          "213",
+          "214",
+          "215",
+          "216",
+          "217",
+          "218",
+          "219",
+          "220",
+          "221",
+          "222",
+          "223",
+          "224",
+          "225",
+          "226"
+        ],
+        "removed_visible_bids": [
+          "100",
+          "101",
+          "102",
+          "103",
+          "104",
+          "105",
+          "106",
+          "107",
+          "108",
+          "109",
+          "110",
+          "111",
+          "112",
+          "113",
+          "114",
+          "115",
+          "116",
+          "117",
+          "118",
+          "119",
+          "120",
+          "121",
+          "122",
+          "123",
+          "124",
+          "125",
+          "126",
+          "127",
+          "128",
+          "129",
+          "130",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45",
+          "46",
+          "47",
+          "48",
+          "49",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "56",
+          "57",
+          "58",
+          "59",
+          "60",
+          "61",
+          "62",
+          "63",
+          "64",
+          "65",
+          "66",
+          "67",
+          "68",
+          "69",
+          "70",
+          "71",
+          "72",
+          "73",
+          "74",
+          "75",
+          "76",
+          "77",
+          "78",
+          "79",
+          "80",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "86",
+          "87",
+          "88",
+          "89",
+          "90",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "96",
+          "97",
+          "98",
+          "99"
+        ],
+        "changed_visible_bids": [
+          "12",
+          "33"
+        ],
+        "newly_visible_text": [
+          "Prev Next November 2016",
+          "Prev",
+          "Next",
+          "November 2016",
+          "November",
+          "2016",
+          "Su Mo Tu We Th Fr Sa 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 Sunday Monday Tuesday Wednesday Thursday Friday Saturday",
+          "Su Mo Tu We Th Fr Sa Sunday Monday Tuesday Wednesday Thursday Friday Saturday",
+          "Su Sunday",
+          "Sunday Su",
+          "Mo Monday",
+          "Monday Mo",
+          "Tu Tuesday",
+          "Tuesday Tu",
+          "We Wednesday",
+          "Wednesday We",
+          "Th Thursday",
+          "Thursday Th",
+          "Fr Friday",
+          "Friday Fr",
+          "Sa Saturday",
+          "Saturday Sa",
+          "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30",
+          "1 2 3 4 5",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6 7 8 9 10 11 12",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13 14 15 16 17 18 19",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20 21 22 23 24 25 26",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27 28 29 30",
+          "27",
+          "28",
+          "29",
+          "30"
+        ]
+      },
+      "checker_version": "PACT-v9-suggestion-population"
+    },
+    {
+      "event_index": 4,
+      "type": "complete_public_commit_observation_check_v13",
+      "passed": true,
+      "fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13",
+      "field_scope": "all_retained_semantic_snapshot_fields"
+    },
+    {
+      "event_index": 5,
+      "type": "action",
+      "role": "commit",
+      "action": {
+        "operation": "click",
+        "bid": "169",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 6,
+      "type": "action",
+      "role": "typed_forward",
+      "action": {
+        "operation": "fill",
+        "bid": "19",
+        "argument": "ZRK",
+        "enable_autocomplete_menu": true
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 7,
+      "type": "postcondition",
+      "context": "typed forward",
+      "contract_kind": "autocomplete_query",
+      "passed": true,
+      "reason": "query value and public suggestion surface appeared",
+      "delta": {
+        "added_visible_bids": [
+          "227",
+          "228",
+          "29"
+        ],
+        "removed_visible_bids": [],
+        "changed_visible_bids": [
+          "12",
+          "13",
+          "15",
+          "16",
+          "18",
+          "19"
+        ],
+        "newly_visible_text": [
+          "Rockford, IL - Van Galder Bus (ZRK)"
+        ]
+      },
+      "checker_version": "PACT-v9-suggestion-population"
+    },
+    {
+      "event_index": 8,
+      "type": "complete_public_commit_observation_check_v13",
+      "passed": true,
+      "fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13",
+      "field_scope": "all_retained_semantic_snapshot_fields"
+    },
+    {
+      "event_index": 9,
+      "type": "action",
+      "role": "commit",
+      "action": {
+        "operation": "click",
+        "bid": "228",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 10,
+      "type": "action",
+      "role": "typed_forward",
+      "action": {
+        "operation": "fill",
+        "bid": "21",
+        "argument": "AKN",
+        "enable_autocomplete_menu": true
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 11,
+      "type": "postcondition",
+      "context": "typed forward",
+      "contract_kind": "autocomplete_query",
+      "passed": true,
+      "reason": "query value and public suggestion surface appeared",
+      "delta": {
+        "added_visible_bids": [
+          "232",
+          "233",
+          "234",
+          "235",
+          "31"
+        ],
+        "removed_visible_bids": [],
+        "changed_visible_bids": [
+          "12",
+          "13",
+          "15",
+          "16",
+          "20",
+          "21"
+        ],
+        "newly_visible_text": [
+          "King Salmon, AK (AKN)",
+          "South Naknek, AK (WSN)",
+          "King Salmon, AK (AKN) South Naknek, AK (WSN) King Salmon, AK (AKN) South Naknek, AK (WSN)"
+        ]
+      },
+      "checker_version": "PACT-v9-suggestion-population"
+    },
+    {
+      "event_index": 12,
+      "type": "complete_public_commit_observation_check_v13",
+      "passed": true,
+      "fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13",
+      "field_scope": "all_retained_semantic_snapshot_fields"
+    },
+    {
+      "event_index": 13,
+      "type": "action",
+      "role": "commit",
+      "action": {
+        "operation": "click",
+        "bid": "233",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 14,
+      "type": "complete_public_commit_observation_check_v13",
+      "passed": true,
+      "fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13",
+      "field_scope": "all_retained_semantic_snapshot_fields"
+    },
+    {
+      "event_index": 15,
+      "type": "action",
+      "role": "commit",
+      "action": {
+        "operation": "click",
+        "bid": "27",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": false,
+      "truncated": false,
+      "action_error": ""
+    },
+    {
+      "event_index": 16,
+      "type": "complete_public_commit_observation_check_v13",
+      "passed": true,
+      "fingerprint_version": "all-semantic-snapshot-fields-v12-commit-v13",
+      "field_scope": "all_retained_semantic_snapshot_fields"
+    },
+    {
+      "event_index": 17,
+      "type": "action",
+      "role": "commit",
+      "action": {
+        "operation": "click",
+        "bid": "311",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      },
+      "terminated": true,
+      "truncated": false,
+      "action_error": ""
+    }
+  ],
+  "active_transactions_at_stop": [
+    {
+      "bid": "25",
+      "label": "Departure Date",
+      "transaction_kind": "datepicker_open",
+      "semantic_bid": "25",
+      "operation": "click",
+      "argument": null,
+      "interrupt_repairs": 0
+    },
+    {
+      "bid": "35",
+      "label": "Prev",
+      "transaction_kind": "calendar_month_shift",
+      "semantic_bid": "25",
+      "operation": "click",
+      "argument": null,
+      "interrupt_repairs": 0
+    },
+    {
+      "bid": "19",
+      "label": "From:",
+      "transaction_kind": "autocomplete_query",
+      "semantic_bid": "19",
+      "operation": "fill",
+      "argument": "ZRK",
+      "interrupt_repairs": 0
+    },
+    {
+      "bid": "21",
+      "label": "To:",
+      "transaction_kind": "autocomplete_query",
+      "semantic_bid": "21",
+      "operation": "fill",
+      "argument": "AKN",
+      "interrupt_repairs": 0
+    }
+  ],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 9,
+    "planner_calls": 2,
+    "planner_actual_calls": 1,
+    "planner_cache_hits": 1,
+    "planner_parse_failures": 0,
+    "typed_transactions": 4,
+    "certified_commits": 5,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 7.293132523074746,
+    "commit_effect_passes": 5,
+    "commit_effect_failures": 0,
+    "quarantined_commit_keys": 0,
+    "resolved_transaction_bids": 3,
+    "inverse_reservation_audits": 9,
+    "inverse_reservation_stops": 0,
+    "interrupt_repair_reservation_audits": 0,
+    "interrupt_repair_reservation_fallbacks": 0,
+    "interrupt_repair_inverse_fallbacks": 0,
+    "unchanged_public_inverse_skips": 0,
+    "complete_public_observation_checks_v12": 0,
+    "complete_public_inverse_skips_v12": 0,
+    "complete_public_commit_checks_v13": 5,
+    "complete_public_commit_passes_v13": 5,
+    "complete_public_commit_rejections_v13": 0
+  },
+  "effect_ledger_v8": [
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "d32631febebdbb1d0bb94645d26e28e594346d27b8322abf2818c4efff22332a",
+      "after_sha256": "836ef87359c598bf02fcb12e31571298d70bd98a1fdf04f4034fa930ac3073dd",
+      "key_sha256": "604a6fecf4b62e666ccc27dd6bd282fd9bd0a005c2ff0d69c483044501aa87e5",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "169",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    },
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "82741f3f7e0eea293c2d1a9f22dbe12ee2c90ff11afdb2752e3fbc90d04825a1",
+      "after_sha256": "94e6c57d41ae0c4c675182e74dfe59f301162db6ee8055e76c13121aa97ba94c",
+      "key_sha256": "66e525cf9dc85daee399e46655b62513ecaf804838f51a91c3317c0c4682aebe",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "228",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    },
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "68cc0aab4f7caae55abf34140f462ece13b8a11770cb7b7f71915b8a7546e13b",
+      "after_sha256": "802971cbd4913460ae553cff8e87e14a92e20497cf984eae556841f0e3fd6b11",
+      "key_sha256": "9fa75efbd91311e7efffbd6eff2a73df0c6ab7827b0503cdcc88848663d0a744",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "233",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    },
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "802971cbd4913460ae553cff8e87e14a92e20497cf984eae556841f0e3fd6b11",
+      "after_sha256": "3a1dd838a9dd5640fd9f339e23bb946414c2456c7814659cb149bb0ac062187f",
+      "key_sha256": "09b23991a8d19159d9ce7afc58dd985e321852e9b2e15aab028b14ed4ddb2250",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "27",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    },
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "3a1dd838a9dd5640fd9f339e23bb946414c2456c7814659cb149bb0ac062187f",
+      "after_sha256": "996b390e066909db05e9dfb9b3bf2474c9bac1c2989ed8e423064dc0486d6c2c",
+      "key_sha256": "ce638500ee76b8782e69831bf6e966334a14835267944eb856762cebf30524bd",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "311",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    }
+  ],
+  "resolved_semantic_bids_v8": [
+    "19",
+    "21",
+    "25"
+  ],
+  "episode": {
+    "episode_index": 26,
+    "task_index": 2,
+    "seed_index": 1,
+    "arm_position": 2,
+    "task": "book-flight-nodelay",
+    "family_group": "flight_composite",
+    "seed": 27702,
+    "method": "full_pact_v13",
+    "episode_id": "book-flight-nodelay__seed27702__full_pact_v13"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

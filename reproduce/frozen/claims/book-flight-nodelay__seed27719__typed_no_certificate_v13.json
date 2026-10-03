@@ -1,0 +1,18 @@
+{
+  "candidate": "InverseReserve-final-v1-open-claim",
+  "completed_utc": "2026-07-17T16:07:37Z",
+  "status": "complete",
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433",
+  "episode": {
+    "episode_index": 332,
+    "task_index": 2,
+    "seed_index": 18,
+    "arm_position": 2,
+    "task": "book-flight-nodelay",
+    "family_group": "flight_composite",
+    "seed": 27719,
+    "method": "typed_no_certificate_v13",
+    "episode_id": "book-flight-nodelay__seed27719__typed_no_certificate_v13"
+  },
+  "episode_sha256": "a8849d5e2c5f82d14d5717edfe75f5a5101519fa59df94415974ff8113f79451"
+}

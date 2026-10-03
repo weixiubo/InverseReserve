@@ -1,0 +1,299 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "planner parse failed: ValueError: transact requires a typed transaction row",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Book the shortest one-way flight from: KPV to: Dodge City, KS on 11/02/2016.",
+    "goal_sha256": "bc39595c5f157572a6048f0bc00500c36b36cb07c911cc662c69117791f3b07c",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Book the shortest one-way flight from: KPV to: Dodge City, KS on 11/02/2016.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [
+      {
+        "bid": "19",
+        "label": "From",
+        "value": "KPV",
+        "label_span": {
+          "text": "from",
+          "start": 33,
+          "end": 37
+        },
+        "value_span": {
+          "text": "KPV",
+          "start": 39,
+          "end": 42
+        }
+      },
+      {
+        "bid": "21",
+        "label": "To",
+        "value": "Dodge City, KS",
+        "label_span": {
+          "text": "to",
+          "start": 43,
+          "end": 45
+        },
+        "value_span": {
+          "text": "Dodge City, KS",
+          "start": 47,
+          "end": 61
+        }
+      }
+    ],
+    "date_anchor": {
+      "text": "11/02/2016",
+      "canonical": "11/02/2016",
+      "month": 11,
+      "day": 2,
+      "year": 2016,
+      "span": {
+        "text": "11/02/2016",
+        "start": 65,
+        "end": 75
+      }
+    },
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": null,
+    "objective_anchor": {
+      "kind": "min_duration",
+      "span": {
+        "text": "shortest",
+        "start": 9,
+        "end": 17
+      }
+    },
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "bcbe40ac464ee80ba451d5f805c6ca5c3d3dcca2737528e424e52b83826ac446",
+      "inventory_count": 4,
+      "decision": "transact",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "78be50b0d01853969f643f9120804f5c97c786946a0d368776610233b7a2c4da",
+        "input_tokens": 950,
+        "generated_tokens": 14,
+        "cache_key": "78be50b0d01853969f643f9120804f5c97c786946a0d368776610233b7a2c4da",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "1e509dd452fd99e721b97399151c2d21dddb6b5d021b0ec1924b24498310d473",
+      "inventory_count": 5,
+      "decision": "commit",
+      "bid": "35",
+      "model": {
+        "messages_sha256": "63e6bede8ba2fbf26b43d80f02665c20b30a3892e48c5cd31c2a541e41e19436",
+        "input_tokens": 1083,
+        "generated_tokens": 13,
+        "cache_key": "63e6bede8ba2fbf26b43d80f02665c20b30a3892e48c5cd31c2a541e41e19436",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 2,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "bcbe40ac464ee80ba451d5f805c6ca5c3d3dcca2737528e424e52b83826ac446",
+      "inventory_count": 4,
+      "decision": "transact",
+      "bid": "21",
+      "model": {
+        "messages_sha256": "60d7c0416737ff772966b7aee126a7468ddd6a9f1190b7ff2e6cfe2694d9445e",
+        "input_tokens": 1001,
+        "generated_tokens": 14,
+        "cache_key": "60d7c0416737ff772966b7aee126a7468ddd6a9f1190b7ff2e6cfe2694d9445e",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 3,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "790b3d0fa96831da814740b98500eede5cf030a3f2f9e3fbec260e4e7286cef0",
+      "inventory_count": 5,
+      "decision": "commit",
+      "bid": "40",
+      "model": {
+        "messages_sha256": "fa3886a090530b66a26dc86259994cc775981eee6159e8c65c539d610d6c3175",
+        "input_tokens": 1136,
+        "generated_tokens": 13,
+        "cache_key": "fa3886a090530b66a26dc86259994cc775981eee6159e8c65c539d610d6c3175",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 4,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "bcbe40ac464ee80ba451d5f805c6ca5c3d3dcca2737528e424e52b83826ac446",
+      "inventory_count": 4,
+      "decision": "transact",
+      "bid": "25",
+      "model": {
+        "messages_sha256": "a035a1e2d8f35901039ed80c4dd36ad822359aaad18054dc9009f2e255008c91",
+        "input_tokens": 1054,
+        "generated_tokens": 14,
+        "cache_key": "a035a1e2d8f35901039ed80c4dd36ad822359aaad18054dc9009f2e255008c91",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 5,
+      "type": "planner_failure",
+      "model": {
+        "messages_sha256": "85481f3a56a12c766d633c7c6a91856ae3208a87592532ea67f9c08582289dd5",
+        "input_tokens": 6017,
+        "generated_tokens": 14,
+        "cache_key": "85481f3a56a12c766d633c7c6a91856ae3208a87592532ea67f9c08582289dd5",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "fill('19', 'KPV', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('35')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 2,
+      "role": "raw_open_loop",
+      "code": "fill('21', 'Dodge City, KS', True)",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 3,
+      "role": "raw_open_loop",
+      "code": "click('40')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 4,
+      "role": "raw_open_loop",
+      "code": "click('25')",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 5,
+    "planner_calls": 6,
+    "planner_actual_calls": 6,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 1,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 2,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 7.259679373819381
+  },
+  "episode": {
+    "episode_index": 294,
+    "task_index": 2,
+    "seed_index": 16,
+    "arm_position": 0,
+    "task": "book-flight-nodelay",
+    "family_group": "flight_composite",
+    "seed": 27717,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "book-flight-nodelay__seed27717__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

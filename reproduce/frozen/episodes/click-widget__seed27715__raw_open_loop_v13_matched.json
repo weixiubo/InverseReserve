@@ -1,0 +1,123 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Click on a \"radio\" widget.",
+    "goal_sha256": "d158b5c151de3f78e4717894ac962156b55818b6ba507113764f26d24220999e",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Click on a \"radio\" widget.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [],
+    "role_anchor": {
+      "role": "radio",
+      "span": {
+        "text": "radio",
+        "start": 12,
+        "end": 17
+      }
+    },
+    "terminal_intent": null,
+    "objective_anchor": null,
+    "rejected_reasons": [],
+    "widget_kind_anchor": {
+      "kind": "radio",
+      "span": {
+        "text": "radio",
+        "start": 12,
+        "end": 17
+      },
+      "existential": true
+    }
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "ee88dc9a3f09405faed75b61b8eba03c1af77aaa9564e57675c7c67f5055b368",
+      "inventory_count": 7,
+      "decision": "commit",
+      "bid": "19",
+      "model": {
+        "messages_sha256": "07810909564f22b7cd9e93359717822076c45088c555eb074bfee82b4cc8e2d5",
+        "input_tokens": 1063,
+        "generated_tokens": 13,
+        "cache_key": "07810909564f22b7cd9e93359717822076c45088c555eb074bfee82b4cc8e2d5",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "click('19')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 1,
+    "planner_calls": 1,
+    "planner_actual_calls": 1,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 1.0281136888079345
+  },
+  "episode": {
+    "episode_index": 269,
+    "task_index": 5,
+    "seed_index": 14,
+    "arm_position": 2,
+    "task": "click-widget",
+    "family_group": "direct_widget_control",
+    "seed": 27715,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "click-widget__seed27715__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

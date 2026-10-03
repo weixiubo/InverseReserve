@@ -1,0 +1,164 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Select Moldova, San Marino from the scroll list and click Submit.",
+    "goal_sha256": "de51cdc800f6951dbdb37267795b7014d3b57c49a862d20fe8175e1506063025",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Select Moldova, San Marino from the scroll list and click Submit.",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "exact",
+      "prefix": null,
+      "suffix": null,
+      "exact": "Submit"
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [
+      {
+        "bid": "13",
+        "values": [
+          "Moldova",
+          "San Marino"
+        ],
+        "phrase_span": {
+          "text": "Moldova, San Marino",
+          "start": 7,
+          "end": 26
+        }
+      }
+    ],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "submit",
+      "span": {
+        "text": "Submit",
+        "start": 58,
+        "end": 64
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "9c756875001a986abc15ad04cee4d3197555fd6dab9951060b76ac37fa186119",
+      "inventory_count": 7,
+      "decision": "transact",
+      "bid": "13",
+      "model": {
+        "messages_sha256": "6b749355ef0b57b005bced06e5b70a9853d6a4282cbf2597b47adfdf23f1925e",
+        "input_tokens": 1103,
+        "generated_tokens": 14,
+        "cache_key": "6b749355ef0b57b005bced06e5b70a9853d6a4282cbf2597b47adfdf23f1925e",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "c252ccb2aad861fff198bce4b55f55a9219e883bab2641fdb77332976ae05091",
+      "inventory_count": 7,
+      "decision": "commit",
+      "bid": "24",
+      "model": {
+        "messages_sha256": "2b650749bdc2c7f8d5f20e3d0e1509f4ec2cf49b1c95175c4ffddf6cbc3c4a35",
+        "input_tokens": 1166,
+        "generated_tokens": 13,
+        "cache_key": "2b650749bdc2c7f8d5f20e3d0e1509f4ec2cf49b1c95175c4ffddf6cbc3c4a35",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "select_option('13', ['Moldova', 'San Marino'])",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('24')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 2,
+    "planner_actual_calls": 2,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.0807047989219427
+  },
+  "episode": {
+    "episode_index": 122,
+    "task_index": 4,
+    "seed_index": 6,
+    "arm_position": 2,
+    "task": "click-scroll-list",
+    "family_group": "scroll_list",
+    "seed": 27707,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "click-scroll-list__seed27707__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

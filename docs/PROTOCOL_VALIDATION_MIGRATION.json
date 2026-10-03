@@ -1,0 +1,162 @@
+[
+  {
+    "module": "inversereserve_cross_family_stress_v1.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_webarena_navigation_holdout_v9.py",
+    "ordered_requirements": 25
+  },
+  {
+    "module": "inversereserve_webarena_navigation_dev_v4.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_miniwob_transfer_v1.py",
+    "ordered_requirements": 7
+  },
+  {
+    "module": "webarena_exact_mutation_transfer_v1.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_task_reserve_catalog_v2.py",
+    "ordered_requirements": 3
+  },
+  {
+    "module": "inversereserve_webarena_final_v1.py",
+    "ordered_requirements": 21
+  },
+  {
+    "module": "inversereserve_v19_unified_confirmation_v1.py",
+    "ordered_requirements": 16
+  },
+  {
+    "module": "matched_confirmation_v9.py",
+    "ordered_requirements": 17
+  },
+  {
+    "module": "inversereserve_v19_unified_development_v1.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_minimal_cleanup_successor_v1.py",
+    "ordered_requirements": 17
+  },
+  {
+    "module": "webarena_exact_mutation_transfer_v2.py",
+    "ordered_requirements": 8
+  },
+  {
+    "module": "inversereserve_postreview_development_v1.py",
+    "ordered_requirements": 13
+  },
+  {
+    "module": "inversereserve_webarena_navigation_dev_v3.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_capacity_regime_successor_v1.py",
+    "ordered_requirements": 11
+  },
+  {
+    "module": "inversereserve_final_v1.py",
+    "ordered_requirements": 22
+  },
+  {
+    "module": "inversereserve_webarena_navigation_holdout_v4.py",
+    "ordered_requirements": 25
+  },
+  {
+    "module": "inversereserve_cleanup_replan_successor_v1.py",
+    "ordered_requirements": 16
+  },
+  {
+    "module": "inversereserve_miniwob_transfer_v2.py",
+    "ordered_requirements": 7
+  },
+  {
+    "module": "repair_holdout_v10.py",
+    "ordered_requirements": 13
+  },
+  {
+    "module": "inversereserve_webarena_navigation_dev_v5.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_single_obligation_successor_v1.py",
+    "ordered_requirements": 16
+  },
+  {
+    "module": "inversereserve_live_resource_stress_v1.py",
+    "ordered_requirements": 12
+  },
+  {
+    "module": "inversereserve_exogenous_handoff_v2.py",
+    "ordered_requirements": 5
+  },
+  {
+    "module": "inversereserve_cross_planner_replication_v1.py",
+    "ordered_requirements": 17
+  },
+  {
+    "module": "inversereserve_webarena_navigation_dev_v7.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "repair_holdout_v9.py",
+    "ordered_requirements": 13
+  },
+  {
+    "module": "inversereserve_model_family_replication_v1.py",
+    "ordered_requirements": 17
+  },
+  {
+    "module": "inversereserve_capacity_regime_successor_v2.py",
+    "ordered_requirements": 12
+  },
+  {
+    "module": "inversereserve_webarena_navigation_dev_v2.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "matched_confirmation_v10.py",
+    "ordered_requirements": 17
+  },
+  {
+    "module": "inversereserve_capacity_regime_successor_v3.py",
+    "ordered_requirements": 13
+  },
+  {
+    "module": "inversereserve_strong_control_successor_v1.py",
+    "ordered_requirements": 10
+  },
+  {
+    "module": "inversereserve_exogenous_handoff_v1.py",
+    "ordered_requirements": 14
+  },
+  {
+    "module": "inversereserve_live_resource_stress_v3.py",
+    "ordered_requirements": 19
+  },
+  {
+    "module": "inversereserve_webarena_navigation_dev_v8.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_live_resource_stress_v2.py",
+    "ordered_requirements": 11
+  },
+  {
+    "module": "inversereserve_budget_frontier_holdout_v2.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_webarena_navigation_dev_v6.py",
+    "ordered_requirements": 15
+  },
+  {
+    "module": "inversereserve_task_reserve_catalog_v1.py",
+    "ordered_requirements": 2
+  }
+]

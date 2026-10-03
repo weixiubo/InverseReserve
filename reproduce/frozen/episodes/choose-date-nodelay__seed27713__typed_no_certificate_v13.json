@@ -1,0 +1,211 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Select 06/28/2016 as the date and hit submit.",
+    "goal_sha256": "2a14bef0f4c48635dda888e096adcbd138627898bcc425b0565297329a4906bd",
+    "controller_arm": "typed_no_certificate_v13",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Select 06/28/2016 as the date and hit submit.",
+    "allowed": true,
+    "exact_constraint": null,
+    "field_assignments": [],
+    "date_anchor": {
+      "text": "06/28/2016",
+      "canonical": "06/28/2016",
+      "month": 6,
+      "day": 28,
+      "year": 2016,
+      "span": {
+        "text": "06/28/2016",
+        "start": 7,
+        "end": 17
+      }
+    },
+    "option_selections": [],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "submit",
+      "span": {
+        "text": "submit",
+        "start": 38,
+        "end": 44
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "envelope_decision_v9_no_certificate",
+      "inventory_count": 2,
+      "envelope": {
+        "decision": "commit",
+        "candidates": [
+          {
+            "bid": "19",
+            "op": "click",
+            "arg": null,
+            "enable_autocomplete_menu": false,
+            "role": "button",
+            "label": "Submit",
+            "state": {},
+            "transaction_kind": null,
+            "semantic_bid": "19",
+            "parent_bid": "15",
+            "publicly_actionable_offscreen": false
+          }
+        ],
+        "admitted_certificate_bids": [
+          "19"
+        ],
+        "reason": "one fresh PACT-v6 commit certificate fixes the action",
+        "model_call_required": false
+      },
+      "certificate_audit": [
+        {
+          "bid": "19",
+          "allowed": true,
+          "anchor_kind": "certificate_ablation",
+          "reason": "grounding and scope certificate removed",
+          "effect_key_sha256": "281bd6d7be4ead8b7a7554d62a303dc37942672dfda153abd0eeb39744130106"
+        }
+      ],
+      "active_transactions": [],
+      "resolved_semantic_bids": [],
+      "quarantined_commit_count": 0,
+      "resolution": {
+        "decision": "commit",
+        "bid": "19",
+        "source": "singleton_envelope"
+      },
+      "model": null
+    },
+    {
+      "event_index": 1,
+      "type": "inverse_budget_reservation",
+      "decision": "commit",
+      "bid": "19",
+      "active_inverse_cost": 0,
+      "remaining_after_action": 39,
+      "allowed": true
+    },
+    {
+      "event_index": 2,
+      "type": "uncertified_commit_result_v9",
+      "bid": "19",
+      "operation": "click",
+      "action_error": "",
+      "terminal": true,
+      "success": false
+    },
+    {
+      "event_index": 3,
+      "type": "uncertified_commit_effect_result_v9",
+      "bid": "19",
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "quarantined": false,
+      "key_sha256": "cd02a0e78c4015fc557b47513b71c4a01a71cee1e9b795cedae2e5b1607c3a31",
+      "resolved_semantic_bids": []
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "uncertified_commit",
+      "code": "click('19')",
+      "reward": 0.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 1,
+    "planner_calls": 0,
+    "planner_actual_calls": 0,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 1,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 0.48526176484301686,
+    "commit_effect_passes": 1,
+    "commit_effect_failures": 0,
+    "quarantined_commit_keys": 0,
+    "resolved_transaction_bids": 0,
+    "inverse_reservation_audits": 1,
+    "inverse_reservation_stops": 0,
+    "interrupt_repair_reservation_audits": 0,
+    "interrupt_repair_reservation_fallbacks": 0,
+    "interrupt_repair_inverse_fallbacks": 0,
+    "complete_public_observation_checks_v12": 0,
+    "complete_public_inverse_skips_v12": 0,
+    "complete_public_commit_checks_v13": 0,
+    "complete_public_commit_passes_v13": 0,
+    "complete_public_commit_rejections_v13": 0
+  },
+  "effect_ledger_v8": [
+    {
+      "effective": true,
+      "reason": "commit terminated the episode or changed public semantic state",
+      "before_sha256": "2db4dca6c6a658a50b7adc55af306f86a5644e1b1f661615b46d3126a3933551",
+      "after_sha256": "2db4dca6c6a658a50b7adc55af306f86a5644e1b1f661615b46d3126a3933551",
+      "key_sha256": "cd02a0e78c4015fc557b47513b71c4a01a71cee1e9b795cedae2e5b1607c3a31",
+      "quarantined": false,
+      "action": {
+        "operation": "click",
+        "bid": "19",
+        "argument": null,
+        "enable_autocomplete_menu": false
+      }
+    }
+  ],
+  "resolved_semantic_bids_v8": [],
+  "episode": {
+    "episode_index": 217,
+    "task_index": 0,
+    "seed_index": 12,
+    "arm_position": 1,
+    "task": "choose-date-nodelay",
+    "family_group": "date_picker",
+    "seed": 27713,
+    "method": "typed_no_certificate_v13",
+    "episode_id": "choose-date-nodelay__seed27713__typed_no_certificate_v13"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

@@ -1,0 +1,113 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": false,
+  "terminated": false,
+  "truncated": false,
+  "method_failure": "driver failed: ValueError: multiple fresh commit certificates violate fail-closed v7",
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Select Flo from the scroll list and click Submit.",
+    "goal_sha256": "1e331e656e68bbfc37c00a578a50ec4bbe71c5d2c804ea8f13024c07715e73d0",
+    "controller_arm": "typed_no_certificate_v13",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": false,
+    "evaluator_info_observed_by_harness": false,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Select Flo from the scroll list and click Submit.",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "exact",
+      "prefix": null,
+      "suffix": null,
+      "exact": "Submit"
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [
+      {
+        "bid": "13",
+        "values": [
+          "Flo"
+        ],
+        "phrase_span": {
+          "text": "Flo",
+          "start": 7,
+          "end": 10
+        }
+      }
+    ],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "submit",
+      "span": {
+        "text": "Submit",
+        "start": 42,
+        "end": 48
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [],
+  "actions": [],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 0,
+    "planner_calls": 0,
+    "planner_actual_calls": 0,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 0,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 0.006957990117371082,
+    "commit_effect_passes": 0,
+    "commit_effect_failures": 0,
+    "quarantined_commit_keys": 0,
+    "resolved_transaction_bids": 0,
+    "inverse_reservation_audits": 0,
+    "inverse_reservation_stops": 0,
+    "interrupt_repair_reservation_audits": 0,
+    "interrupt_repair_reservation_fallbacks": 0,
+    "interrupt_repair_inverse_fallbacks": 0,
+    "complete_public_observation_checks_v12": 0,
+    "complete_public_inverse_skips_v12": 0,
+    "complete_public_commit_checks_v13": 0,
+    "complete_public_commit_passes_v13": 0,
+    "complete_public_commit_rejections_v13": 0
+  },
+  "effect_ledger_v8": [],
+  "resolved_semantic_bids_v8": [],
+  "episode": {
+    "episode_index": 356,
+    "task_index": 4,
+    "seed_index": 19,
+    "arm_position": 2,
+    "task": "click-scroll-list",
+    "family_group": "scroll_list",
+    "seed": 27720,
+    "method": "typed_no_certificate_v13",
+    "episode_id": "click-scroll-list__seed27720__typed_no_certificate_v13"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

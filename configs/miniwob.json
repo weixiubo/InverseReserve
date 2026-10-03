@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "run_id": "miniwob-development-001",
+  "backend": "miniwob",
+  "method": "full",
+  "options": {
+    "task": "click-widget",
+    "seed": 0,
+    "html_root": "{data}/miniwob/html",
+    "model_path": "{models}/Qwen3.5-9B",
+    "model_manifest": "{models}/Qwen3.5-9B/resource-manifest.json",
+    "max_new_tokens": 64
+  },
+  "required_files": []
+}

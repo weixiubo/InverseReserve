@@ -1,0 +1,164 @@
+{
+  "candidate": "InverseReserve-final-v1-episode",
+  "complete": true,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "method_failure": null,
+  "infrastructure_failure": false,
+  "infrastructure_error": null,
+  "method_input": {
+    "goal": "Select Costa Rica, Vatican City State from the scroll list and click Submit.",
+    "goal_sha256": "1573996571b839cf98ed8dc479ad0a5859c496e558940594aa930b7d210ef0ee",
+    "controller_arm": "raw_open_loop_v13_matched",
+    "method_received_task_id": false,
+    "method_received_seed": false,
+    "method_received_reward": false,
+    "method_received_evaluator_fields": false
+  },
+  "evaluation_audit": {
+    "reward_observed_by_harness": true,
+    "evaluator_info_observed_by_harness": true,
+    "reward_or_info_forwarded_to_method": false,
+    "confirmation_episode": true
+  },
+  "goal_contract": {
+    "goal": "Select Costa Rica, Vatican City State from the scroll list and click Submit.",
+    "allowed": true,
+    "exact_constraint": {
+      "kind": "exact",
+      "prefix": null,
+      "suffix": null,
+      "exact": "Submit"
+    },
+    "field_assignments": [],
+    "date_anchor": null,
+    "option_selections": [
+      {
+        "bid": "13",
+        "values": [
+          "Costa Rica",
+          "Vatican City State"
+        ],
+        "phrase_span": {
+          "text": "Costa Rica, Vatican City State",
+          "start": 7,
+          "end": 37
+        }
+      }
+    ],
+    "role_anchor": null,
+    "terminal_intent": {
+      "requested_label": "submit",
+      "span": {
+        "text": "Submit",
+        "start": 69,
+        "end": 75
+      }
+    },
+    "objective_anchor": null,
+    "rejected_reasons": []
+  },
+  "trace": [
+    {
+      "event_index": 0,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "42a4131de6ab256e071af17d0fe712284a898594b30a4093257a2eb0b0c52345",
+      "inventory_count": 7,
+      "decision": "transact",
+      "bid": "13",
+      "model": {
+        "messages_sha256": "35c85e90937fd63d1744ef95b448c8c1b1326ff5ca082f8486dbd4d815c7dd76",
+        "input_tokens": 1110,
+        "generated_tokens": 14,
+        "cache_key": "35c85e90937fd63d1744ef95b448c8c1b1326ff5ca082f8486dbd4d815c7dd76",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    },
+    {
+      "event_index": 1,
+      "type": "raw_planner_decision",
+      "inventory_sha256": "31d769b002e416767ac964f271cc8d6d298c827274b1b2ec04202dde284fcd95",
+      "inventory_count": 7,
+      "decision": "commit",
+      "bid": "22",
+      "model": {
+        "messages_sha256": "124ad4990340dda3766962399da18b9308dea4ff3999f2ab19326855cd8bbad3",
+        "input_tokens": 1176,
+        "generated_tokens": 13,
+        "cache_key": "124ad4990340dda3766962399da18b9308dea4ff3999f2ab19326855cd8bbad3",
+        "cache_hit": false,
+        "method_received_task_id": false,
+        "method_received_seed": false,
+        "method_received_reward": false,
+        "method_received_evaluator_fields": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_index": 0,
+      "role": "raw_open_loop",
+      "code": "select_option('13', ['Costa Rica', 'Vatican City State'])",
+      "reward": 0.0,
+      "terminated": false,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    },
+    {
+      "action_index": 1,
+      "role": "raw_open_loop",
+      "code": "click('22')",
+      "reward": 1.0,
+      "terminated": true,
+      "truncated": false,
+      "last_action_error_before": "",
+      "last_action_error_after": "",
+      "evaluator_reason": "",
+      "method_received_reward": false,
+      "method_received_info": false
+    }
+  ],
+  "restorations": [],
+  "runtime_events": [],
+  "active_transactions_at_stop": [],
+  "completed_transactions_at_stop": [],
+  "metrics": {
+    "gui_actions": 2,
+    "planner_calls": 2,
+    "planner_actual_calls": 2,
+    "planner_cache_hits": 0,
+    "planner_parse_failures": 0,
+    "typed_transactions": 0,
+    "certified_commits": 0,
+    "uncertified_commits": 1,
+    "restoration_attempts": 0,
+    "restoration_passes": 0,
+    "wrong_terminal_commits": 0,
+    "terminal_transactions": 0,
+    "action_errors": 0,
+    "runtime_halted": false,
+    "runtime_halt_reason": null,
+    "wall_seconds": 2.059909390285611
+  },
+  "episode": {
+    "episode_index": 102,
+    "task_index": 4,
+    "seed_index": 5,
+    "arm_position": 0,
+    "task": "click-scroll-list",
+    "family_group": "scroll_list",
+    "seed": 27706,
+    "method": "raw_open_loop_v13_matched",
+    "episode_id": "click-scroll-list__seed27706__raw_open_loop_v13_matched"
+  },
+  "protocol_sha256": "c7faf66651543fd5c6330a8de80e9b44e799b52b66c5e24ab190b69a21e1b433"
+}

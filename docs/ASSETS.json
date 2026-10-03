@@ -1,0 +1,8 @@
+{
+  "source": "SOURCE_PROVENANCE.json",
+  "current_source": "src/rcrps",
+  "frozen_analysis": "reproduce/frozen/source/src/rcrps",
+  "evidence_manifest": "reproduce/frozen_manifest.json",
+  "optional_model": "Set --model-path to a local Qwen3.5-9B snapshot",
+  "historical_registry": "Original PROJECT_ASSETS.json retained privately; it describes a former machine layout."
+}

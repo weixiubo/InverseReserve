@@ -1,0 +1,184 @@
+[
+  {
+    "old_entry": "scripts/c410_full_box_risk_scorer_diagnostic.py",
+    "original_sha256": "56f9d93c400dcb0c155a35347d10ed75fe02dcd0c78be8d0bbb746291b27a557",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c410_full_box_risk_scorer_diagnostic.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c414_adaptive_semantic_risk_diagnostic.py",
+    "original_sha256": "6966a371f544710e5febde683ae95c2ad0adcdcf1de4ea63050dd3e283cc6f43",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c414_adaptive_semantic_risk_diagnostic.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c416_qwen35_9b_capacity_diagnostic.py",
+    "original_sha256": "957b0e99efbcf4f4ddfb45ab784a2b74d6d9cf8001ae17ebbc2213ffe3d68281",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c416_qwen35_9b_capacity_diagnostic.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c424_qwen_structured_planner_capacity.py",
+    "original_sha256": "2e1ad1372d843371685dd83646d809a91c8769818d6baf3c673461c5794f8212",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c424_qwen_structured_planner_capacity.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c427_pact_live_development.py",
+    "original_sha256": "ca9b2d8cd2d8f4f2045e53b5671cc9bd6ae28bf70d31f13b905f7360c0d7af19",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c427_pact_live_development.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c433_fresh_observation_preflight.py",
+    "original_sha256": "e80d7d4f4cc7067c2bb77e0bf1aff2dde6773bcf54365c122c26a134c6ca100d",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c433_fresh_observation_preflight.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c434_pact_v4_live_development_gate.py",
+    "original_sha256": "5657717678be570e6f87cccc4f776969be51618fd48079e878818becabc46f26",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c434_pact_v4_live_development_gate.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c438_qwen_pact_v6_planner_capacity.py",
+    "original_sha256": "2557281f6e180abfaf1d5f0dcaa6e76024192348f1790c947ce974be7242beb2",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c438_qwen_pact_v6_planner_capacity.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c444_pact_v7_matched_confirmation.py",
+    "original_sha256": "edf79578be232d22cedd1c7a990311479ab5e5f4249d0fff07dc8df2df3891b1",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c444_pact_v7_matched_confirmation.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/c452_pact_v9_fresh_visible_development.py",
+    "original_sha256": "fc17f1f348d24908bfd012023189c095fc162573a9ac81101c631d43a8039500",
+    "original_source": "tests/reference/MANIFEST.json:scripts/c452_pact_v9_fresh_visible_development.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/inversereserve_final_v1.py",
+    "original_sha256": "c42b3f98182d2cc8c2c1ee984856e745b2d7548dba19092e2e930270b48d05cf",
+    "original_source": "tests/reference/MANIFEST.json:scripts/inversereserve_final_v1.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/inversereserve_single_gpu_runtime.py",
+    "original_sha256": "8c55e4fcbec889ccfa3f0fa26eed5c71aa41c70880d93dd019b50a18a114376a",
+    "original_source": "tests/reference/MANIFEST.json:scripts/inversereserve_single_gpu_runtime.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/inversereserve_successor_runner_common.py",
+    "original_sha256": "9afca638684321e6caa5a91632593c61ebcc90702a3777c8edeea7077643d8f4",
+    "original_source": "tests/reference/MANIFEST.json:scripts/inversereserve_successor_runner_common.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/inversereserve_v19_unified_confirmation_v1.py",
+    "original_sha256": "ab84dc605dd19cfb87b69969ad04c5a75521b21b81e4426655fb9ed79f7c4688",
+    "original_source": "tests/reference/MANIFEST.json:scripts/inversereserve_v19_unified_confirmation_v1.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/inversereserve_webarena_final_v1.py",
+    "original_sha256": "417bf637717f1f4be1ca3181bc809f74a15ca688ee0f8c6c6145d1ac58c808ef",
+    "original_source": "tests/reference/MANIFEST.json:scripts/inversereserve_webarena_final_v1.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/pact_v10_runner_common.py",
+    "original_sha256": "9a587d09bb07f12665affbca14cceed8d34567c9f2a363d6fbceb5add83e28f1",
+    "original_source": "tests/reference/MANIFEST.json:scripts/pact_v10_runner_common.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/pact_v13_full_reexecution_template.py",
+    "original_sha256": "6e371bd5ba22bffd3138353d337e2dad5fd7ec51bad22b15d24d40a0b6f45a4a",
+    "original_source": "tests/reference/MANIFEST.json:scripts/pact_v13_full_reexecution_template.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/pact_v13_reexecution_common.py",
+    "original_sha256": "6d57d153aaa41859fd5eaa3401df1166550bb5cba26a8d520825bf9077e670a3",
+    "original_source": "tests/reference/MANIFEST.json:scripts/pact_v13_reexecution_common.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/webarena_exact_mutation_transfer_v1.py",
+    "original_sha256": "e22a08b8c750302a43ac30dcf5d616f37d63451f093084304ae8eda985a69769",
+    "original_source": "tests/reference/MANIFEST.json:scripts/webarena_exact_mutation_transfer_v1.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/webarena_exact_mutation_transfer_v13.py",
+    "original_sha256": "841d548ec7b5d6047b31a94f03ef60bd61f4fb6707ebc8474d2ea1da49a64a57",
+    "original_source": "tests/reference/MANIFEST.json:scripts/webarena_exact_mutation_transfer_v13.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "scripts/webarena_exact_mutation_transfer_v2.py",
+    "original_sha256": "b2687fdb48d1d36317f7f8f3d5453f292019e51d99240ca1665fb22bf50bc5b9",
+    "original_source": "tests/reference/MANIFEST.json:scripts/webarena_exact_mutation_transfer_v2.py",
+    "classification": "source-bound historical experiment or its dependency",
+    "reason": "This runner binds named preregistrations, consumed pilot populations, source hashes and old model/environment gates. Re-execution must use the original source snapshot and original inputs; applying new namespace/formatting changes would create a different source identity. Maintained algorithms and study definitions remain in the installed package.",
+    "replacement": "frozen source re-execution for original protocols; current configured runs use inversereserve run --config"
+  },
+  {
+    "old_entry": "运行.py",
+    "original_sha256": "8f8d7fc5b9c309d2c781066bf7cd27449e17583e19e66bef56fe7204f0e0fe9b",
+    "original_source": "tests/reference/MANIFEST.json:运行.py",
+    "classification": "superseded developer entry",
+    "replacement": "uv sync --locked; inversereserve CLI"
+  },
+  {
+    "old_entry": "requirements-dev.lock",
+    "original_sha256": "372044a2e4be8800b7a227f58db920ee2e229e57cd8b2596f43927cb6fe7885d",
+    "original_source": "tests/reference/MANIFEST.json:requirements-dev.lock",
+    "classification": "superseded developer entry",
+    "replacement": "uv sync --locked; inversereserve CLI"
+  }
+]
