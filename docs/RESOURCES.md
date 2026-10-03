@@ -1,52 +1,53 @@
 # Resources and local configuration
 
-Source, docs and tests live in `~/project/InverseReserve`; its `.venv` is disposable.
-External data defaults to `~/research/data/InverseReserve`, models to
-`~/research/models`, runs to `~/research/runs/InverseReserve`, and preserved history
-to `~/research/data/<project>/evidence`. Nothing is created merely by importing the package.
+Source and the project environment reside in the checkout. Data defaults to
+`~/research/data/InverseReserve`, models to `~/research/models`, outputs to
+`~/research/runs/InverseReserve` and external evidence to
+`~/research/data/InverseReserve/evidence`.
 
-Root precedence is command flags, explicit run-config paths, INVERSERESERVE_*_DIR
-environment variables, user JSON, then defaults. Run-config relative paths are
-relative to that config. User-config paths are relative to that user-config file.
-User JSON is `$XDG_CONFIG_HOME/research/InverseReserve.json`, normally
-`~/.config/research/InverseReserve.json`; INVERSERESERVE_LOCAL_CONFIG overrides it.
+Resolution precedence is command-line options, explicit run-config paths,
+`INVERSERESERVE_*_DIR` environment variables, user JSON, then defaults.
+Relative paths resolve from the configuration file that declares them.
+User configuration uses `$XDG_CONFIG_HOME/research/InverseReserve.json`,
+normally `~/.config/research/InverseReserve.json`;
+`INVERSERESERVE_LOCAL_CONFIG` selects another file.
 
 ```json
-{"paths":{"data":"/external/data","models":"/external/models","runs":"/external/runs"},
- "resources":{"miniwob-html":"{data}/miniwob/html"}}
+{
+  "paths": {"data": "/external/data", "models": "/external/models", "runs": "/external/runs"},
+  "resources": {"miniwob-html": "{data}/miniwob/html"}
+}
 ```
 
-Individual doctor catalogue entries also accept
-INVERSERESERVE_RESOURCE_<UPPERCASE_ID_WITH_UNDERSCORES>. Experiment backend paths
-are explicitly resolved from their `options` values; the catalogue is an inventory,
-not a hidden mechanism for changing an experiment's inputs. `{data}`, `{models}`,
-`{runs}` and `{evidence}` are the supported path placeholders.
+Catalog paths also accept `INVERSERESERVE_RESOURCE_<ID>`, with uppercase
+letters and underscores replacing hyphens. Backend execution resolves the
+explicit `options` values in the experiment configuration. Supported path
+placeholders are `{data}`, `{models}`, `{runs}` and `{evidence}`.
 
-An external replay uses `options.replay_file` and an exact corresponding
-`required_files` entry `{ "path": "episode.json", "sha256": "<64 hex digits>" }`.
-Missing files, invalid schemas and mismatched hashes fail before output creation.
+## Replay inputs
 
-The MiniWoB adapter requires the benchmark's `html/miniwob/<task>.html`, an explicitly
-installed Chromium binary, browser extras and a local model. It records hashes of
-all benchmark HTML resources before starting. The model directory requires a
-`resource-manifest.json` object mapping every visible model file to its SHA256,
-including `config.json` and weights. Restore the original manifest for historical
-work. For a new snapshot, pin the revision, create a new manifest and a new run ID;
-that creates a new experimental identity. Model loading uses local_files_only and
-does not execute remote model code. No default GPU count is silently substituted
-for an old registered runtime.
+External replay specifies `options.replay_file` and a matching `required_files`
+entry, such as `{"path": "episode.json", "sha256": "<64 hex digits>"}`.
+Preflight checks file presence, schemas and checksums before output creation.
 
-Resource catalogue entries distinguish present-but-unverified directories from
-hash-verified files. Missing exact model/benchmark revisions and original runtime
-audit remain recovery tasks. Historical virtual environments are investigation
-material only; no binaries, site-package edits or machine launch scripts have been
-reinstalled from them. No patch was required for the verified CPU feature set.
+## MiniWoB and local models
 
-The browser pins (BrowserGym 0.14.3, Gymnasium 1.3.0, Playwright 1.44.0) come from
-the preserved runtime metadata. The new lock resolves all declared extras; real
-GPU/browser compatibility still requires an explicit integration run.
+Browser execution requires `html/miniwob/<task>.html`, Chromium, browser
+dependencies and a local model. The adapter records hashes of benchmark HTML
+resources before starting. Browser dependency pins are BrowserGym 0.14.3,
+Gymnasium 1.3.0 and Playwright 1.44.0.
 
-Resource sources/licenses: [MiniWoB MIT](https://raw.githubusercontent.com/Farama-Foundation/miniwob-plusplus/main/LICENSE),
-[BrowserGym Apache-2.0](https://raw.githubusercontent.com/ServiceNow/BrowserGym/main/LICENSE),
-[Qwen3.5-9B model card](https://huggingface.co/Qwen/Qwen3.5-9B).
-Their resource licenses are independent of this package license.
+The model's `resource-manifest.json` maps every visible model-relative file
+to SHA-256, including `config.json` and weights. Use the recorded manifest
+for an original snapshot; create a new manifest and run identity for a new
+revision. Loading is local-only and keeps remote model code disabled.
+
+The [resource catalog](../src/inversereserve/resource_catalog.json) records
+sources, versions, locations and acquisition instructions. Directory presence
+and checksum-verified identity are reported separately by `doctor`.
+
+Resource terms: [MiniWoB](https://raw.githubusercontent.com/Farama-Foundation/miniwob-plusplus/main/LICENSE),
+[BrowserGym](https://raw.githubusercontent.com/ServiceNow/BrowserGym/main/LICENSE)
+and [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B).
+Original study execution uses its recorded model snapshot, runtime metadata
+and protocol, described in the [reproduction guide](../reproduce/README.md).

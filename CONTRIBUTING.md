@@ -1,24 +1,22 @@
 # Contributing
 
-Start with DEVELOPMENT.md. Keep core contracts and capacity logic independent of
-CLI, model loading and machine paths. Add a regression scenario for changed state,
-budget, recovery or evidence behavior and preserve existing effective assertions.
+Follow the environment and validation commands in
+[DEVELOPMENT.md](docs/DEVELOPMENT.md). Keep contracts and capacity arithmetic
+independent of CLI parsing, model loading and filesystem configuration.
+Changes to state, budgets, recovery or evidence handling should include a
+regression scenario and preserve existing valid assertions.
 
-Research changes must name their scope and create a new experiment identity.
-Retain failed outcomes and original evidence. Never relabel historical hashes,
-replace a sealed population after observing results, or present a CPU fixture as
-a verified live GPU/browser experiment. Optional integrations should fail with a
-specific resource/dependency diagnosis before an experiment starts.
+Research changes specify their protocol and receive a distinct experiment
+identity. Original populations, outcomes and evidence hashes remain attached
+to their producer. Optional integrations validate their dependencies and
+resource identities before execution.
 
-Changes to fixed research declarations require review of their corresponding
-protocol and tests before updating STRUCTURE_EXCEPTIONS.json. Changes to maintained
-source do not modify reproduce/frozen or the original baseline snapshot.
+`STRUCTURE_EXCEPTIONS.json` identifies reviewed protocol declarations and
+their tests. Reassess the corresponding protocol and tests when changing an
+exception. Reference implementations and scientific evidence are checked
+against their original hashes.
 
-## Source distribution validation
-
-After `uv build`, run `uv run --no-sync python scripts/check_sdist.py`.
-It checks that the source distribution contains every declared test, fixture,
-helper and example, creates a fresh environment from its own lock, runs the full
-suite, and verifies that rebuilding its wheel preserves the distribution payload.
-Dependencies must already be cached by the normal locked development setup;
-this check runs offline and removes its temporary environment afterward.
+Before export, review the public file set and update `PUBLIC_MANIFEST.json`.
+Distribution checks inspect wheel contents, run installed commands and test
+a source distribution in a fresh locked environment. Cache development
+dependencies before running these offline checks.

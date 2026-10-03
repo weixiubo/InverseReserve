@@ -1,42 +1,42 @@
-# Architecture and supported research scope
+# Architecture and study interfaces
 
-`api.run_episode` is the stable boundary: an Environment protocol, public initial
-observation, Planner callback, Budgets value and named method. It performs no
-resource discovery or filesystem writes. `settings`, `execution`, `artifacts` and
-`cli` resolve inputs, run an explicit backend and publish immutable results.
+`api.run_episode` accepts an `Environment` protocol, an initial public
+observation, a planner callback, budgets and a named method. Application
+modules `settings`, `execution`, `artifacts` and `cli` resolve resources,
+execute the selected backend and persist results.
 
-| Owner | Responsibility |
-|---|---|
-| core | transaction/effect ledgers, sequence state and capacity arithmetic |
-| contracts | grounding, typed actions, postconditions and goal binding |
-| controllers | admission, forward execution, compensating repair, LIFO restoration and commit |
-| observations | immutable semantic types, browser observation parsing, screenshot/OCR evidence and candidate scope |
-| preview | quotient/local-search requests, query accounting, axis discovery and rank-two refinement |
-| models | prompt records, bounded structured parsing and local planner interface |
-| adapters/webarena | explicit public surface/navigation evidence and scoped browser adapters |
-| studies/designs | outcome-independent populations, protocol declarations and episode grids |
-| studies | retained analysis and claim gates for individually identified research studies |
+| Component | Responsibility |
+| --- | --- |
+| `core` | Transaction and effect ledgers, sequence state and capacity arithmetic |
+| `contracts` | Grounding, typed actions, postconditions and goal binding |
+| `controllers` | Admission, forward execution, compensating repair, LIFO restoration and commit |
+| `observations` | Semantic types, browser parsing, screenshot/OCR evidence and candidate scope |
+| `preview` | Search requests, query accounting, axis discovery and rank-two refinement |
+| `models` | Prompt records, bounded structured parsing and local planner interfaces |
+| `adapters/webarena` | Public surface/navigation evidence and browser adapters |
+| `studies/designs` | Outcome-independent populations, protocols and episode grids |
+| `studies` | Analysis and decision criteria for individually identified studies |
 
-Primary matched scope: `full`, `raw`, `typed` resolve to the final confirmation
-controller/controls (internally v13). The original final protocol is six families,
-20 seeds, three arms and Qwen3.5-9B. Current CLI runs do not recreate a sealed final
-protocol or issue primary-evidence claims.
+## Controller families
 
-Capacity scope: `stack-reserve`, `single-active`, `top-cleanup` share the v20
-compiler/runtime; goal-equivalent task-reserve scope uses the two v22 policies.
-Their experimental questions and budget/protocol gates differ from the final
-matched study. The API records the actual internal controller identity. Necessary
-predecessor modules remain because these concrete controllers and research tests
-depend on them, not as alternative user-facing launch commands.
+`full`, `raw` and `typed` resolve to the matched confirmation controllers
+and controls, internally identified as v13. The original confirmation uses
+six task families, 20 seeds, three arms and Qwen3.5-9B.
 
-Search state is explicit in `preview.types`; coordinate attempts are accounted for
-once even if a supplied candidate pool contains duplicate coordinates. Controller
-phases separate public evidence, envelope admission, reserve accounting, execution,
-freshness/effect certification and recovery. State records are passed explicitly.
-WebArena form reveal uses FormRevealContext; mutation certificates share payload
-checks and effect finalization while retaining their distinct failure semantics.
+`stack-reserve`, `single-active` and `top-cleanup` share the v20 compiler and
+runtime. `task-reserve-single` and `task-reserve-cleanup` use the v22 policies
+for goal-equivalent task reservations. These studies retain distinct questions,
+budgets and protocol criteria. The API records the selected controller identity.
 
-See MODULE_LAYOUT.json and RESPONSIBILITY_BOUNDARIES.json for ownership mappings.
-STRUCTURE_EXCEPTIONS.json records individually reviewed declaration tables; ordinary
-runtime functions still follow the 120-line/15-complexity target. Frozen code is
-kept outside the maintained package source and is verified by original hashes.
+## State and execution
+
+`preview.types` defines search state. Each coordinate consumes at most one
+query even when the candidate pool contains duplicates. Controller phases
+separate public evidence, admission, reserve accounting, execution, effect
+certification and recovery through explicit state records.
+
+WebArena form reveal uses `FormRevealContext`. Mutation certificates share
+payload checks and effect finalization while preserving their distinct failure
+semantics. `MODULE_LAYOUT.json` and `RESPONSIBILITY_BOUNDARIES.json` describe
+ownership. `STRUCTURE_EXCEPTIONS.json` identifies reviewed declaration tables.
+Scientific reproduction uses independently identified original source.

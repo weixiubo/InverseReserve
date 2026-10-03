@@ -23,8 +23,8 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "e3747b437cf95d1f0d8942a4bfabdca132ed5bfabaf732c01cf1b43885627705",
-      "bytes": 1382
+      "sha256": "8270b06995f99f7d202b09f6374c5eca9083e21cff405570391d835159848513",
+      "bytes": 1143
     },
     {
       "path": "LICENSE",
@@ -38,8 +38,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "cea55c2c0bbb4498e6f30e981dc5a496a7a60e3ad63f1ac8d99ef16cf23c2f80",
-      "bytes": 2697
+      "sha256": "b48dce40a9e468ffd0f89b52c33857a9304d3883d0593f0e4f01a569a52edf24",
+      "bytes": 2609
     },
     {
       "path": "SOURCE_PROVENANCE.json",
@@ -48,8 +48,8 @@
     },
     {
       "path": "THIRD_PARTY.md",
-      "sha256": "8958ceca2de14ebf9fff28118adcecf466539791e9c59a6ad846e5d23da6d823",
-      "bytes": 423
+      "sha256": "9bf777910f9a668525c4834ebc2ef5feb031c0135f16cdd6677136beeed0dca1",
+      "bytes": 569
     },
     {
       "path": "configs/demo.json",
@@ -63,8 +63,8 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "sha256": "934a474aa9c947736ca374d5bf6aed1923e2582bf83a9265735e23f07c65dd7f",
-      "bytes": 2817
+      "sha256": "463920868a6f104bee3ddba72489f1377f3716c05c32e5905756b80fb9e31769",
+      "bytes": 2375
     },
     {
       "path": "docs/ARCHIVED_MODULES.json",
@@ -78,13 +78,13 @@
     },
     {
       "path": "docs/BEHAVIOR_CHANGES.md",
-      "sha256": "37242ee49b2eca2d18ed9c53336b137f2537da5ae862d7c63dd3c15cc332549c",
-      "bytes": 943
+      "sha256": "fc047a15cf77ba314f3478c09efd37dc33a0a54346306f10ab6f44d5b2a1c14a",
+      "bytes": 759
     },
     {
       "path": "docs/DEVELOPMENT.md",
-      "sha256": "6e83fd1742f2bd4c7bfa6ee915b55dd1eacfcf84ca6967a9aa966d1e22f64935",
-      "bytes": 1495
+      "sha256": "db89604c5358759c558f7c384615877127d18702e4423ad1add395428df38060",
+      "bytes": 1309
     },
     {
       "path": "docs/ENTRY_MIGRATION.json",
@@ -103,13 +103,13 @@
     },
     {
       "path": "docs/MATERIALS.md",
-      "sha256": "023bb5237a1d966d908881e2ebb7c9a4ecc91024c536bf90501f877b5e90b347",
-      "bytes": 1359
+      "sha256": "f613d5a6b607ae09742574059a852b4aafe9e5e3112aae1cc0c46421ae4daf57",
+      "bytes": 1255
     },
     {
       "path": "docs/MIGRATION.md",
-      "sha256": "9b2bf79e49f742e896df8cfc40b80e729eaf7013e3166b54b4bbdb6bc0312ddf",
-      "bytes": 1560
+      "sha256": "51ddb01c6cbd6e7ac86d2ab84ef3aa24cc65755fdbdffc233df0bb51accaf54e",
+      "bytes": 970
     },
     {
       "path": "docs/MODULE_LAYOUT.json",
@@ -123,8 +123,8 @@
     },
     {
       "path": "docs/RESOURCES.md",
-      "sha256": "dfd27e64287f99246ae7560fda0cc171da80c53d4af778b707d2d27132143502",
-      "bytes": 3197
+      "sha256": "65bd03cad34c5a0b4958e8eafe593644d20854ff049a68a2465f403458f9226d",
+      "bytes": 2606
     },
     {
       "path": "docs/RESPONSIBILITY_BOUNDARIES.json",
@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "1c850b9425d2d0ff824cf27bd2f30fd4b56265c0aa84d06e06f7ffd6ad837a83",
-      "bytes": 3937
+      "sha256": "f1a85dea252ace3f3f340041fd957e9f4adeed0c4379318adcde41c9291ef519",
+      "bytes": 1768
     },
     {
       "path": "examples/capacity_smoke.py",
@@ -163,8 +163,8 @@
     },
     {
       "path": "reproduce/README.md",
-      "sha256": "c581861d6683ca1796ac0d582f6f55547d46a0d98e2fbe0b54b27d5b89677afe",
-      "bytes": 2074
+      "sha256": "03bd02f60dbbf30ac97286f5b29bec5b5d3811f11ef8523a4fec78780b01d128",
+      "bytes": 1520
     },
     {
       "path": "reproduce/frozen/claims/book-flight-nodelay__seed27701__full_pact_v13.json",
@@ -4928,8 +4928,8 @@
     },
     {
       "path": "src/inversereserve/evidence_data/bundle.json",
-      "sha256": "02a70c4f07a93f690dd69d076cadc2d04021a37bc03544c9dc6d461aa66c0551",
-      "bytes": 207
+      "sha256": "d7dafb5ae9871a66182f465b13219d5300a729aed64d9bf6932336265517411f",
+      "bytes": 173
     },
     {
       "path": "src/inversereserve/evidence_data/frozen.tar.gz",
@@ -5153,8 +5153,8 @@
     },
     {
       "path": "src/inversereserve/resource_catalog.json",
-      "sha256": "a7106747481b5b9cfbfec138ac3d55b9747d2624d19e350036110a3fcdd0e2e4",
-      "bytes": 2409
+      "sha256": "31100981dd5b8ab000da1952db3b5f1adb0e4351291e183075c1a707086d7696",
+      "bytes": 2348
     },
     {
       "path": "src/inversereserve/resources.py",
@@ -5528,8 +5528,8 @@
     },
     {
       "path": "tests/reference/README.md",
-      "sha256": "7506c5e8ce25350210cc293888b672b18a72b75a28c853d4c8ce04c52ab96f21",
-      "bytes": 660
+      "sha256": "1863fc8d8ac898ec301240694a7c9f51a025c97eda61a9ff6a3026da9ea04b56",
+      "bytes": 536
     },
     {
       "path": "tests/reference/source/LICENSE",
@@ -7017,6 +7017,6 @@
       "bytes": 170519
     }
   ],
-  "material_policy": "Required tested references and scientific evidence are explicit. Unused whole-source bundles and obsolete environments are removed.",
+  "material_policy": "Source exports include project code, documentation, tests, regression references and scientific verification resources.",
   "public_edition": "2026-10-17"
 }

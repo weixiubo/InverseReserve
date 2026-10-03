@@ -1,6 +1,6 @@
 # Development
 
-Use Python 3.12 and this repository's isolated `.venv`:
+Use Python 3.12 and the repository's isolated `.venv`:
 
 ```sh
 uv sync --locked
@@ -12,22 +12,21 @@ uv run pytest -q
 uv run inversereserve reproduce
 uv build
 uv run python scripts/check_release.py
+uv run python scripts/check_sdist.py
 ```
 
-After initial dependency acquisition, sync/tests/CPU examples operate offline.
-Browser and inference extras are explicit; ordinary checks never call a paid model
-or remote service. Critical boundaries (resource resolution, config, episode API,
-replay, artifact recovery, envelope admission, capacity and search state) receive
-strict type checking. Existing research-specific JSON records retain explicit Any
-at the untyped observation/analysis boundary.
+The core suite and CPU examples run offline after dependency installation.
+Browser and inference dependencies are separate extras. Strict typing covers
+resource resolution, configuration, episode interfaces, replay, artifact
+recovery, admission, capacity and search state. Dynamic observation and
+analysis records use explicit `Any` boundaries.
 
-Maintain module <=600, ordinary function <=120 lines and branch complexity <=15.
-The few fixed metric/gate/schema declarations in STRUCTURE_EXCEPTIONS.json have
-named reasons, test references and exact AST hashes. Editing one requires renewed
-review; the checker does not grant a whole module or legacy directory exemption.
+Maintained modules have a 600-line limit, functions a 120-line limit and McCabe
+complexity a limit of 15. Named declaration exceptions include reasons,
+test references and AST hashes in `STRUCTURE_EXCEPTIONS.json`.
 
-Run `scripts/export_public.py --target <new-directory>` only after updating and
-reviewing PUBLIC_MANIFEST.json. Release checks install the wheel into a clean
-environment and execute commands from outside the source directory. The manifest
-is the reviewed public file set; local environments, full data, credentials and
-private archives are not publication material.
+Review and update `PUBLIC_MANIFEST.json` before running
+`scripts/export_public.py --target PATH` with a new target directory. Release
+checks execute installed wheels outside the source tree. The sdist check
+installs a fresh locked environment, runs the full suite and compares rebuilt
+wheel contents. Dependencies must be cached for offline distribution checks.

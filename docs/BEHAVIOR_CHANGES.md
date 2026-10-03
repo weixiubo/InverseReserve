@@ -1,16 +1,16 @@
-# Behavior corrections during structural refactoring
+# Search behavior changes
 
-## Repeated pool coordinates in ordinary preview search
+## Duplicate coordinates
 
-The original generate_query_order can repeatedly schedule an index whose rounded
-coordinate was already queried through another pool entry or a refinement. Its
-execute function skips the duplicate without recording that pool index, so the
-posterior can choose it forever after useful candidates are exhausted.
+Local preview search records skipped duplicate indices in `excluded_pool`
+and excludes them from subsequent posterior selection. This ensures
+termination after the distinct candidate coordinates have been exhausted.
+Skipping a duplicate neither records a negative observation nor consumes
+another query.
 
-LocalSearch records such skipped indices in excluded_pool and omits them from
-future posterior candidates. It does not invent a negative observation or spend
-another query. A bounded scheduler regression test verifies termination and that
-each unique coordinate is observed once. Twenty normal-input comparisons use the
-original frozen implementation; duplicate-case termination is an intentional fix
-and is not reported as identical to the nonterminating original. Historical
-scientific code and evidence are unchanged.
+The original scheduler could repeatedly select an index whose rounded
+coordinate had already been evaluated through another entry or refinement.
+A bounded regression test covers that case and verifies one observation per
+unique coordinate. Twenty ordinary-input comparisons preserve the original
+search behavior. The original scientific source remains identified separately
+for evidence reproduction.

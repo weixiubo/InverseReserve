@@ -7,11 +7,11 @@
       "path": "miniwob/html",
       "kind": "directory",
       "purpose": "Explicit MiniWoB browser sessions",
-      "version": "Use the recorded benchmark commit; not inferred from directory presence",
+      "version": "Benchmark revision specified by the experiment manifest",
       "source": "https://github.com/Farama-Foundation/miniwob-plusplus",
       "license": "MIT",
       "sha256": null,
-      "how_to_get": "Restore or clone the benchmark revision, set options.html_root, and bind its files in required_files before an experiment."
+      "how_to_get": "Obtain the selected benchmark revision, set options.html_root, and bind its files in required_files."
     },
     {
       "id": "qwen35-9b",
@@ -23,7 +23,7 @@
       "source": "https://huggingface.co/Qwen/Qwen3.5-9B",
       "license": "Apache-2.0",
       "sha256": null,
-      "how_to_get": "Restore the exact model snapshot and a resource-manifest.json mapping every model file to its original SHA256. New downloads must pin a revision and create a new experiment identity."
+      "how_to_get": "Supply the selected model snapshot and resource-manifest.json mapping its files to SHA-256. Record the model revision and a distinct experiment identity for each new snapshot."
     },
     {
       "id": "runtime-audit",
@@ -32,7 +32,7 @@
       "kind": "file",
       "purpose": "Original GPU/browser/runtime provenance",
       "version": "C415/C416 and final protocol source 30300a63",
-      "source": "Author backup PROJECT_ASSETS.json and runtime audit",
+      "source": "Original PROJECT_ASSETS.json and runtime audit",
       "license": "Private audit; review before distribution",
       "sha256": null,
       "how_to_get": "Place the original PROJECT_ASSETS.json contents at the data/runtime-audit.json resource. Environment dependency and pinned model provenance are recorded separately in data/environment-provenance.json; recreate current environments from uv.lock."
@@ -43,11 +43,11 @@
       "path": "webarena",
       "kind": "directory",
       "purpose": "Optional separately scoped WebArena studies",
-      "version": "Per retained study protocol; not equivalent to MiniWoB final evidence",
+      "version": "Revision specified by the WebArena study protocol",
       "source": "https://github.com/ServiceNow/BrowserGym",
       "license": "BrowserGym Apache-2.0; datasets/images have their own licenses",
       "sha256": null,
-      "how_to_get": "Use the specific study image digest and credentials from its private runtime audit. No shared container is started or removed by ordinary commands."
+      "how_to_get": "Use the container image digest and environment credentials recorded for the selected WebArena study. Configure that environment before invoking its adapter."
     }
   ]
 }
