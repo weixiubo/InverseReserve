@@ -1,0 +1,27 @@
+{
+  "project": "InverseReserve",
+  "transformations": [],
+  "discarded_bad_download_hashes": [],
+  "external_assets": [],
+  "optional_models": [
+    {
+      "name": "UI-Venus-1.5-2B-model.safetensors",
+      "size": 4877469712,
+      "sha256": "ca2e059e729b1d6dcb29040d817f36ddf09b4c6b7bf8c95b6c0929f069f64bea",
+      "url": "https://huggingface.co/inclusionAI/UI-Venus-1.5-2B/resolve/bc4c6e62a1c545e043761439be95646d801853a4/model.safetensors",
+      "restore_path": "snapshot/archive-original/original/实验数据/RPS历史/data/c88_ui_venus_15_2b/model/model.safetensors",
+      "license": "Apache-2.0",
+      "revision": "bc4c6e62a1c545e043761439be95646d801853a4"
+    }
+  ],
+  "totals": {
+    "entries": 142166,
+    "files": 127516,
+    "logical_file_bytes": 4949252165,
+    "unique_objects": 85611,
+    "unique_bytes": 3744166643,
+    "excluded_paths": 7511,
+    "excluded_bytes": 14258689763
+  },
+  "manifest_sha256": "fc21452ae1414a9108077f34ae8d6fe332739b9d41c678a3b7634003860e647a"
+}

@@ -1,5 +1,12 @@
 # InverseReserve
 
+## Project handoff
+
+Start with the [handoff guide](docs/HANDOFF.md) to recover the research records,
+paper sources, datasets and historical development versions. The
+[material release](https://github.com/weixiubo/InverseReserve/releases/tag/handoff-2026-10-15) is public;
+the restoration script downloads and verifies its contents without a GitHub login.
+
 InverseReserve implements typed GUI transactions with explicit recovery
 capacity and freshly grounded commit certificates. The `inversereserve`
 package separates action contracts, transaction state, capacity accounting,

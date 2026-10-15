@@ -1,0 +1,261 @@
+{
+  "reason": "User explicitly requested deletion of downloaded third-party full texts on 2026-10-15.",
+  "stores": [
+    {
+      "original_git_dir": "/home/weixiubo/research/archives/2026-10-02-open-source/InverseReserve/original/当前/.git",
+      "restored_git_dir": "snapshot/historical-git/git-09/repository.git",
+      "removed_blobs": [
+        "0117711271568f9281f40afa84ebb92a11560205",
+        "056605c2a8b3e8915474574233e93fdcb1253b44",
+        "184cb4501bbf7194527a369fb9051d4588a975e3",
+        "1b25ffd3222074b8059f32d1bcbc08b271910ba4",
+        "28bd52cb7476dd415ac605e830ac27c54ecd808a",
+        "3439afc8bdba61b007f9f34b8a5053ebcdb8c21d",
+        "4215762835dd94022311dab8ba3b7a4a81138f4a",
+        "42ae361ec3287b10cb060e71c30b476aee16822b",
+        "498f5670fb31a2cb78091d3b0f11624fcdc60ce1",
+        "4ba13e2ef36cb6c78d22fdce53c529734259e6f4",
+        "4f1414f37a9e0bdfd034ad815a0d6cb3654eae7a",
+        "54596c3e686b9efbc890d7a6215538c86b5f3b9f",
+        "626eafe2f560c86792ad93dd6d89b54d7fde2b04",
+        "6d8b4f0568b0e3f75b0647ad6d3acd864c8637f0",
+        "810900c136bab457c99fb2995652ec49ac50bdb1",
+        "86ad41cb9157a35f351d999904642c13bbbeeed6",
+        "9c6a0cfedd0140ef3676b870d4c724dc025f98ee",
+        "a25eac7f3fba6e53edd8aca891380a27fdab570d",
+        "b23aac58589262cf1e1b70e43d511a4825d009d3",
+        "b57d672e6e784c69ec7e79468e1cc711186aa704",
+        "ce4776d4faede4fcb014464ca25f0efbd769f1df",
+        "cea9ca80da542e7aea486493f262dfd6262e816b",
+        "d3a416738fcd2bdedccbadac6523360112c3dab1",
+        "d6778f1bb38e7c40f3259d4b072a7126f37e90ad",
+        "dde44f373414bfcce397a61773afa98cafe1913e",
+        "e055739e15e59608b5b3eed76d06c846faf6739f",
+        "e0bbb7c3e321ebb124e7a485bc890370bb84dcdd",
+        "efa6bfa9182a8dd0d8e0de15b89658b2dd3de914",
+        "f4e128a88e69bcc0414b90227fef2a082e7053bb",
+        "fe3f8e7cb7c16671ab070b270594d40fb539cb7e"
+      ],
+      "named_fulltexts": [
+        {
+          "object": "ce4776d4faede4fcb014464ca25f0efbd769f1df",
+          "path": "paper/references/aaai_accepted/gem_gui_ood_aaai26.pdf",
+          "sha256": "cccfef8c8ee6f17519d4af4a512af0e8a6f6a5aa01366f7e8007d6a46c6f0649",
+          "size": 917237
+        },
+        {
+          "object": "184cb4501bbf7194527a369fb9051d4588a975e3",
+          "path": "paper/references/aaai_accepted/gui_eyes_aaai26.pdf",
+          "sha256": "b09af6a2ce41c4beba07e0642583c6ac7d31aa2d4abd1317388e2927edbc13b3",
+          "size": 1231255
+        },
+        {
+          "object": "626eafe2f560c86792ad93dd6d89b54d7fde2b04",
+          "path": "paper/references/aaai_accepted/har_gui_aaai26.pdf",
+          "sha256": "6b89bc347724e6c5d022ec07ed3d3465b601bbf7e113d58688faab6f2cb1b24c",
+          "size": 1216040
+        },
+        {
+          "object": "498f5670fb31a2cb78091d3b0f11624fcdc60ce1",
+          "path": "paper/references/aaai_accepted/mobile_agent_rag_aaai26.pdf",
+          "sha256": "f4ddc86cddd9f0eb246d650e275aba41d3f0bab47e78fbde511f3e3e8cf157b2",
+          "size": 6313325
+        },
+        {
+          "object": "b57d672e6e784c69ec7e79468e1cc711186aa704",
+          "path": "paper/references/aaai_accepted/tongui_aaai26.pdf",
+          "sha256": "866763df2c4b4bb4dda197a8b1bdc6da94c7102a0cd634de1042fe14f4086c39",
+          "size": 715426
+        },
+        {
+          "object": "1b25ffd3222074b8059f32d1bcbc08b271910ba4",
+          "path": "paper/references/aaai_accepted/webpilot_aaai25.pdf",
+          "sha256": "c5c3da5c6531b4b0c566c1c6c9c52b6b52ba80efb6b4cc8427ec244412b6ac6a",
+          "size": 674624
+        },
+        {
+          "object": "a25eac7f3fba6e53edd8aca891380a27fdab570d",
+          "path": "paper/references/related_2026/acrfence_2603.20625.pdf",
+          "sha256": "5b88ebb1f9dc1cb136c2e8b282a5b9d31122dc172ecd9c1893f4a5b578e86263",
+          "size": 463072
+        },
+        {
+          "object": "28bd52cb7476dd415ac605e830ac27c54ecd808a",
+          "path": "paper/references/related_2026/aegis_2603.12621.pdf",
+          "sha256": "72a9048d74b49453e2d64fdb16e959720adb8359d71095120c9d212e3c959591",
+          "size": 6234127
+        },
+        {
+          "object": "3439afc8bdba61b007f9f34b8a5053ebcdb8c21d",
+          "path": "paper/references/related_2026/atomicity_for_agents_2603.00476v1.pdf",
+          "sha256": "eb7b49240c16694d05f4733912040e1e8f61848661b226569c0bcd9625b746f0",
+          "size": 1193688
+        },
+        {
+          "object": "cea9ca80da542e7aea486493f262dfd6262e816b",
+          "path": "paper/references/related_2026/cordon_2606.17573.pdf",
+          "sha256": "4abfc0bd9941559b6eb0b15a268c91f67601f72539f85fbc19848b7801f7a713",
+          "size": 2026087
+        },
+        {
+          "object": "e0bbb7c3e321ebb124e7a485bc890370bb84dcdd",
+          "path": "paper/references/related_2026/dart_2605.23311.pdf",
+          "sha256": "8e57b882c47c9456edc88e4c012041d07e171415fb769ffb7e10f546b5a1e572",
+          "size": 559797
+        },
+        {
+          "object": "f4e128a88e69bcc0414b90227fef2a082e7053bb",
+          "path": "paper/references/related_2026/evolving_agents_2026.acl-long.754.pdf",
+          "sha256": "9d9894051e4260ef98f7db1699f18c6b94d8edff17079a273c2e3372b3f385eb",
+          "size": 1505511
+        },
+        {
+          "object": "d3a416738fcd2bdedccbadac6523360112c3dab1",
+          "path": "paper/references/related_2026/hivig_2606.11078.pdf",
+          "sha256": "2daae4e5d2837ca6bbc3e7dfc0316d7b5bab1f54b00de2dc1558b0518fef853f",
+          "size": 4054049
+        },
+        {
+          "object": "4f1414f37a9e0bdfd034ad815a0d6cb3654eae7a",
+          "path": "paper/references/related_2026/human_guided_harm_recovery_2604.18847.pdf",
+          "sha256": "568165102b58fcb2cd8a2095aa82ea38c79e3c367775e29e7c6a508f9af54f78",
+          "size": 4099284
+        },
+        {
+          "object": "0117711271568f9281f40afa84ebb92a11560205",
+          "path": "paper/references/related_2026/inferact_2025.emnlp-main.12.pdf",
+          "sha256": "089e7900149460bfa2e0ef699c67a2591c1e46e812a5623f4c5c335441377dec",
+          "size": 619346
+        },
+        {
+          "object": "54596c3e686b9efbc890d7a6215538c86b5f3b9f",
+          "path": "paper/references/related_2026/longhorizonui_iclr26_slides.pdf",
+          "sha256": "f75b89dd4052d689c22d38ba5d551c53438a50695bc104d682dac196f816c55c",
+          "size": 1399074
+        },
+        {
+          "object": "42ae361ec3287b10cb060e71c30b476aee16822b",
+          "path": "paper/references/related_2026/mnemosyne_2607.00269.pdf",
+          "sha256": "23a713cfda699233ddeb30160fc6cff90f250cc082471944cefedd7651c2de1b",
+          "size": 462517
+        },
+        {
+          "object": "e055739e15e59608b5b3eed76d06c846faf6739f",
+          "path": "paper/references/related_2026/mobileexplorer_2605.26546.pdf",
+          "sha256": "1485b80d31b1d5bad2f40a5157a4ade3911ec278d39b58eff5773c936d31ed0e",
+          "size": 6814286
+        },
+        {
+          "object": "86ad41cb9157a35f351d999904642c13bbbeeed6",
+          "path": "paper/references/related_2026/reagent_2025.emnlp-main.202.pdf",
+          "sha256": "475bb1950791151bca1fc50f06d165c2a26052760011eca9806cfd76049b37a0",
+          "size": 2263191
+        },
+        {
+          "object": "4215762835dd94022311dab8ba3b7a4a81138f4a",
+          "path": "paper/references/related_2026/reason_less_verify_more_2607.07405v2.pdf",
+          "sha256": "87a9ecf67412394ac0fd91d294ab19cacd4c36a7df3ef9f37e04a9b2ac8d7be5",
+          "size": 465689
+        },
+        {
+          "object": "9c6a0cfedd0140ef3676b870d4c724dc025f98ee",
+          "path": "paper/references/related_2026/revisable_by_design_2604.23283.pdf",
+          "sha256": "f248f2e5244ef662945468fbb77cc46ee30bc77c062c49b9b224bb413a01a069",
+          "size": 876633
+        },
+        {
+          "object": "810900c136bab457c99fb2995652ec49ac50bdb1",
+          "path": "paper/references/related_2026/scopejudge_2607.07774.pdf",
+          "sha256": "efbd4239742bf1e1beb33dd51507bbb22d1a620dccead5a291a3758e46b109cc",
+          "size": 769709
+        },
+        {
+          "object": "056605c2a8b3e8915474574233e93fdcb1253b44",
+          "path": "paper/references/related_2026/shepherd_2605.10913.pdf",
+          "sha256": "6f33ed86837aa6df7a753c5917ca00c6ff190105ee66e6116f942250c3a00bd9",
+          "size": 5381655
+        },
+        {
+          "object": "d6778f1bb38e7c40f3259d4b072a7126f37e90ad",
+          "path": "paper/references/related_2026/stratus_neurips2025.pdf",
+          "sha256": "2d82a531f5289aa719a69909fc7e362151ba55927d998f8a0e54eb89f0e93bd5",
+          "size": 915340
+        },
+        {
+          "object": "fe3f8e7cb7c16671ab070b270594d40fb539cb7e",
+          "path": "paper/references/related_2026/tclone_2605.17320v1.pdf",
+          "sha256": "cd6d543feb3ec804b35f91ae9dd897a563038f9230067abd5eaafd88976e46af",
+          "size": 2535276
+        },
+        {
+          "object": "b23aac58589262cf1e1b70e43d511a4825d009d3",
+          "path": "paper/references/related_2026/verigui_2604.05477.pdf",
+          "sha256": "dbb11e8a45fbb385c2486af417769477943f858dda939f5a32e10345e512d18a",
+          "size": 6093640
+        },
+        {
+          "object": "6d8b4f0568b0e3f75b0647ad6d3acd864c8637f0",
+          "path": "paper/references/related_2026/webguard_2507.14293.pdf",
+          "sha256": "eebdb3bc61de4534849dbc3fc3a846458f3d3546cb64cf7979af253bee9da9a9",
+          "size": 3892361
+        },
+        {
+          "object": "4ba13e2ef36cb6c78d22fdce53c529734259e6f4",
+          "path": "paper/references/related_2026/weboperator_2512.12692.pdf",
+          "sha256": "fbe9faa0340a1d32b2d84b33abd858492c64aec905fc07df3721cd00e6d5ccbf",
+          "size": 4910238
+        },
+        {
+          "object": "efa6bfa9182a8dd0d8e0de15b89658b2dd3de914",
+          "path": "paper/references/related_2026/webrollback_2026.eacl-short.12.pdf",
+          "sha256": "da04494b682ed3fbcccc93896aae3137132be6df0dac56d73e0a49e21a1d5061",
+          "size": 513504
+        },
+        {
+          "object": "dde44f373414bfcce397a61773afa98cafe1913e",
+          "path": "paper/references/related_2026/verigui_2604.05477.pdf",
+          "sha256": "ac21edf07ac7509818344bec417a1eae8af77f42aa445e2b4568df139f8a6356",
+          "size": 6260313
+        }
+      ],
+      "preserved_blob_count": 10710,
+      "original_commit_count": 1388,
+      "mapped_commit_count": 1388,
+      "unreferenced_blobs_preserved": 1,
+      "fsck_passed": true,
+      "commit_map_sha256": "6fd883eca5d6fc097a888c36ec68dbf077d6313757f007dcd13a639b120a5a5a"
+    }
+  ],
+  "deleted_fulltext_hashes": [
+    "089e7900149460bfa2e0ef699c67a2591c1e46e812a5623f4c5c335441377dec",
+    "1485b80d31b1d5bad2f40a5157a4ade3911ec278d39b58eff5773c936d31ed0e",
+    "23a713cfda699233ddeb30160fc6cff90f250cc082471944cefedd7651c2de1b",
+    "2d82a531f5289aa719a69909fc7e362151ba55927d998f8a0e54eb89f0e93bd5",
+    "2daae4e5d2837ca6bbc3e7dfc0316d7b5bab1f54b00de2dc1558b0518fef853f",
+    "475bb1950791151bca1fc50f06d165c2a26052760011eca9806cfd76049b37a0",
+    "4abfc0bd9941559b6eb0b15a268c91f67601f72539f85fbc19848b7801f7a713",
+    "568165102b58fcb2cd8a2095aa82ea38c79e3c367775e29e7c6a508f9af54f78",
+    "5b88ebb1f9dc1cb136c2e8b282a5b9d31122dc172ecd9c1893f4a5b578e86263",
+    "6b89bc347724e6c5d022ec07ed3d3465b601bbf7e113d58688faab6f2cb1b24c",
+    "6f33ed86837aa6df7a753c5917ca00c6ff190105ee66e6116f942250c3a00bd9",
+    "72a9048d74b49453e2d64fdb16e959720adb8359d71095120c9d212e3c959591",
+    "866763df2c4b4bb4dda197a8b1bdc6da94c7102a0cd634de1042fe14f4086c39",
+    "87a9ecf67412394ac0fd91d294ab19cacd4c36a7df3ef9f37e04a9b2ac8d7be5",
+    "8e57b882c47c9456edc88e4c012041d07e171415fb769ffb7e10f546b5a1e572",
+    "9d9894051e4260ef98f7db1699f18c6b94d8edff17079a273c2e3372b3f385eb",
+    "ac21edf07ac7509818344bec417a1eae8af77f42aa445e2b4568df139f8a6356",
+    "b09af6a2ce41c4beba07e0642583c6ac7d31aa2d4abd1317388e2927edbc13b3",
+    "c5c3da5c6531b4b0c566c1c6c9c52b6b52ba80efb6b4cc8427ec244412b6ac6a",
+    "cccfef8c8ee6f17519d4af4a512af0e8a6f6a5aa01366f7e8007d6a46c6f0649",
+    "cd6d543feb3ec804b35f91ae9dd897a563038f9230067abd5eaafd88976e46af",
+    "da04494b682ed3fbcccc93896aae3137132be6df0dac56d73e0a49e21a1d5061",
+    "dbb11e8a45fbb385c2486af417769477943f858dda939f5a32e10345e512d18a",
+    "eb7b49240c16694d05f4733912040e1e8f61848661b226569c0bcd9625b746f0",
+    "eebdb3bc61de4534849dbc3fc3a846458f3d3546cb64cf7979af253bee9da9a9",
+    "efbd4239742bf1e1beb33dd51507bbb22d1a620dccead5a291a3758e46b109cc",
+    "f248f2e5244ef662945468fbb77cc46ee30bc77c062c49b9b224bb413a01a069",
+    "f4ddc86cddd9f0eb246d650e275aba41d3f0bab47e78fbde511f3e3e8cf157b2",
+    "f75b89dd4052d689c22d38ba5d551c53438a50695bc104d682dac196f816c55c",
+    "fbe9faa0340a1d32b2d84b33abd858492c64aec905fc07df3721cd00e6d5ccbf"
+  ]
+}

@@ -7,3 +7,4 @@ recursive-include reproduce *.md *.json *.py *.tar.gz
 recursive-include src/inversereserve/evidence_data *.json *.tar.gz
 graft tests
 global-exclude __pycache__ *.py[cod]
+recursive-include handoff *

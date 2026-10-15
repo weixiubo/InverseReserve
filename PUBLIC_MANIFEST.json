@@ -33,13 +33,13 @@
     },
     {
       "path": "MANIFEST.in",
-      "sha256": "b0f37be6ba8f88b6118e46b13d504974c874b4291a9b08380fcd099ed2797f5d",
-      "bytes": 411
+      "sha256": "e4285225ccfbc650ad96fb4352a202803789edb96cd206c4b17c3da66ea1e3a0",
+      "bytes": 439
     },
     {
       "path": "README.md",
-      "sha256": "b48dce40a9e468ffd0f89b52c33857a9304d3883d0593f0e4f01a569a52edf24",
-      "bytes": 2609
+      "sha256": "73dc68dbf974e7646c7f985d7b1a41319af40cfa4ab1593359c543375e8e071b",
+      "bytes": 2965
     },
     {
       "path": "SOURCE_PROVENANCE.json",
@@ -123,8 +123,8 @@
     },
     {
       "path": "docs/RESOURCES.md",
-      "sha256": "65bd03cad34c5a0b4958e8eafe593644d20854ff049a68a2465f403458f9226d",
-      "bytes": 2606
+      "sha256": "e8e354dc018683cf93fd5075129b8b1b7cfedd563642679550d54946791700cf",
+      "bytes": 2881
     },
     {
       "path": "docs/RESPONSIBILITY_BOUNDARIES.json",
@@ -155,6 +155,26 @@
       "path": "examples/capacity_smoke.py",
       "sha256": "528aeb9faca2b437e5562acacd7930e9463a54af2cecca3bb842a7777d0a7cf1",
       "bytes": 994
+    },
+    {
+      "path": "handoff/catalog.json",
+      "sha256": "e4ccbe94595d510d138d1298a71ad31f79e21e2d9783d5d547955727d9d7a851",
+      "bytes": 1678
+    },
+    {
+      "path": "handoff/history-index.json",
+      "sha256": "4805c13226b00cbb091f204eb658a2a51d66d2272128d2d920c01a11fbb256f4",
+      "bytes": 12730
+    },
+    {
+      "path": "handoff/local-state/previous-release-ready.json",
+      "sha256": "7678cd1366f6d426cfc8a7a880aba9b67f38b8c3c91bfe5aac3ce8473cb5a36c",
+      "bytes": 357
+    },
+    {
+      "path": "handoff/material-disposition.json",
+      "sha256": "a19765a97f05bebfbee32faf4223ae90bb9777d9806e89bf688a42283e360786",
+      "bytes": 993
     },
     {
       "path": "pyproject.toml",
@@ -4302,6 +4322,11 @@
       "bytes": 1385
     },
     {
+      "path": "scripts/handoff.py",
+      "sha256": "e38364a671bd1101d787f010df1e5ca27aebabd592f3cf732a39646e730919ad",
+      "bytes": 15219
+    },
+    {
       "path": "src/inversereserve/__init__.py",
       "sha256": "67bf0aa7a72272719baa2eecbf1dae0f8136295a01610b97093283d064b0ffec",
       "bytes": 1143
@@ -6535,6 +6560,11 @@
       "path": "tests/test_goal_contracts_v4.py",
       "sha256": "21c02eea89a9b775b797145bfb58d600631a86411686875b5c663a4beda5d6bd",
       "bytes": 8041
+    },
+    {
+      "path": "tests/test_handoff_restore.py",
+      "sha256": "a1df9c41ecdcd0246779069bcf56149d8a70a51d0af9ac4959a1b8e80e6a7d28",
+      "bytes": 7614
     },
     {
       "path": "tests/test_holdout_declaration_differential.py",
