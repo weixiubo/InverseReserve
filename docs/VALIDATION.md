@@ -5,7 +5,7 @@ and distribution checks.
 
 | Check | Coverage |
 | --- | --- |
-| Main suite | 763 CPU cases, including the original 593 cases |
+| Main suite | 769 CPU cases, including the original 593 cases |
 | Search comparisons | 29 quotient-search and 20 local-search cases |
 | Controller comparisons | 32 controller/WebArena executions, including event order, state, calls and budgets |
 | Study analysis | 27 metric populations, matched-v10 analysis, holdout and transfer declarations |
@@ -32,3 +32,11 @@ execute diagnostics, examples, configured runs, completed-result reuse and
 reproduction outside the source tree. The sdist check uses a fresh locked
 environment, runs the complete suite and compares rebuilt wheel contents.
 Source-export checks verify `PUBLIC_MANIFEST.json`.
+
+## Public handoff acceptance
+
+Six additional handoff tests cover Unicode paths, missing and corrupt parts,
+repeat execution, modified-file protection, upstream assets and optional
+models. The current counts above include these cases. Full restoration,
+research-material checks and inherited limitations are recorded in the
+[handoff release](https://github.com/weixiubo/InverseReserve/releases/tag/handoff-2026-10-15).

@@ -33,9 +33,9 @@
       "purpose": "Original GPU/browser/runtime provenance",
       "version": "C415/C416 and final protocol source 30300a63",
       "source": "Original PROJECT_ASSETS.json and runtime audit",
-      "license": "Private audit; review before distribution",
+      "license": "Project runtime-provenance records included in the public handoff",
       "sha256": null,
-      "how_to_get": "Place the original PROJECT_ASSETS.json contents at the data/runtime-audit.json resource. Environment dependency and pinned model provenance are recorded separately in data/environment-provenance.json; recreate current environments from uv.lock."
+      "how_to_get": "Restore the public handoff to obtain data/runtime-audit.json and data/environment-provenance.json. Use the maintained uv.lock for the current development environment."
     },
     {
       "id": "webarena-images",

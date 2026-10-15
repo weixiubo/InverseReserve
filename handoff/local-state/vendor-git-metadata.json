@@ -1,0 +1,39 @@
+{
+  "project": "InverseReserve",
+  "files": [
+    {
+      "original_path": "/home/weixiubo/research/archives/2026-10-02-open-source/InverseReserve/original/依赖/external/miniwob-plusplus/.git/logs/HEAD",
+      "material_path": "snapshot/archive-original/original/依赖/external/miniwob-plusplus/.git/logs/HEAD",
+      "repository_path": "handoff/local-state/pre-diagnostic-vendor-metadata/miniwob-plusplus/git-metadata/logs/HEAD",
+      "size": 419,
+      "sha256": "83bf5eeb5de372297400f190645456e429a8abe9357c5ce01087ba3663f2d0e1",
+      "mode": 420,
+      "mtime_ns": 1783686214786948730,
+      "current_snapshot_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Preserve exact pre-diagnostic vendor reflog bytes recovered from the initial content-addressed capture and older archive inventory"
+    },
+    {
+      "original_path": "/home/weixiubo/research/archives/2026-10-02-open-source/InverseReserve/original/依赖/external/miniwob-plusplus/.git/logs/refs/remotes/origin/HEAD",
+      "material_path": "snapshot/archive-original/original/依赖/external/miniwob-plusplus/.git/logs/refs/remotes/origin/HEAD",
+      "repository_path": "handoff/local-state/pre-diagnostic-vendor-metadata/miniwob-plusplus/git-metadata/logs/refs/remotes/origin/HEAD",
+      "size": 209,
+      "sha256": "a8407804f839615ba26d0ba82318d7528d7da00341e614627b09e14686f048a8",
+      "mode": 420,
+      "mtime_ns": 1783686211843572591,
+      "current_snapshot_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Preserve exact pre-diagnostic vendor reflog bytes recovered from the initial content-addressed capture and older archive inventory"
+    },
+    {
+      "original_path": "/home/weixiubo/research/archives/2026-10-02-open-source/InverseReserve/original/依赖/external/miniwob-plusplus/.git/logs/refs/heads/main",
+      "material_path": "snapshot/archive-original/original/依赖/external/miniwob-plusplus/.git/logs/refs/heads/main",
+      "repository_path": "handoff/local-state/pre-diagnostic-vendor-metadata/miniwob-plusplus/git-metadata/logs/refs/heads/main",
+      "size": 209,
+      "sha256": "a8407804f839615ba26d0ba82318d7528d7da00341e614627b09e14686f048a8",
+      "mode": 420,
+      "mtime_ns": 1783686211843572591,
+      "current_snapshot_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Preserve exact pre-diagnostic vendor reflog bytes recovered from the initial content-addressed capture and older archive inventory"
+    }
+  ],
+  "meaning": "The public material snapshot keeps the verified current vendor repository. These Git-backed files also preserve its original reflogs before automatic Git maintenance during inspection."
+}

@@ -148,8 +148,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "f1a85dea252ace3f3f340041fd957e9f4adeed0c4379318adcde41c9291ef519",
-      "bytes": 1768
+      "sha256": "49d1464b36ca07936adea172d1c4c2295730f5f15734dd4353cc57a287ecde59",
+      "bytes": 2187
     },
     {
       "path": "examples/capacity_smoke.py",
@@ -167,9 +167,29 @@
       "bytes": 12730
     },
     {
+      "path": "handoff/local-state/pre-diagnostic-vendor-metadata/miniwob-plusplus/git-metadata/logs/HEAD",
+      "sha256": "83bf5eeb5de372297400f190645456e429a8abe9357c5ce01087ba3663f2d0e1",
+      "bytes": 419
+    },
+    {
+      "path": "handoff/local-state/pre-diagnostic-vendor-metadata/miniwob-plusplus/git-metadata/logs/refs/heads/main",
+      "sha256": "a8407804f839615ba26d0ba82318d7528d7da00341e614627b09e14686f048a8",
+      "bytes": 209
+    },
+    {
+      "path": "handoff/local-state/pre-diagnostic-vendor-metadata/miniwob-plusplus/git-metadata/logs/refs/remotes/origin/HEAD",
+      "sha256": "a8407804f839615ba26d0ba82318d7528d7da00341e614627b09e14686f048a8",
+      "bytes": 209
+    },
+    {
       "path": "handoff/local-state/previous-release-ready.json",
       "sha256": "7678cd1366f6d426cfc8a7a880aba9b67f38b8c3c91bfe5aac3ce8473cb5a36c",
       "bytes": 357
+    },
+    {
+      "path": "handoff/local-state/vendor-git-metadata.json",
+      "sha256": "ce25bb1576286b3eee5567fb36bc2d6ca5e9fb687a6d6d4d6ce6f663e1ff3501",
+      "bytes": 2762
     },
     {
       "path": "handoff/material-disposition.json",
@@ -5178,8 +5198,8 @@
     },
     {
       "path": "src/inversereserve/resource_catalog.json",
-      "sha256": "31100981dd5b8ab000da1952db3b5f1adb0e4351291e183075c1a707086d7696",
-      "bytes": 2348
+      "sha256": "7e6beaad5d4bab84d515f3064d9afc71a04721632b5ee1f8f7770cd6e17ed357",
+      "bytes": 2294
     },
     {
       "path": "src/inversereserve/resources.py",
