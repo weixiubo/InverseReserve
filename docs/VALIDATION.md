@@ -33,10 +33,10 @@ reproduction outside the source tree. The sdist check uses a fresh locked
 environment, runs the complete suite and compares rebuilt wheel contents.
 Source-export checks verify `PUBLIC_MANIFEST.json`.
 
-## Public handoff acceptance
+## Artifact restoration checks
 
-Six additional handoff tests cover Unicode paths, missing and corrupt parts,
+Six artifact restoration tests cover Unicode paths, missing and corrupt parts,
 repeat execution, modified-file protection, upstream assets and optional
-models. The current counts above include these cases. Full restoration,
-research-material checks and inherited limitations are recorded in the
-[handoff release](https://github.com/weixiubo/InverseReserve/releases/tag/handoff-2026-10-15).
+models. The suite counts above include these cases. The restoration and
+research-material checks performed on 2026-10-15 are recorded in the
+[research archive](https://github.com/weixiubo/InverseReserve/releases/tag/handoff-2026-10-15).
