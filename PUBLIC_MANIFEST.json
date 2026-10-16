@@ -4928,8 +4928,8 @@
     },
     {
       "path": "src/inversereserve/evidence_data/bundle.json",
-      "sha256": "d7dafb5ae9871a66182f465b13219d5300a729aed64d9bf6932336265517411f",
-      "bytes": 173
+      "sha256": "02a70c4f07a93f690dd69d076cadc2d04021a37bc03544c9dc6d461aa66c0551",
+      "bytes": 207
     },
     {
       "path": "src/inversereserve/evidence_data/frozen.tar.gz",
@@ -5068,8 +5068,8 @@
     },
     {
       "path": "src/inversereserve/observations/preview_transaction.py",
-      "sha256": "c69da7ef88f291834996e0d72ca171388347ba5f4de87ec947d7e0f55cd900c2",
-      "bytes": 19133
+      "sha256": "7887d2d39fc1c773c55b36c6636ddebada6b1ad8cf0a5472c786bae69a3a86b7",
+      "bytes": 19132
     },
     {
       "path": "src/inversereserve/observations/screenshot_candidates.py",

@@ -372,7 +372,7 @@ def instruction_target_tokens(instruction: str) -> tuple[str, ...]:
 
     A frequent GUI construction is ``click \"Menu\", then ... click the item
     with the icon``.  In that case the only quoted text names the preview
-    control, not the final target.  We therefore prefer a quoted phrase that
+    control, not the final target.  The parser prefers a quoted phrase that
     occurs after the final click imperative and otherwise parse only that
     imperative's suffix.  The full-instruction fallback is retained for goals
     without a click imperative.
