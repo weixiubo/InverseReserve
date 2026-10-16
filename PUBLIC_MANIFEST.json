@@ -38,8 +38,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "2b875641590b3cbe5b51682fd0dfe2e6cc4e9e208417215440be9da6a290d2e3",
-      "bytes": 2940
+      "sha256": "36a1436a72fb508653004373bd162beff46c54564b611f46cf8718b9e82a1a6a",
+      "bytes": 2951
     },
     {
       "path": "SOURCE_PROVENANCE.json",
@@ -73,8 +73,8 @@
     },
     {
       "path": "docs/ARTIFACTS.md",
-      "sha256": "4c1f54ea11b3224536c70b61652f84601a78c675e476d5cdf1cb1bbf08868bf7",
-      "bytes": 4917
+      "sha256": "277cfd1036c88591fb1ac798edec294f3cdde6db653a8ea29082c54112c03d32",
+      "bytes": 4805
     },
     {
       "path": "docs/ASSETS.json",
@@ -153,8 +153,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "64468ab60259b6b9f5ad35b9de59375f10ec84a198a46f45addd84bde19be0f4",
-      "bytes": 2190
+      "sha256": "4b42dd3d2568dc62f2722afa88339b34f8f6563abdc9a6aa05ffb6bf3a0972f6",
+      "bytes": 2273
     },
     {
       "path": "examples/capacity_smoke.py",
@@ -163,13 +163,13 @@
     },
     {
       "path": "handoff/catalog.json",
-      "sha256": "e4ccbe94595d510d138d1298a71ad31f79e21e2d9783d5d547955727d9d7a851",
-      "bytes": 1678
+      "sha256": "c9e16c6b7e1f4ff8678702aa0cc6c464732076d4b179d1b4732bb46caa4c86d3",
+      "bytes": 1463
     },
     {
       "path": "handoff/history-index.json",
-      "sha256": "a48466c538f0fefd670fb7746c11bca0fb9f1172b9e76553c14a53455a1e5ce0",
-      "bytes": 12749
+      "sha256": "54d13208038db332a1fd387636a7bc0a734889ad119055c646e521708daa8512",
+      "bytes": 14151
     },
     {
       "path": "handoff/local-state/pre-diagnostic-vendor-metadata/miniwob-plusplus/git-metadata/logs/HEAD",
@@ -193,8 +193,8 @@
     },
     {
       "path": "handoff/material-disposition.json",
-      "sha256": "a19765a97f05bebfbee32faf4223ae90bb9777d9806e89bf688a42283e360786",
-      "bytes": 993
+      "sha256": "1934b7b6427f587afdaf89ede581a2713fd1bb82acc735dcebb4cc1994754deb",
+      "bytes": 348
     },
     {
       "path": "pyproject.toml",
@@ -4343,8 +4343,8 @@
     },
     {
       "path": "scripts/handoff.py",
-      "sha256": "c5bfd4bfb0887d23c05ae1c62de24d569a69b0e007aecf428bb35b35bea564e6",
-      "bytes": 15235
+      "sha256": "5d87a8f1856f266cdb6cbab6160f807931b02ef0b1162d313cf1b349938ce485",
+      "bytes": 18292
     },
     {
       "path": "src/inversereserve/__init__.py",
@@ -6583,8 +6583,8 @@
     },
     {
       "path": "tests/test_handoff_restore.py",
-      "sha256": "c02aa994345e2e4122f72bdfd825a7c0b95d54b73e59dee3c581ab17a74e17ad",
-      "bytes": 7615
+      "sha256": "9374f53699cb3f40e1515e3ea09116ff804dfb6717fb6a585bc0410d161e1d0f",
+      "bytes": 13103
     },
     {
       "path": "tests/test_holdout_declaration_differential.py",

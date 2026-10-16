@@ -1,40 +1,33 @@
 {
-  "schema": 1,
+  "schema": 2,
   "project": "InverseReserve",
   "repository": "weixiubo/InverseReserve",
-  "release": "handoff-2026-10-15",
+  "release": "research-artifacts-2026-10-16",
   "public": true,
   "manifest": {
     "name": "materials.json.gz",
-    "size": 10742375,
-    "sha256": "57fc03c58edbfa80479d83b03cb8880383fe30a90ab8ce0ec3526a0fa20d0649"
+    "size": 9836605,
+    "sha256": "5b8f40018bd44fbb081ffd5a355b8c0301ffc1a27a4756b819676bc26814e96c"
   },
   "parts": [
     {
       "name": "materials.tar.gz.part001",
       "size": 1073741824,
-      "sha256": "88995d72549b90dcaa2632b0fe4950386b3849b6ddc4f3b1e71794bfd5d42a1a"
+      "sha256": "fbf563b7ac1edc8331bf431678287bf04ece88209c54e0441c0a4e04761594c8"
     },
     {
       "name": "materials.tar.gz.part002",
-      "size": 1073741824,
-      "sha256": "fb6bfee0f1763beb268ffe1cac081a395f6ff4efc22d4c9c49775eaa3b73c94a"
-    },
-    {
-      "name": "materials.tar.gz.part003",
-      "size": 62839659,
-      "sha256": "0d0f9ce38d1179767b911da2793ef40f4cfbf7ce26838f411d57ed233ff02034"
+      "size": 178945655,
+      "sha256": "11d555af5621c4eb2a4741f128cdc6a740eeaa5d7c86dcde9c3be4bfb2c3dfec"
     }
   ],
-  "archive_sha256": "15dea29a3c717b6ed123189e76e16c1480cb92a701f60da9d5af66d85b4464a8",
+  "archive_sha256": "fdb655764cd590a66c333e57c0b635e25d4af42b72c590010d45518f4542642f",
   "totals": {
-    "entries": 142166,
-    "files": 127516,
-    "logical_file_bytes": 4949252165,
-    "unique_objects": 85611,
-    "unique_bytes": 3744166643,
-    "excluded_paths": 7511,
-    "excluded_bytes": 14258689763
+    "entries": 135423,
+    "files": 121225,
+    "logical_file_bytes": 3931527344,
+    "unique_objects": 83689,
+    "unique_bytes": 2779029393
   },
   "optional_models": [
     {

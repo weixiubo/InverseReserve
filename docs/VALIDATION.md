@@ -5,7 +5,7 @@ and distribution checks.
 
 | Check | Coverage |
 | --- | --- |
-| Main suite | 769 CPU cases, including the original 593 cases |
+| Main suite | 773 CPU cases, including the original 593 cases |
 | Search comparisons | 29 quotient-search and 20 local-search cases |
 | Controller comparisons | 32 controller/WebArena executions, including event order, state, calls and budgets |
 | Study analysis | 27 metric populations, matched-v10 analysis, holdout and transfer declarations |
@@ -35,8 +35,8 @@ Source-export checks verify `PUBLIC_MANIFEST.json`.
 
 ## Artifact restoration checks
 
-Six artifact restoration tests cover Unicode paths, missing and corrupt parts,
-repeat execution, modified-file protection, upstream assets and optional
-models. The suite counts above include these cases. The restoration and
-research-material checks performed on 2026-10-15 are recorded in the
-[research archive](https://github.com/weixiubo/InverseReserve/releases/tag/handoff-2026-10-15).
+Ten artifact restoration tests cover Unicode paths, missing and corrupt parts,
+repeat execution, modified-file protection, upstream assets, optional
+models and independent Git history with reference and link protection. The suite counts above include these cases. The restoration and
+research-material checks for the distributed archive edition are recorded in the
+[research archive](https://github.com/weixiubo/InverseReserve/releases/tag/research-artifacts-2026-10-16).
