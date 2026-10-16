@@ -33,3 +33,6 @@ Current experiments use `inversereserve run --config` with explicit resource
 paths. The capacity and goal-equivalent task-reserve studies have separate
 protocol identities. See [architecture](../docs/ARCHITECTURE.md) and
 [resources](../docs/RESOURCES.md) for those interfaces.
+
+The current public edition omits recorded model-message bodies. Its integrity
+indexes bind the published records; recorded statistical outcomes are retained.

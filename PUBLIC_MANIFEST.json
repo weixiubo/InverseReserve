@@ -38,7 +38,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "36a1436a72fb508653004373bd162beff46c54564b611f46cf8718b9e82a1a6a",
+      "sha256": "3ddbb54cb167e07a281d457174be6ba28edef11e371e888000a05d36e14bbca6",
       "bytes": 2951
     },
     {
@@ -73,8 +73,8 @@
     },
     {
       "path": "docs/ARTIFACTS.md",
-      "sha256": "277cfd1036c88591fb1ac798edec294f3cdde6db653a8ea29082c54112c03d32",
-      "bytes": 4805
+      "sha256": "2012d1789bcb1a311088e0a02883fbff16b7827c3051024e836a906cc0dbba59",
+      "bytes": 2874
     },
     {
       "path": "docs/ASSETS.json",
@@ -153,7 +153,7 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "4b42dd3d2568dc62f2722afa88339b34f8f6563abdc9a6aa05ffb6bf3a0972f6",
+      "sha256": "ebbde5b984df6831ff541003549a2502643dd99505741c777a70672cddc44786",
       "bytes": 2273
     },
     {
@@ -163,12 +163,12 @@
     },
     {
       "path": "handoff/catalog.json",
-      "sha256": "c9e16c6b7e1f4ff8678702aa0cc6c464732076d4b179d1b4732bb46caa4c86d3",
-      "bytes": 1463
+      "sha256": "0fc726fb6924113de477964fd18066b25ef0f4fc2f3e537fdfad2bff565b828e",
+      "bytes": 1297
     },
     {
       "path": "handoff/history-index.json",
-      "sha256": "54d13208038db332a1fd387636a7bc0a734889ad119055c646e521708daa8512",
+      "sha256": "36c806c2a33c3e3816e65e945ae9bbbe9204628532aa29f88640ad3df20e3062",
       "bytes": 14151
     },
     {
@@ -193,8 +193,8 @@
     },
     {
       "path": "handoff/material-disposition.json",
-      "sha256": "1934b7b6427f587afdaf89ede581a2713fd1bb82acc735dcebb4cc1994754deb",
-      "bytes": 348
+      "sha256": "cc0f7051fadbfa8727f0bf1cc34a44a4ba123b76b1ff9d5257949a303cbd4789",
+      "bytes": 529
     },
     {
       "path": "pyproject.toml",
@@ -203,8 +203,8 @@
     },
     {
       "path": "reproduce/README.md",
-      "sha256": "03bd02f60dbbf30ac97286f5b29bec5b5d3811f11ef8523a4fec78780b01d128",
-      "bytes": 1520
+      "sha256": "d95539c407fd6c5af90801cb2969e517511e81b9ce3b71509c5a74d151481b8e",
+      "bytes": 1679
     },
     {
       "path": "reproduce/frozen/claims/book-flight-nodelay__seed27701__full_pact_v13.json",
