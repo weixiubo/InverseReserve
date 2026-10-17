@@ -2,27 +2,27 @@
   "schema": 2,
   "project": "InverseReserve",
   "repository": "weixiubo/InverseReserve",
-  "release": "research-artifacts-2026-10-17-r2",
+  "release": "research-artifacts-2026-10-17-r3",
   "public": true,
   "manifest": {
     "name": "materials.json.gz",
-    "size": 4145867,
-    "sha256": "ca8e99e1a22a23703dd020641e4002afe09d4dea0115db7681ffcbee1a9c221a"
+    "size": 4145868,
+    "sha256": "f144beaa70ecd2dcf22e204113cc508972c3a4fea912cce5f037859e4f383f55"
   },
   "parts": [
     {
       "name": "materials.tar.gz.part001",
-      "size": 854102340,
-      "sha256": "817f8fd67083f2aaa64c430ba1189a8067aa3bf2de7d82b841ef4cf1294384e9"
+      "size": 854144094,
+      "sha256": "b8e79deee8347497a009fb0bd63f99bbb38fe83c8d7f8fc0fa6a2497da902553"
     }
   ],
-  "archive_sha256": "817f8fd67083f2aaa64c430ba1189a8067aa3bf2de7d82b841ef4cf1294384e9",
+  "archive_sha256": "b8e79deee8347497a009fb0bd63f99bbb38fe83c8d7f8fc0fa6a2497da902553",
   "totals": {
     "entries": 60519,
     "files": 56340,
-    "logical_file_bytes": 2591950900,
+    "logical_file_bytes": 2592064499,
     "unique_objects": 36745,
-    "unique_bytes": 1614877902
+    "unique_bytes": 1614991501
   },
   "optional_models": [
     {
